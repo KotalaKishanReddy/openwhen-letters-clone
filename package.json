@@ -1,0 +1,48 @@
+{
+  "name": "openwhen-personal",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.3",
+    "react": "^18",
+    "react-dom": "^18",
+    "@supabase/supabase-js": "^2.43.1",
+    "@supabase/ssr": "^0.3.0",
+    "bcryptjs": "^2.4.3",
+    "jose": "^5.2.4",
+    "uuid": "^9.0.1",
+    "@tiptap/react": "^2.3.2",
+    "@tiptap/starter-kit": "^2.3.2",
+    "@tiptap/extension-color": "^2.3.2",
+    "@tiptap/extension-text-style": "^2.3.2",
+    "@tiptap/extension-text-align": "^2.3.2",
+    "@tiptap/extension-image": "^2.3.2",
+    "@tiptap/extension-link": "^2.3.2",
+    "@tiptap/extension-highlight": "^2.3.2",
+    "@tiptap/extension-underline": "^2.3.2",
+    "react-colorful": "^5.6.1",
+    "framer-motion": "^11.1.7",
+    "react-hot-toast": "^2.4.1",
+    "lucide-react": "^0.378.0",
+    "clsx": "^2.1.1"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/uuid": "^9.0.8",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3"
+  }
+}
