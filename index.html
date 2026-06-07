@@ -1,1345 +1,914 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>💌 Open When Letters</title>
+  <title>Scrapbook Letter Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
   <style>
-    /* ══════════════════════════════════════════
-       ROOT & RESET
-    ══════════════════════════════════════════ */
-    :root {
-      --rose:    #c0392b;
-      --rose2:   #e74c3c;
-      --rose3:   #ff8a80;
-      --cream:   #fdf6ef;
-      --paper:   #fefaf4;
-      --paperdark: #f5ead8;
-      --ink:     #2c1810;
-      --ink2:    #5c3d2e;
-      --muted:   #9e7b6b;
-      --border:  #e8d5c4;
-      --gold:    #d4a843;
-      --shadow:  0 6px 32px rgba(192,57,43,0.10);
-      --r: 20px;
+    :root,
+    [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --text-3xl: clamp(2.5rem, 1rem + 4vw, 5rem);
+
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+
+      --color-bg: #f6efe7;
+      --color-surface: #fff9f2;
+      --color-surface-2: #fffdf9;
+      --color-surface-offset: #efe4d7;
+      --color-surface-dynamic: #e3d3c1;
+      --color-border: rgba(68, 45, 30, 0.14);
+      --color-divider: rgba(68, 45, 30, 0.1);
+      --color-text: #3a2418;
+      --color-text-muted: #7b5d4d;
+      --color-text-faint: #b39a8b;
+      --color-primary: #b85c72;
+      --color-primary-hover: #9d4359;
+      --color-secondary: #d9a441;
+      --color-accent: #8d6ab8;
+      --color-paper-line: rgba(136, 90, 72, 0.09);
+      --color-tape: rgba(244, 224, 190, 0.8);
+      --color-shadow: 20, 8, 0;
+
+      --radius-sm: 0.5rem;
+      --radius-md: 0.9rem;
+      --radius-lg: 1.4rem;
+      --radius-xl: 2rem;
+      --radius-full: 999px;
+
+      --shadow-sm: 0 8px 18px rgba(var(--color-shadow), 0.06);
+      --shadow-md: 0 18px 40px rgba(var(--color-shadow), 0.1);
+      --shadow-lg: 0 30px 80px rgba(var(--color-shadow), 0.14);
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --font-script: 'Caveat', cursive;
+      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    [data-theme="dark"] {
+      --color-bg: #1d1715;
+      --color-surface: #2a201d;
+      --color-surface-2: #332724;
+      --color-surface-offset: #251d1a;
+      --color-surface-dynamic: #3a2f2b;
+      --color-border: rgba(255, 234, 218, 0.12);
+      --color-divider: rgba(255, 234, 218, 0.08);
+      --color-text: #f2e6d9;
+      --color-text-muted: #cfb7a5;
+      --color-text-faint: #8e766a;
+      --color-primary: #ec8da2;
+      --color-primary-hover: #ffadc0;
+      --color-secondary: #f5c467;
+      --color-accent: #bea3ec;
+      --color-paper-line: rgba(255, 231, 209, 0.07);
+      --color-tape: rgba(218, 179, 125, 0.24);
+      --color-shadow: 0, 0, 0;
+      --shadow-sm: 0 8px 18px rgba(var(--color-shadow), 0.22);
+      --shadow-md: 0 18px 40px rgba(var(--color-shadow), 0.28);
+      --shadow-lg: 0 30px 80px rgba(var(--color-shadow), 0.4);
+    }
+
+    * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Lato', sans-serif;
-      background: var(--cream);
-      color: var(--ink);
+      margin: 0;
       min-height: 100vh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.65), transparent 28%),
+        radial-gradient(circle at right 20%, rgba(255,226,194,0.28), transparent 22%),
+        linear-gradient(180deg, rgba(255,255,255,0.08), transparent 30%),
+        var(--color-bg);
+      position: relative;
       overflow-x: hidden;
     }
 
-    /* ══════════════════════════════════════════
-       PARTICLES CANVAS
-    ══════════════════════════════════════════ */
-    #particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .5; }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.18) 0.7px, transparent 0.7px),
+        radial-gradient(rgba(95,57,35,0.04) 0.7px, transparent 0.7px);
+      background-position: 0 0, 14px 14px;
+      background-size: 28px 28px;
+      opacity: 0.55;
+      mix-blend-mode: soft-light;
+    }
 
-    /* ══════════════════════════════════════════
-       HEADER
-    ══════════════════════════════════════════ */
-    header {
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .app-shell {
+      width: min(1200px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: var(--space-8) 0 var(--space-16);
       position: relative;
-      background: linear-gradient(135deg, #7b1e14 0%, #c0392b 40%, #e74c3c 75%, #ff8a80 100%);
-      color: #fff;
-      text-align: center;
-      padding: 64px 20px 52px;
-      overflow: hidden;
       z-index: 1;
     }
-    header::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-    .header-envelope {
-      font-size: 80px;
-      display: block;
-      margin-bottom: 16px;
-      animation: floatBob 3.5s ease-in-out infinite;
-      filter: drop-shadow(0 8px 24px rgba(0,0,0,.25));
-    }
-    @keyframes floatBob {
-      0%,100% { transform: translateY(0) rotate(-2deg); }
-      50%      { transform: translateY(-14px) rotate(2deg); }
-    }
-    header h1 {
-      font-family: 'Dancing Script', cursive;
-      font-size: 3.2rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-shadow: 0 2px 12px rgba(0,0,0,.2);
-    }
-    header p {
-      margin-top: 10px;
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      opacity: .88;
-      font-size: 1.05rem;
-    }
-    .enc-pill {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,.15);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255,255,255,.3);
-      color: #fff;
-      font-size: .78rem; font-family: monospace;
-      padding: 5px 14px; border-radius: 30px;
-      margin-top: 16px;
-    }
-    .ribbon {
-      position: absolute; bottom: -1px; left: 0; right: 0;
-      height: 40px;
-      background: var(--cream);
-      clip-path: ellipse(55% 100% at 50% 100%);
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+      padding: var(--space-4) var(--space-5);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      background: color-mix(in srgb, var(--color-surface) 82%, white 18%);
+      box-shadow: var(--shadow-sm);
+      backdrop-filter: blur(18px);
     }
 
-    /* ══════════════════════════════════════════
-       MAIN LAYOUT
-    ══════════════════════════════════════════ */
-    main { max-width: 980px; margin: 0 auto; padding: 36px 18px 80px; position: relative; z-index: 1; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+    }
 
-    /* ══════════════════════════════════════════
-       TABS
-    ══════════════════════════════════════════ */
-    .tabs {
-      display: flex; gap: 4px;
-      background: var(--paperdark);
-      border-radius: 14px;
-      padding: 5px;
-      margin-bottom: 36px;
-      box-shadow: inset 0 2px 6px rgba(0,0,0,.07);
+    .brand-mark {
+      width: 3.25rem;
+      aspect-ratio: 1;
+      border-radius: 1rem 1.25rem 0.8rem 1.25rem;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,236,223,0.7)),
+        var(--color-surface);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-script);
+      font-size: 1.45rem;
+      color: var(--color-primary);
+      transform: rotate(-6deg);
     }
-    .tab-btn {
-      flex: 1; padding: 11px 12px;
-      border: none; background: none;
-      font-family: 'Lato', sans-serif;
-      font-size: .92rem; cursor: pointer;
-      color: var(--muted); border-radius: 10px;
-      transition: all .22s; font-weight: 600;
-    }
-    .tab-btn.active {
-      background: #fff;
-      color: var(--rose);
-      box-shadow: 0 2px 10px rgba(192,57,43,.15);
-    }
-    .tab-btn:hover:not(.active) { background: rgba(255,255,255,.5); color: var(--rose2); }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; animation: fadeIn .3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-    /* ══════════════════════════════════════════
-       PAPER CARD
-    ══════════════════════════════════════════ */
-    .paper {
-      background: var(--paper);
-      border: 1px solid var(--border);
-      border-radius: var(--r);
-      padding: 32px;
-      box-shadow: var(--shadow), 0 1px 0 rgba(255,255,255,.9) inset;
-      margin-bottom: 24px;
+    .brand h1 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+
+    .brand p {
+      margin: 0.35rem 0 0;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .chip,
+    .ghost-btn,
+    .theme-btn,
+    .primary-btn {
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-2);
+      color: var(--color-text);
+      padding: 0.8rem 1.1rem;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+      cursor: pointer;
+    }
+
+    .chip { font-size: var(--text-sm); cursor: default; }
+    .primary-btn {
+      background: var(--color-primary);
+      color: #fff8f5;
+      border-color: transparent;
+      box-shadow: var(--shadow-sm);
+    }
+    .primary-btn:hover { background: var(--color-primary-hover); transform: translateY(-1px); }
+    .ghost-btn:hover, .theme-btn:hover { background: var(--color-surface-offset); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: var(--space-8);
+      align-items: center;
+      margin-bottom: var(--space-8);
+    }
+
+    .hero-card,
+    .preview-card,
+    .panel,
+    .timeline-card,
+    .sticker-card {
+      border: 1px solid var(--color-border);
+      background: color-mix(in srgb, var(--color-surface) 90%, white 10%);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
       position: relative;
+      overflow: hidden;
     }
-    .paper::before {
-      content: '';
-      position: absolute; inset: 0;
-      border-radius: var(--r);
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 27px,
-        rgba(200,180,160,.13) 27px,
-        rgba(200,180,160,.13) 28px
-      );
+
+    .hero-card {
+      padding: clamp(1.5rem, 4vw, 3rem);
+      isolation: isolate;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.45), transparent),
+        linear-gradient(145deg, rgba(255,228,218,0.55), rgba(255,247,240,0.92) 32%, rgba(244,233,224,0.95));
+    }
+
+    .paper-tape {
+      content: "";
+      position: absolute;
+      width: 96px;
+      height: 26px;
+      background: var(--color-tape);
+      border: 1px solid rgba(166, 132, 88, 0.12);
+      backdrop-filter: blur(2px);
+      top: 1rem;
+      left: 2rem;
+      transform: rotate(-7deg);
+      border-radius: 3px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(112, 73, 43, 0.1);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-5);
+    }
+
+    .hero h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5.6rem);
+      line-height: 0.88;
+      letter-spacing: -0.045em;
+      max-width: 9ch;
+    }
+
+    .hero-copy {
+      margin: var(--space-5) 0 var(--space-6);
+      color: var(--color-text-muted);
+      max-width: 58ch;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-bottom: var(--space-6);
+    }
+
+    .scrap-notes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-3);
+    }
+
+    .mini-note {
+      padding: var(--space-4);
+      border-radius: 1.2rem;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          transparent,
+          transparent 27px,
+          var(--color-paper-line) 27px,
+          var(--color-paper-line) 28px
+        ),
+        var(--color-surface-2);
+      border: 1px dashed rgba(122, 88, 69, 0.18);
+      min-height: 120px;
+    }
+
+    .mini-note strong {
+      display: block;
+      margin-bottom: 0.6rem;
+      font-family: var(--font-script);
+      font-size: 1.4rem;
+      color: var(--color-primary);
+    }
+
+    .preview-card {
+      padding: var(--space-6);
+      background:
+        radial-gradient(circle at top right, rgba(255,216,183,0.34), transparent 30%),
+        linear-gradient(160deg, rgba(255,255,255,0.85), rgba(247,236,226,0.96));
+    }
+
+    .polaroid-stack {
+      position: relative;
+      min-height: 470px;
+    }
+
+    .polaroid,
+    .sticky,
+    .ticket {
+      position: absolute;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .polaroid {
+      width: 230px;
+      padding: 14px 14px 54px;
+      background: #fffdf9;
+      border-radius: 1rem;
+    }
+
+    .polaroid-img {
+      display: block;
+      aspect-ratio: 1 / 1;
+      border-radius: 0.8rem;
+      background:
+        linear-gradient(135deg, rgba(214,176,164,0.25), rgba(255,227,196,0.52));
+      margin-bottom: 14px;
+      width: 100%;
+    }
+
+    .polaroid h3,
+    .polaroid p { margin: 0; }
+    .polaroid h3 {
+      font-family: var(--font-script);
+      font-size: 1.6rem;
+      margin-bottom: 0.25rem;
+      color: var(--color-primary);
+    }
+
+    .polaroid p { color: var(--color-text-muted); font-size: var(--text-sm); }
+    .polaroid.one { top: 10px; left: 10px; transform: rotate(-8deg); }
+    .polaroid.two { top: 128px; right: 10px; transform: rotate(7deg); }
+
+    .sticky {
+      top: 28px;
+      right: 30px;
+      width: 140px;
+      min-height: 140px;
+      padding: 1rem;
+      border-radius: 0.6rem;
+      background: #ffe89c;
+      transform: rotate(5deg);
+      font-family: var(--font-script);
+      font-size: 1.35rem;
+      color: #714806;
+    }
+
+    .ticket {
+      left: 50px;
+      bottom: 24px;
+      width: 270px;
+      padding: 1rem 1.2rem;
+      border-radius: 1.25rem;
+      background: linear-gradient(135deg, #f4d5d8, #fff2ec);
+      transform: rotate(-4deg);
+    }
+
+    .ticket small { display: block; color: var(--color-text-muted); margin-bottom: 0.3rem; }
+    .ticket strong { font-size: var(--text-lg); font-family: var(--font-display); }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: var(--space-8);
+    }
+
+    .panel {
+      padding: var(--space-6);
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(0,0,0,0),
+          rgba(0,0,0,0) 31px,
+          var(--color-paper-line) 31px,
+          var(--color-paper-line) 32px
+        ),
+        var(--color-surface-2);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-bottom: var(--space-5);
+    }
+
+    .section-head h3,
+    .section-head h4 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      margin: 0.45rem 0 0;
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    .editor-area {
+      display: grid;
+      gap: var(--space-4);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px dashed var(--color-divider);
+    }
+
+    .tool {
+      padding: 0.7rem 0.95rem;
+      border-radius: 1rem;
+      border: 1px solid var(--color-border);
+      background: rgba(255,255,255,0.66);
+      font-size: var(--text-sm);
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .tool:hover { background: var(--color-surface-offset); }
+
+    .letter-canvas {
+      min-height: 360px;
+      border-radius: 1.4rem;
+      padding: var(--space-6);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.58), transparent 16%),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(0,0,0,0),
+          rgba(0,0,0,0) 31px,
+          var(--color-paper-line) 31px,
+          var(--color-paper-line) 32px
+        ),
+        #fffdf8;
+      border: 1px solid rgba(101, 70, 50, 0.14);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter-canvas::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px dashed rgba(150, 109, 74, 0.12);
+      border-radius: 1rem;
       pointer-events: none;
     }
-    .paper-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      color: var(--rose);
-      margin-bottom: 20px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .paper-title::after {
-      content: '';
-      flex: 1; height: 1px;
-      background: linear-gradient(90deg, var(--border), transparent);
+
+    .canvas-title {
+      font-family: var(--font-script);
+      font-size: 2rem;
+      color: var(--color-primary);
+      margin-bottom: var(--space-3);
     }
 
-    /* ══════════════════════════════════════════
-       FORM ELEMENTS
-    ══════════════════════════════════════════ */
-    .field { margin-bottom: 18px; }
-    .field label {
-      display: block;
-      font-size: .82rem;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      margin-bottom: 6px;
-    }
-    .field input,
-    .field textarea,
-    .field select {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      font-family: 'Lato', sans-serif;
-      font-size: 1rem;
-      color: var(--ink);
-      background: #fffcf7;
-      transition: border-color .2s, box-shadow .2s;
-      appearance: none;
-    }
-    .field input:focus,
-    .field textarea:focus,
-    .field select:focus {
-      outline: none;
-      border-color: var(--rose2);
-      box-shadow: 0 0 0 3px rgba(231,76,60,.1);
-    }
-    .field textarea {
-      min-height: 180px;
-      resize: vertical;
-      line-height: 1.8;
-      font-family: 'Playfair Display', serif;
-      font-size: .97rem;
-    }
-    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    @media(max-width:540px) { .field-row { grid-template-columns: 1fr; } }
-
-    /* ══════════════════════════════════════════
-       RICH TEXT TOOLBAR
-    ══════════════════════════════════════════ */
-    .toolbar {
-      display: flex; flex-wrap: wrap; gap: 4px;
-      padding: 8px 10px;
-      background: var(--paperdark);
-      border: 1.5px solid var(--border);
-      border-bottom: none;
-      border-radius: 12px 12px 0 0;
-    }
-    .tool-btn {
-      padding: 5px 9px; border: none;
-      background: none; border-radius: 6px;
-      cursor: pointer; font-size: .9rem;
-      color: var(--ink2); transition: background .15s;
-      font-family: inherit;
-    }
-    .tool-btn:hover { background: rgba(192,57,43,.12); color: var(--rose); }
-    .tool-btn.active-tool { background: rgba(192,57,43,.18); color: var(--rose); }
-    .tool-sep { width: 1px; background: var(--border); margin: 3px 2px; align-self: stretch; }
-    #rich-editor {
-      width: 100%;
-      min-height: 200px;
-      padding: 16px;
-      border: 1.5px solid var(--border);
-      border-radius: 0 0 12px 12px;
-      font-family: 'Playfair Display', serif;
-      font-size: .97rem;
-      line-height: 1.8;
-      color: var(--ink);
-      background: #fffcf7;
-      outline: none;
-      overflow-y: auto;
-    }
-    #rich-editor:focus { border-color: var(--rose2); box-shadow: 0 0 0 3px rgba(231,76,60,.1); }
-    #rich-editor[placeholder]:empty::before {
-      content: attr(placeholder);
-      color: var(--muted); pointer-events: none;
-      font-style: italic;
-    }
-    .color-swatch {
-      width: 20px; height: 20px; border-radius: 50%;
-      border: 2px solid rgba(0,0,0,.1); cursor: pointer;
-      display: inline-block; transition: transform .15s;
-    }
-    .color-swatch:hover { transform: scale(1.2); }
-    .font-select {
-      padding: 4px 6px; border: 1px solid var(--border);
-      border-radius: 6px; font-size: .82rem;
-      background: #fff; color: var(--ink2);
-      cursor: pointer;
+    .canvas-lines {
+      color: var(--color-text-muted);
+      max-width: 55ch;
+      line-height: 1.9;
     }
 
-    /* ══════════════════════════════════════════
-       PHOTO UPLOAD
-    ══════════════════════════════════════════ */
-    .photo-drop {
-      border: 2px dashed var(--border);
-      border-radius: 14px;
-      padding: 28px 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: all .2s;
-      background: rgba(255,255,255,.5);
-      position: relative;
-    }
-    .photo-drop:hover, .photo-drop.drag-over {
-      border-color: var(--rose2);
-      background: rgba(231,76,60,.04);
-    }
-    .photo-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-    .photo-drop .drop-icon { font-size: 2.4rem; display: block; margin-bottom: 8px; }
-    .photo-drop p { color: var(--muted); font-size: .9rem; }
-    .photo-drop strong { color: var(--rose); }
-    .photo-previews {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      margin-top: 14px;
-    }
-    .photo-thumb {
-      position: relative;
-      width: 90px; height: 90px;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 2px solid var(--border);
-      box-shadow: 0 2px 8px rgba(0,0,0,.1);
-      transition: transform .2s;
-    }
-    .photo-thumb:hover { transform: scale(1.05); }
-    .photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
-    .photo-thumb .del-photo {
-      position: absolute; top: 3px; right: 3px;
-      background: rgba(0,0,0,.6); color: #fff;
-      border: none; border-radius: 50%;
-      width: 20px; height: 20px;
-      font-size: .7rem; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-    }
-    /* Polaroid style variant */
-    .photo-thumb.polaroid {
-      width: 100px; height: 116px;
-      background: #fff;
-      padding: 6px 6px 22px;
-      border-radius: 4px;
-      box-shadow: 0 4px 12px rgba(0,0,0,.15);
-      transform: rotate(-2deg);
-    }
-    .photo-thumb.polaroid:nth-child(even) { transform: rotate(1.5deg); }
-    .photo-thumb.polaroid img { height: 100%; border-radius: 2px; }
-
-    /* ══════════════════════════════════════════
-       STICKER PICKER
-    ══════════════════════════════════════════ */
-    .sticker-bar {
-      display: flex; flex-wrap: wrap; gap: 6px;
-      padding: 10px 12px;
-      background: var(--paperdark);
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      margin-bottom: 4px;
-    }
-    .sticker-btn {
-      font-size: 1.5rem; cursor: pointer;
-      padding: 4px; border-radius: 6px;
-      border: none; background: none;
-      transition: transform .15s;
-    }
-    .sticker-btn:hover { transform: scale(1.35); }
-
-    /* ══════════════════════════════════════════
-       PAPER THEME SELECTOR
-    ══════════════════════════════════════════ */
-    .theme-row {
-      display: flex; gap: 10px; flex-wrap: wrap;
-      margin-bottom: 6px;
-    }
-    .theme-swatch {
-      width: 44px; height: 44px; border-radius: 10px;
-      cursor: pointer; border: 3px solid transparent;
-      transition: all .2s; box-shadow: 0 2px 8px rgba(0,0,0,.1);
-      position: relative;
-    }
-    .theme-swatch:hover { transform: scale(1.1); }
-    .theme-swatch.selected { border-color: var(--rose); }
-    .theme-swatch span {
-      position: absolute; inset: 0;
-      border-radius: 8px;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 5px,
-        rgba(0,0,0,.06) 5px, rgba(0,0,0,.06) 6px
-      );
+    .sticker-row,
+    .theme-swatches,
+    .material-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
     }
 
-    /* ══════════════════════════════════════════
-       BUTTONS
-    ══════════════════════════════════════════ */
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 26px; border: none; border-radius: 12px;
-      font-family: 'Lato', sans-serif;
-      font-size: .95rem; cursor: pointer;
-      transition: all .22s; font-weight: 700;
-      letter-spacing: .02em;
+    .sticker-pill,
+    .swatch,
+    .material-chip {
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border);
+      background: rgba(255,255,255,0.72);
+      padding: 0.75rem 1rem;
+      box-shadow: var(--shadow-sm);
     }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--rose), var(--rose2));
-      color: #fff;
-      box-shadow: 0 4px 16px rgba(192,57,43,.28);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(192,57,43,.38); }
-    .btn-primary:active { transform: translateY(0); }
-    .btn-secondary {
-      background: #fff; color: var(--rose);
-      border: 1.5px solid var(--border);
-    }
-    .btn-secondary:hover { background: var(--paperdark); border-color: var(--rose2); }
-    .btn-ghost { background: none; color: var(--muted); border: 1.5px solid var(--border); }
-    .btn-ghost:hover { background: var(--paperdark); color: var(--ink); }
-    .btn-danger { background: #e74c3c; color: #fff; padding: 6px 12px; font-size: .8rem; }
-    .btn-danger:hover { background: #c0392b; }
-    .btn-sm { padding: 8px 16px; font-size: .85rem; }
-    .flex-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 
-    /* ══════════════════════════════════════════
-       PASSPHRASE GATE
-    ══════════════════════════════════════════ */
-    .gate-wrap {
-      text-align: center;
-      padding: 48px 24px;
-      max-width: 440px;
-      margin: 0 auto;
-    }
-    .gate-icon { font-size: 5rem; display: block; margin-bottom: 20px; animation: floatBob 3s ease-in-out infinite; }
-    .gate-wrap h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem; color: var(--rose);
-      margin-bottom: 8px;
-    }
-    .gate-wrap p { color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+    .swatch { width: 54px; height: 54px; padding: 0; cursor: pointer; border-radius: 50%; }
+    .swatch.rose { background: linear-gradient(135deg, #ffd5dd, #fff0f2); }
+    .swatch.sun { background: linear-gradient(135deg, #ffd98d, #fff5d8); }
+    .swatch.lilac { background: linear-gradient(135deg, #d6cbff, #f6f0ff); }
+    .swatch.mint { background: linear-gradient(135deg, #bdebd6, #f0fff8); }
+    .swatch.night { background: linear-gradient(135deg, #2b2035, #51406a); }
 
-    /* ══════════════════════════════════════════
-       LETTER GRID (Read view)
-    ══════════════════════════════════════════ */
-    .letters-grid {
+    .timeline-card,
+    .sticker-card {
+      padding: var(--space-6);
+      background: color-mix(in srgb, var(--color-surface) 88%, white 12%);
+    }
+
+    .timeline-list {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-      gap: 18px;
-      margin-top: 20px;
+      gap: var(--space-4);
     }
-    .envelope-card {
-      background: linear-gradient(145deg, #fff9f2, #fdecea);
-      border: 1.5px solid var(--border);
-      border-radius: 16px;
-      padding: 0;
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--space-3);
+      align-items: start;
+    }
+
+    .timeline-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      margin-top: 0.45rem;
+      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+      box-shadow: 0 0 0 6px rgba(184,92,114,0.12);
+    }
+
+    .timeline-item h5,
+    .timeline-item p { margin: 0; }
+    .timeline-item h5 { font-size: 1rem; }
+    .timeline-item p { color: var(--color-text-muted); font-size: var(--text-sm); margin-top: 0.2rem; }
+
+    .sticker-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+
+    .sticker-tile {
+      min-height: 92px;
+      border-radius: 1.25rem;
+      border: 1px solid var(--color-border);
+      background: linear-gradient(160deg, rgba(255,255,255,0.9), rgba(245,233,223,0.75));
+      display: grid;
+      place-items: center;
+      font-size: 2rem;
       cursor: pointer;
-      overflow: hidden;
-      transition: all .25s;
-      box-shadow: 0 3px 12px rgba(192,57,43,.07);
-      position: relative;
+      transition: transform var(--transition);
     }
-    .envelope-card:hover {
-      transform: translateY(-5px) rotate(.5deg);
-      box-shadow: 0 14px 36px rgba(192,57,43,.18);
-      border-color: var(--rose2);
-    }
-    .env-flap {
-      height: 48px;
-      background: linear-gradient(135deg, var(--rose), var(--rose2));
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      margin-bottom: -2px;
-    }
-    .env-body { padding: 16px 14px 18px; text-align: center; }
-    .env-emoji { font-size: 2.4rem; display: block; margin-bottom: 10px; }
-    .env-title {
-      font-family: 'Playfair Display', serif;
-      font-size: .88rem; font-weight: 700;
-      color: var(--ink); line-height: 1.3;
-    }
-    .env-sub { font-size: .75rem; color: var(--muted); margin-top: 4px; font-style: italic; }
-    .env-seal {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--rose), var(--rose2));
-      margin: 10px auto 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .75rem; color: #fff;
-      box-shadow: 0 2px 6px rgba(192,57,43,.3);
-    }
-    /* thumb preview on card */
-    .env-photo-strip {
-      display: flex; gap: 2px; padding: 0 10px 10px;
-      justify-content: center;
-    }
-    .env-photo-strip img {
-      width: 36px; height: 36px;
-      border-radius: 5px; object-fit: cover;
-      border: 1.5px solid var(--border);
+    .sticker-tile:hover { transform: scale(1.08) rotate(3deg); }
+
+    .footer-strip {
+      margin-top: var(--space-8);
+      padding: var(--space-5);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--color-border);
+      background: linear-gradient(135deg, rgba(255,242,232,0.85), rgba(255,249,243,0.7));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: var(--space-4);
+      align-items: center;
     }
 
-    /* ══════════════════════════════════════════
-       MODAL — LETTER READER
-    ══════════════════════════════════════════ */
-    .modal-overlay {
-      position: fixed; inset: 0;
-      background: rgba(44,24,16,.55);
-      backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 200; padding: 20px;
-      opacity: 0; pointer-events: none;
-      transition: opacity .35s;
-    }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .letter-modal {
-      background: var(--paper);
-      border-radius: 22px;
-      max-width: 640px; width: 100%;
-      max-height: 92vh; overflow-y: auto;
-      padding: 0;
-      position: relative;
-      box-shadow: 0 30px 80px rgba(0,0,0,.3);
-      transform: scale(.9) translateY(20px);
-      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
-    }
-    .modal-overlay.open .letter-modal { transform: scale(1) translateY(0); }
-    .letter-modal::before {
-      content: '';
-      position: absolute; inset: 0;
-      border-radius: 22px;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 27px,
-        rgba(200,180,160,.12) 27px,
-        rgba(200,180,160,.12) 28px
-      );
-      pointer-events: none; z-index: 0;
-    }
-    .modal-header {
-      background: linear-gradient(135deg, var(--rose), var(--rose2));
-      border-radius: 22px 22px 0 0;
-      padding: 24px 28px 20px;
-      color: #fff;
-      position: relative;
-      z-index: 1;
-    }
-    .modal-header .close-btn {
-      position: absolute; top: 14px; right: 16px;
-      background: rgba(255,255,255,.2);
-      border: none; border-radius: 50%;
-      width: 32px; height: 32px;
-      color: #fff; font-size: 1rem;
-      cursor: pointer; display: flex;
-      align-items: center; justify-content: center;
-      transition: background .2s;
-    }
-    .modal-header .close-btn:hover { background: rgba(255,255,255,.35); }
-    .modal-header .m-emoji { font-size: 2.6rem; display: block; margin-bottom: 8px; }
-    .modal-header .m-title {
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.9rem; font-weight: 600;
-    }
-    .modal-body-wrap { padding: 28px 32px 32px; position: relative; z-index: 1; }
-    .modal-letter-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem; line-height: 1.9;
-      color: var(--ink); min-height: 60px;
-    }
-    .modal-photos {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      margin-top: 20px;
-    }
-    .modal-photos img {
-      max-width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,.12);
-      flex: 1; min-width: 120px;
-    }
-    .modal-photos .polaroid-wrap {
-      background: #fff;
-      padding: 8px 8px 28px;
-      box-shadow: 0 4px 16px rgba(0,0,0,.15);
-      border-radius: 3px;
-      transform: rotate(-1.5deg);
-      transition: transform .2s;
-      flex: 1; min-width: 120px;
-    }
-    .modal-photos .polaroid-wrap:nth-child(even) { transform: rotate(1deg); }
-    .modal-photos .polaroid-wrap:hover { transform: rotate(0) scale(1.03); }
-    .modal-photos .polaroid-wrap img { border-radius: 2px; width: 100%; }
-    .divider-wax {
-      text-align: center; margin: 18px 0;
-      color: var(--rose); font-size: 1.1rem; opacity: .4;
-      letter-spacing: 8px;
+    .footer-strip strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
     }
 
-    /* ══════════════════════════════════════════
-       WRITE LIST
-    ══════════════════════════════════════════ */
-    .write-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px 14px; border-radius: 12px;
-      border: 1.5px solid var(--border);
-      margin-bottom: 8px; background: #fffcf7;
-      cursor: default; transition: background .2s;
-    }
-    .write-item:hover { background: #fdecea; border-color: var(--rose3); }
-    .write-item .wi-emoji { font-size: 1.7rem; flex-shrink: 0; }
-    .write-item .wi-info { flex: 1; min-width: 0; }
-    .write-item .wi-name {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700; font-size: .95rem;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .write-item .wi-preview { font-size: .78rem; color: var(--muted); margin-top: 2px; }
-    .write-item .wi-photos { font-size: .75rem; color: var(--rose2); margin-top: 2px; }
-
-    /* ══════════════════════════════════════════
-       STATUS & PROGRESS
-    ══════════════════════════════════════════ */
-    .status {
-      padding: 10px 16px; border-radius: 10px;
-      font-size: .88rem; margin: 10px 0;
-      display: none; animation: fadeIn .3s ease;
-    }
-    .status.success { background: #d5f5e3; color: #1a6635; display: block; }
-    .status.error   { background: #fde8e8; color: #a93226; display: block; }
-    .status.info    { background: #eaf4fd; color: #1a5276; display: block; }
-    .progress { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; display: none; margin-top: 8px; }
-    .progress-bar { height: 100%; background: linear-gradient(90deg, var(--rose), var(--rose2)); animation: prog 1.6s ease-in-out infinite; }
-    @keyframes prog { 0%{width:0} 60%{width:70%} 100%{width:100%} }
-
-    /* ══════════════════════════════════════════
-       SECURITY TAB
-    ══════════════════════════════════════════ */
-    .sec-block {
-      padding: 18px 20px;
-      background: #f8f4ef;
-      border-radius: 14px;
-      border-left: 5px solid var(--rose);
-      margin-bottom: 14px;
-    }
-    .sec-block h3 { font-family: 'Playfair Display', serif; color: var(--ink); margin-bottom: 6px; }
-    .sec-block p  { font-size: .9rem; color: var(--ink2); line-height: 1.6; }
-    .sec-block.green  { border-left-color: #27ae60; }
-    .sec-block.blue   { border-left-color: #2980b9; }
-    .sec-block.purple { border-left-color: #8e44ad; }
-    pre.code-block {
-      background: #1e1e1e; color: #dcdcdc;
-      padding: 18px; border-radius: 12px;
-      font-size: .82rem; overflow-x: auto;
-      line-height: 1.6;
+    .floating-deco {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.75;
+      filter: drop-shadow(0 18px 30px rgba(58, 27, 9, 0.08));
     }
 
-    /* ══════════════════════════════════════════
-       BADGE
-    ══════════════════════════════════════════ */
-    .badge {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 3px 10px; border-radius: 20px;
-      font-size: .75rem; font-weight: 700;
-    }
-    .badge-green { background: #d5f5e3; color: #1a6635; }
-    .badge-rose  { background: #fde8e8; color: var(--rose); }
-
-    /* ══════════════════════════════════════════
-       FOOTER
-    ══════════════════════════════════════════ */
-    footer {
-      text-align: center;
-      padding: 28px 20px;
-      color: var(--muted);
-      font-size: .82rem;
-      border-top: 1px solid var(--border);
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
+    .floating-deco.one {
+      top: 130px;
+      right: -18px;
+      transform: rotate(12deg);
+      font-size: 4.5rem;
     }
 
-    /* ══════════════════════════════════════════
-       MISC
-    ══════════════════════════════════════════ */
-    @media(max-width:520px) {
-      header h1 { font-size: 2.2rem; }
-      .letters-grid { grid-template-columns: 1fr 1fr; }
-      .letter-modal { max-height: 95vh; }
-      .modal-body-wrap { padding: 20px 18px 24px; }
-      main { padding: 24px 12px 60px; }
+    .floating-deco.two {
+      left: -14px;
+      bottom: 140px;
+      transform: rotate(-16deg);
+      font-size: 4rem;
     }
-    .wax-seal {
-      width: 42px; height: 42px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--rose), #7b1e14);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; color: #fff;
-      box-shadow: 0 3px 10px rgba(192,57,43,.35);
-      flex-shrink: 0;
+
+    @supports (animation-timeline: view()) {
+      .fade-in {
+        opacity: 0;
+        animation: reveal-fade linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 70%;
+      }
+    }
+
+    @keyframes reveal-fade {
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+      .preview-card { order: -1; }
+      .scrap-notes,
+      .sticker-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .app-shell { width: min(100% - 1rem, 100%); padding-top: 1rem; }
+      .topbar,
+      .hero-card,
+      .preview-card,
+      .panel,
+      .timeline-card,
+      .sticker-card,
+      .footer-strip { border-radius: 1.4rem; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .topbar-actions { width: 100%; justify-content: flex-start; }
+      .hero h2 { font-size: clamp(2.6rem, 14vw, 4rem); }
+      .scrap-notes,
+      .sticker-grid { grid-template-columns: 1fr; }
+      .polaroid-stack { min-height: 420px; }
+      .polaroid { width: 190px; }
+      .polaroid.two { top: 160px; }
+      .sticky { right: 4px; width: 128px; min-height: 124px; }
+      .ticket { left: 14px; width: 220px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="app-shell">
+    <span class="floating-deco one">🎞️</span>
+    <span class="floating-deco two">💌</span>
 
-<!-- Floating particles -->
-<canvas id="particles"></canvas>
-
-<!-- HEADER -->
-<header>
-  <span class="header-envelope">💌</span>
-  <h1>Open When Letters</h1>
-  <p>A private, encrypted collection of letters — just for you 💕</p>
-  <div class="enc-pill">🔐 AES-256-GCM · PBKDF2-SHA256</div>
-  <div class="ribbon"></div>
-</header>
-
-<main>
-  <!-- TABS -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('read')">💌 Read Letters</button>
-    <button class="tab-btn" onclick="switchTab('write')">✍️ Write Letters</button>
-    <button class="tab-btn" onclick="switchTab('about')">🔐 Security</button>
-  </div>
-
-  <!-- ════════════════ READ TAB ════════════════ -->
-  <div id="tab-read" class="tab-panel active">
-
-    <div id="read-gate">
-      <div class="paper">
-        <div class="gate-wrap">
-          <span class="gate-icon">🔒</span>
-          <h2>Unlock Your Letters</h2>
-          <p>Upload your encrypted <code>letters.json</code> file and enter the secret passphrase to reveal the letters inside.</p>
-          <div style="text-align:left">
-            <div class="field">
-              <label>Letters File (letters.json)</label>
-              <input type="file" id="read-file" accept=".json" />
-            </div>
-            <div class="field">
-              <label>Passphrase</label>
-              <input type="password" id="read-pass" placeholder="Enter your secret passphrase…" />
-            </div>
-            <div id="read-status" class="status"></div>
-            <div class="progress" id="read-progress"><div class="progress-bar"></div></div>
-            <button class="btn btn-primary" onclick="unlockLetters()" style="width:100%;margin-top:8px;justify-content:center">🔓 Unlock Letters</button>
-          </div>
+    <header class="topbar fade-in">
+      <div class="brand">
+        <div class="brand-mark">S</div>
+        <div>
+          <h1>Scrapbook<br>Letter Studio</h1>
+          <p>Romantic paper layers, dreamy stickers, and keepsake storytelling.</p>
         </div>
       </div>
-    </div>
+      <div class="topbar-actions">
+        <span class="chip">Paper mode</span>
+        <button class="ghost-btn" type="button">Sticker tray</button>
+        <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch theme">Dark mode</button>
+        <button class="primary-btn" type="button">Create spread</button>
+      </div>
+    </header>
 
-    <div id="read-letters" style="display:none">
-      <div class="paper" style="padding:16px 24px">
-        <div class="flex-row">
-          <div class="wax-seal">💕</div>
+    <section class="hero">
+      <article class="hero-card fade-in">
+        <div class="paper-tape"></div>
+        <div class="eyebrow">✿ Scrapbook editor · layered memories</div>
+        <h2>Build letters that feel handmade.</h2>
+        <p class="hero-copy">This base template is designed for a soft scrapbook aesthetic: torn-paper cards, tape accents, polaroid photo blocks, sticker trays, lined journal paper, dreamy typography, and space for a richer Canva-style editing suite.</p>
+        <div class="hero-actions">
+          <button class="primary-btn" type="button">Open composer</button>
+          <button class="ghost-btn" type="button">Preview themes</button>
+        </div>
+        <div class="scrap-notes">
+          <div class="mini-note">
+            <strong>Photos</strong>
+            Drag polaroids, film strips, framed memories, and mood images.
+          </div>
+          <div class="mini-note">
+            <strong>Paper</strong>
+            Mix stationery textures, torn notes, tags, and layered cards.
+          </div>
+          <div class="mini-note">
+            <strong>Decor</strong>
+            Add bows, stamps, pressed flowers, doodles, and date labels.
+          </div>
+        </div>
+      </article>
+
+      <aside class="preview-card fade-in">
+        <div class="section-head">
           <div>
-            <strong id="read-greeting" style="font-family:'Playfair Display',serif;font-size:1.1rem">Your Letters</strong>
-            <div style="font-size:.78rem;color:var(--muted)">Click any envelope to open it</div>
+            <h3>Spread preview</h3>
+            <p>Base layout for a dreamy keepsake board.</p>
           </div>
-          <span class="badge badge-green" style="margin-left:auto">🔓 Decrypted</span>
-          <button class="btn btn-ghost btn-sm" onclick="lockLetters()">🔒 Lock</button>
+          <span class="chip">v1 theme</span>
         </div>
-      </div>
-      <div id="letters-grid" class="letters-grid"></div>
-    </div>
+        <div class="polaroid-stack">
+          <article class="polaroid one">
+            <div class="polaroid-img"></div>
+            <h3>Golden hour</h3>
+            <p>Photo memory block with handwritten caption.</p>
+          </article>
+          <article class="polaroid two">
+            <div class="polaroid-img"></div>
+            <h3>Little things</h3>
+            <p>Layer more cards, stickers, and ribbon accents.</p>
+          </article>
+          <div class="sticky">remember this feeling ♡</div>
+          <div class="ticket">
+            <small>Ephemera slot</small>
+            <strong>Tickets, tags, dates, little notes</strong>
+          </div>
+        </div>
+      </aside>
+    </section>
 
-  </div>
-
-  <!-- ════════════════ WRITE TAB ════════════════ -->
-  <div id="tab-write" class="tab-panel">
-
-    <!-- GATE -->
-    <div id="write-gate">
-      <div class="paper">
-        <div class="gate-wrap">
-          <span class="gate-icon">✍️</span>
-          <h2>Start Writing</h2>
-          <p>Set a passphrase to encrypt your letters. You'll share this with your friend privately (call, in person, etc.).</p>
-          <div style="text-align:left">
-            <div class="field">
-              <label>Recipient's Name (optional)</label>
-              <input type="text" id="write-greeting" placeholder="e.g. Priya, Best Friend, My Love…" />
+    <section class="content-grid">
+      <article class="panel fade-in">
+        <div class="section-head">
+          <div>
+            <h4>Editor shell</h4>
+            <p>A strong base for your full scrapbook composer.</p>
+          </div>
+          <span class="chip">Canvas</span>
+        </div>
+        <div class="editor-area">
+          <div class="toolbar">
+            <button class="tool">Aa Fonts</button>
+            <button class="tool">Paper styles</button>
+            <button class="tool">Frames</button>
+            <button class="tool">Stickers</button>
+            <button class="tool">Tape</button>
+            <button class="tool">Textures</button>
+            <button class="tool">Photos</button>
+            <button class="tool">Layers</button>
+          </div>
+          <div class="letter-canvas">
+            <div class="canvas-title">Dear you,</div>
+            <div class="canvas-lines">
+              This area is your editable paper stage. Add rich text, collage photos, little taped notes, ribbon dividers, pressed-flower stickers, heart doodles, and draggable memory fragments. The layout is already styled to feel soft, tactile, and handmade.
             </div>
-            <div class="field">
-              <label>Passphrase</label>
-              <input type="password" id="write-pass" placeholder="Choose a strong passphrase…" />
+          </div>
+          <div>
+            <div class="section-head" style="margin: 0 0 1rem 0;">
+              <div>
+                <h4 style="font-size: 1.5rem;">Sticker suite</h4>
+                <p>Use these as the starting visual language.</p>
+              </div>
             </div>
-            <div class="field">
-              <label>Confirm Passphrase</label>
-              <input type="password" id="write-pass2" placeholder="Confirm passphrase…" />
+            <div class="sticker-row">
+              <span class="sticker-pill">🌷 Soft florals</span>
+              <span class="sticker-pill">🎀 Satin bows</span>
+              <span class="sticker-pill">🕊️ Delicate icons</span>
+              <span class="sticker-pill">📮 Vintage mail</span>
+              <span class="sticker-pill">✨ Sparkle doodles</span>
+              <span class="sticker-pill">🫶 Memory icons</span>
             </div>
-            <div id="write-status" class="status"></div>
-            <button class="btn btn-primary" onclick="initWriter()" style="width:100%;margin-top:8px;justify-content:center">🚀 Start Writing Letters</button>
+          </div>
+          <div>
+            <div class="section-head" style="margin: 0 0 1rem 0;">
+              <div>
+                <h4 style="font-size: 1.5rem;">Paper palettes</h4>
+                <p>Soft tones for layered stationery moods.</p>
+              </div>
+            </div>
+            <div class="theme-swatches">
+              <button class="swatch rose" aria-label="Rose paper"></button>
+              <button class="swatch sun" aria-label="Sun paper"></button>
+              <button class="swatch lilac" aria-label="Lilac paper"></button>
+              <button class="swatch mint" aria-label="Mint paper"></button>
+              <button class="swatch night" aria-label="Night paper"></button>
+            </div>
           </div>
         </div>
+      </article>
+
+      <div style="display: grid; gap: 2rem;">
+        <aside class="timeline-card fade-in">
+          <div class="section-head">
+            <div>
+              <h4>Scrapbook layers</h4>
+              <p>Suggested feature buckets for the full build.</p>
+            </div>
+          </div>
+          <div class="timeline-list">
+            <div class="timeline-item">
+              <span class="timeline-dot"></span>
+              <div>
+                <h5>Photo collage system</h5>
+                <p>Polaroids, film strips, taped corners, shadows, overlap presets, and caption tags.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-dot"></span>
+              <div>
+                <h5>Paper ephemera pack</h5>
+                <p>Journal scraps, torn edges, tags, postage marks, receipt strips, notes, and labels.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-dot"></span>
+              <div>
+                <h5>Romantic motion</h5>
+                <p>Gentle fades, layered reveals, paper-lift hover, modal zoom, and floating ambience.</p>
+              </div>
+            </div>
+            <div class="timeline-item">
+              <span class="timeline-dot"></span>
+              <div>
+                <h5>Customization controls</h5>
+                <p>Font library, colors, sticker recolors, page templates, and scene-based arrangements.</p>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <aside class="sticker-card fade-in">
+          <div class="section-head">
+            <div>
+              <h4>Visual language</h4>
+              <p>Starter aesthetic elements for your theme.</p>
+            </div>
+          </div>
+          <div class="material-row">
+            <span class="material-chip">Torn paper</span>
+            <span class="material-chip">Washi tape</span>
+            <span class="material-chip">Wax seals</span>
+            <span class="material-chip">Pressed flowers</span>
+            <span class="material-chip">Ribbon loops</span>
+            <span class="material-chip">Vintage stamps</span>
+          </div>
+          <div class="sticker-grid">
+            <div class="sticker-tile">🌸</div>
+            <div class="sticker-tile">🎀</div>
+            <div class="sticker-tile">🕯️</div>
+            <div class="sticker-tile">💐</div>
+            <div class="sticker-tile">📷</div>
+            <div class="sticker-tile">💌</div>
+          </div>
+        </aside>
       </div>
-    </div>
+    </section>
 
-    <!-- WRITE PANEL -->
-    <div id="write-panel" style="display:none">
-
-      <!-- Paper theme picker -->
-      <div class="paper" style="padding:20px 24px">
-        <div class="paper-title">🎨 Paper Theme</div>
-        <div class="theme-row" id="theme-row"></div>
+    <div class="footer-strip fade-in">
+      <div>
+        <strong>Base template ready</strong>
+        <span style="color: var(--color-text-muted);">Use this as the foundation for your full scrapbook editor and letter experience.</span>
       </div>
-
-      <!-- Letter composer -->
-      <div class="paper" id="compose-paper">
-        <div class="paper-title">✍️ Compose a Letter</div>
-
-        <div class="field-row">
-          <div class="field">
-            <label>Occasion (Open When…)</label>
-            <select id="w-occasion">
-              <option value="">— Choose or write custom —</option>
-              <option value="you're sad">😢 You're sad</option>
-              <option value="you're happy">😊 You're happy</option>
-              <option value="you miss me">🥺 You miss me</option>
-              <option value="you can't sleep">🌙 You can't sleep</option>
-              <option value="you need motivation">💪 You need motivation</option>
-              <option value="you're angry">😤 You're angry</option>
-              <option value="you're celebrating">🎉 You're celebrating</option>
-              <option value="you need a hug">🤗 You need a hug</option>
-              <option value="you're overthinking">🤯 You're overthinking</option>
-              <option value="you're bored">😴 You're bored</option>
-              <option value="it's your birthday">🎂 It's your birthday</option>
-              <option value="you're missing home">🏠 You're missing home</option>
-              <option value="you need to smile">😄 You need to smile</option>
-              <option value="it's a rainy day">🌧️ It's a rainy day</option>
-              <option value="you get good news">🌟 You get good news</option>
-              <option value="you feel lonely">🌌 You feel lonely</option>
-              <option value="you're stressed">😰 You're stressed</option>
-              <option value="you're proud of yourself">🏆 You're proud of yourself</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Custom Occasion</label>
-            <input type="text" id="w-custom" placeholder="e.g. you get the job…" />
-          </div>
-        </div>
-
-        <div class="field-row">
-          <div class="field">
-            <label>Letter Emoji</label>
-            <input type="text" id="w-emoji" placeholder="💌" maxlength="2" style="max-width:80px" />
-          </div>
-          <div class="field" style="flex:1">
-            <label>Quick Stickers</label>
-            <div class="sticker-bar" id="sticker-bar"></div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label>Letter Content</label>
-          <div class="toolbar" id="toolbar">
-            <select class="font-select" onchange="execCmd('fontName', this.value)">
-              <option value="Playfair Display">Playfair</option>
-              <option value="Georgia">Georgia</option>
-              <option value="Dancing Script">Handwriting</option>
-              <option value="Lato">Lato</option>
-              <option value="Courier New">Typewriter</option>
-            </select>
-            <select class="font-select" onchange="execCmd('fontSize', this.value)">
-              <option value="3">Normal</option>
-              <option value="2">Small</option>
-              <option value="4">Large</option>
-              <option value="5">XL</option>
-            </select>
-            <div class="tool-sep"></div>
-            <button class="tool-btn" onclick="execCmd('bold')" title="Bold"><b>B</b></button>
-            <button class="tool-btn" onclick="execCmd('italic')" title="Italic"><i>I</i></button>
-            <button class="tool-btn" onclick="execCmd('underline')" title="Underline"><u>U</u></button>
-            <button class="tool-btn" onclick="execCmd('strikeThrough')" title="Strike">S̶</button>
-            <div class="tool-sep"></div>
-            <button class="tool-btn" onclick="execCmd('justifyLeft')" title="Left">⬅</button>
-            <button class="tool-btn" onclick="execCmd('justifyCenter')" title="Center">⬛</button>
-            <button class="tool-btn" onclick="execCmd('justifyRight')" title="Right">➡</button>
-            <div class="tool-sep"></div>
-            <span class="color-swatch" style="background:#c0392b" onclick="execCmd('foreColor','#c0392b')" title="Rose"></span>
-            <span class="color-swatch" style="background:#2c1810" onclick="execCmd('foreColor','#2c1810')" title="Ink"></span>
-            <span class="color-swatch" style="background:#2980b9" onclick="execCmd('foreColor','#2980b9')" title="Blue"></span>
-            <span class="color-swatch" style="background:#27ae60" onclick="execCmd('foreColor','#27ae60')" title="Green"></span>
-            <span class="color-swatch" style="background:#8e44ad" onclick="execCmd('foreColor','#8e44ad')" title="Purple"></span>
-            <div class="tool-sep"></div>
-            <button class="tool-btn" onclick="execCmd('removeFormat')" title="Clear">✕</button>
-          </div>
-          <div
-            id="rich-editor"
-            contenteditable="true"
-            placeholder="Dear friend, open this when…"
-          ></div>
-        </div>
-
-        <!-- Photo Upload -->
-        <div class="field">
-          <label>📸 Attach Photos (optional)</label>
-          <div class="photo-drop" id="photo-drop" onclick="document.getElementById('photo-input').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropPhoto(event)">
-            <input type="file" id="photo-input" accept="image/*" multiple style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="handlePhotos(event)" />
-            <span class="drop-icon">🖼️</span>
-            <p><strong>Click to upload</strong> or drag & drop photos</p>
-            <p style="font-size:.78rem;margin-top:4px">They'll be embedded and encrypted with the letter</p>
-          </div>
-          <div class="photo-previews" id="photo-previews"></div>
-        </div>
-
-        <div class="flex-row" style="margin-top:8px">
-          <button class="btn btn-primary" onclick="addLetter()">➕ Add to Collection</button>
-          <button class="btn btn-secondary" onclick="previewLetter()">👁️ Preview</button>
-          <button class="btn btn-ghost btn-sm" onclick="clearCompose()">🗑️ Clear</button>
-        </div>
-        <div id="add-status" class="status"></div>
+      <div class="topbar-actions">
+        <button class="ghost-btn" type="button">Add gallery rail</button>
+        <button class="primary-btn" type="button">Expand into full suite</button>
       </div>
-
-      <!-- Letters collection -->
-      <div class="paper">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
-          <div class="paper-title" style="margin:0">📬 Your Collection</div>
-          <span class="badge badge-rose" id="letter-count-badge">0 letters</span>
-          <button class="btn btn-primary btn-sm" onclick="exportLetters()" style="margin-left:auto">📥 Export Encrypted File</button>
-        </div>
-        <div id="letter-list-write">
-          <p style="color:var(--muted);font-size:.9rem;font-style:italic">No letters yet — write your first one above!</p>
-        </div>
-        <div id="export-status" class="status"></div>
-        <div class="progress" id="export-progress"><div class="progress-bar"></div></div>
-      </div>
-
     </div>
   </div>
 
-  <!-- ════════════════ SECURITY TAB ════════════════ -->
-  <div id="tab-about" class="tab-panel">
-    <div class="paper">
-      <div class="paper-title">🔐 How Encryption Works</div>
-      <p style="color:var(--muted);margin-bottom:20px;line-height:1.7">This app uses mathematically proven, browser-native cryptography. Zero dependencies. Zero servers. Zero tracking.</p>
-      <div class="sec-block">
-        <h3>1. Key Derivation — PBKDF2-SHA256</h3>
-        <p>Your passphrase is fed into <strong>PBKDF2</strong> with <strong>310,000 iterations</strong> + a random 16-byte salt using SHA-256. This makes brute-force attacks computationally infeasible. Output: a 256-bit key.</p>
-      </div>
-      <div class="sec-block green">
-        <h3>2. Encryption — AES-256-GCM</h3>
-        <p>Each letter + photos are encrypted with <strong>AES-256-GCM</strong>. GCM provides both <strong>confidentiality and authentication</strong> — any tampering is detected. Each letter has a unique random 12-byte IV.</p>
-      </div>
-      <div class="sec-block blue">
-        <h3>3. Web Crypto API (SubtleCrypto)</h3>
-        <p>All operations use the browser's built-in <strong>SubtleCrypto</strong> — the same API used by banks. No JS crypto libraries. Random bytes come from <code>crypto.getRandomValues()</code>.</p>
-      </div>
-      <div class="sec-block purple">
-        <h3>4. Photos — Base64 + AES-GCM</h3>
-        <p>Photos are converted to Base64 and encrypted <strong>together with the letter text</strong> in the same AES-GCM payload. Even the photo count is hidden from anyone without the passphrase.</p>
-      </div>
-    </div>
-    <div class="paper">
-      <div class="paper-title">📋 Encrypted File Format</div>
-      <pre class="code-block">{
-  "v": 2,
-  "salt": "&lt;base64 random 16 bytes&gt;",
-  "greeting": "optional name",
-  "letters": [
-    {
-      "iv":    "&lt;base64 random 12 bytes&gt;",
-      "ct":    "&lt;base64 AES-256-GCM ciphertext&gt;",
-      "emoji": "💌",
-      "theme": "cream"
-    }
-  ]
-}
-
-// ct decrypts to JSON:
-{
-  "occasion": "you're sad",
-  "body":     "&lt;rich HTML content&gt;",
-  "photos":   ["&lt;base64 image&gt;", ...]
-}</pre>
-    </div>
-  </div>
-
-</main>
-
-<!-- LETTER MODAL -->
-<div id="modal" class="modal-overlay" onclick="closeModal(event)">
-  <div class="letter-modal" id="letter-modal-inner">
-    <div class="modal-header" id="modal-header">
-      <button class="close-btn" onclick="closeModalBtn()">✕</button>
-      <span class="m-emoji" id="modal-emoji">💌</span>
-      <div class="m-title" id="modal-title">Open When…</div>
-    </div>
-    <div class="modal-body-wrap">
-      <div class="modal-letter-text" id="modal-body"></div>
-      <div class="modal-photos" id="modal-photos"></div>
-      <div class="divider-wax">✦ ✦ ✦</div>
-    </div>
-  </div>
-</div>
-
-<footer>Made with 💕 · End-to-end encrypted · AES-256-GCM · PBKDF2-SHA256 · Zero servers</footer>
-
-<script>
-// ══════════════════════════════════════════════════
-//  PARTICLES
-// ══════════════════════════════════════════════════
-(function(){
-  const c = document.getElementById('particles');
-  const ctx = c.getContext('2d');
-  let W, H, particles;
-  const EMOJIS = ['💌','❤️','✉️','🌹','💕','⭐','🌸'];
-  function resize(){ W=c.width=innerWidth; H=c.height=innerHeight; }
-  function mkP(){
-    return {
-      x: Math.random()*W, y: Math.random()*H+H,
-      e: EMOJIS[Math.random()*EMOJIS.length|0],
-      s: 14+Math.random()*14,
-      sp: .3+Math.random()*.5,
-      sw: .4+Math.random()*.8,
-      o: .08+Math.random()*.18,
-      t: Math.random()*Math.PI*2
-    };
-  }
-  function init(){ resize(); particles=[]; for(let i=0;i<18;i++){ const p=mkP(); p.y=Math.random()*H; particles.push(p); } }
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    particles.forEach(p=>{
-      p.t+=.018; p.y-=p.sp; p.x+=Math.sin(p.t)*p.sw;
-      if(p.y<-40){ Object.assign(p,mkP()); p.y=H+20; }
-      ctx.save(); ctx.globalAlpha=p.o;
-      ctx.font=p.s+'px serif'; ctx.fillText(p.e,p.x,p.y);
-      ctx.restore();
-    });
-    requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize',init);
-  init(); draw();
-})();
-
-// ══════════════════════════════════════════════════
-//  CRYPTO ENGINE — AES-256-GCM + PBKDF2-SHA256
-// ══════════════════════════════════════════════════
-const ENC = new TextEncoder(), DEC = new TextDecoder();
-function b64(buf){ return btoa(String.fromCharCode(...new Uint8Array(buf))); }
-function unb64(s){ return Uint8Array.from(atob(s), c=>c.charCodeAt(0)); }
-
-async function deriveKey(passphrase, salt){
-  const km = await crypto.subtle.importKey('raw', ENC.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
-  return crypto.subtle.deriveKey(
-    { name:'PBKDF2', salt, iterations:310000, hash:'SHA-256' },
-    km, { name:'AES-GCM', length:256 }, false, ['encrypt','decrypt']
-  );
-}
-async function aesEncrypt(data, key){
-  const iv = crypto.getRandomValues(new Uint8Array(12));
-  const ct = await crypto.subtle.encrypt({ name:'AES-GCM', iv }, key, ENC.encode(data));
-  return { iv: b64(iv), ct: b64(ct) };
-}
-async function aesDecrypt(iv64, ct64, key){
-  const pt = await crypto.subtle.decrypt({ name:'AES-GCM', iv:unb64(iv64) }, key, unb64(ct64));
-  return DEC.decode(pt);
-}
-
-// ══════════════════════════════════════════════════
-//  STATE
-// ══════════════════════════════════════════════════
-let writeLetters=[], writeKey=null, writeGreeting='';
-let currentPhotos=[]; // [{dataUrl, name}]
-let readLetters=[], readGreeting='';
-
-// ══════════════════════════════════════════════════
-//  TABS
-// ══════════════════════════════════════════════════
-function switchTab(name){
-  const names=['read','write','about'];
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',names[i]===name));
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-}
-
-// ══════════════════════════════════════════════════
-//  THEMES
-// ══════════════════════════════════════════════════
-const THEMES = [
-  { id:'cream',   bg:'#fefaf4', lines:'rgba(200,180,160,.15)', label:'Cream' },
-  { id:'rose',    bg:'#fff0f0', lines:'rgba(192,57,43,.1)',    label:'Rose' },
-  { id:'sky',     bg:'#f0f7ff', lines:'rgba(41,128,185,.1)',   label:'Sky' },
-  { id:'mint',    bg:'#f0fff4', lines:'rgba(39,174,96,.1)',    label:'Mint' },
-  { id:'lavender',bg:'#f8f0ff', lines:'rgba(142,68,173,.1)',   label:'Lavender' },
-  { id:'gold',    bg:'#fffbf0', lines:'rgba(212,168,67,.15)',  label:'Gold' },
-  { id:'dark',    bg:'#1a1210', lines:'rgba(255,255,255,.06)', label:'Night' },
-];
-let selectedTheme = 'cream';
-
-function initThemes(){
-  const row = document.getElementById('theme-row');
-  row.innerHTML = THEMES.map(t=>`
-    <div class="theme-swatch ${t.id===selectedTheme?'selected':''}" 
-         style="background:${t.bg}" 
-         onclick="selectTheme('${t.id}',this)" 
-         title="${t.label}">
-      <span></span>
-    </div>
-  `).join('');
-}
-function selectTheme(id, el){
-  selectedTheme = id;
-  document.querySelectorAll('.theme-swatch').forEach(s=>s.classList.remove('selected'));
-  el.classList.add('selected');
-  const t = THEMES.find(x=>x.id===id);
-  const paper = document.getElementById('compose-paper');
-  paper.style.background = t.bg;
-}
-
-// ══════════════════════════════════════════════════
-//  STICKERS
-// ══════════════════════════════════════════════════
-const STICKERS = ['💕','🌹','⭐','✨','🦋','🌸','🍀','🎀','🌙','☀️','🌈','💫','🎵','🥹','💝','🌻','🍓','🫶'];
-function initStickers(){
-  const bar = document.getElementById('sticker-bar');
-  bar.innerHTML = STICKERS.map(s=>`<button class="sticker-btn" onclick="insertSticker('${s}')" title="${s}">${s}</button>`).join('');
-}
-function insertSticker(s){
-  const ed = document.getElementById('rich-editor');
-  ed.focus();
-  document.execCommand('insertText', false, s);
-}
-
-// ══════════════════════════════════════════════════
-//  RICH EDITOR
-// ══════════════════════════════════════════════════
-function execCmd(cmd, val=null){
-  document.getElementById('rich-editor').focus();
-  document.execCommand(cmd, false, val);
-}
-
-// ══════════════════════════════════════════════════
-//  PHOTO HANDLING
-// ══════════════════════════════════════════════════
-function dragOver(e){ e.preventDefault(); document.getElementById('photo-drop').classList.add('drag-over'); }
-function dragLeave(e){ document.getElementById('photo-drop').classList.remove('drag-over'); }
-function dropPhoto(e){
-  e.preventDefault();
-  document.getElementById('photo-drop').classList.remove('drag-over');
-  processFiles(e.dataTransfer.files);
-}
-function handlePhotos(e){ processFiles(e.target.files); }
-
-function processFiles(files){
-  Array.from(files).forEach(file=>{
-    if(!file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = ev=>{
-      currentPhotos.push({ dataUrl: ev.target.result, name: file.name });
-      renderPhotoPreviews();
-    };
-    reader.readAsDataURL(file);
-  });
-}
-function renderPhotoPreviews(){
-  const el = document.getElementById('photo-previews');
-  el.innerHTML = currentPhotos.map((p,i)=>`
-    <div class="photo-thumb polaroid">
-      <img src="${p.dataUrl}" alt="photo ${i+1}" />
-      <button class="del-photo" onclick="removePhoto(${i})">✕</button>
-    </div>
-  `).join('');
-}
-function removePhoto(i){ currentPhotos.splice(i,1); renderPhotoPreviews(); }
-
-// ══════════════════════════════════════════════════
-//  WRITE FLOW
-// ══════════════════════════════════════════════════
-async function initWriter(){
-  const p1=document.getElementById('write-pass').value;
-  const p2=document.getElementById('write-pass2').value;
-  const gr=document.getElementById('write-greeting').value.trim();
-  const st=document.getElementById('write-status');
-  if(!p1){ showStatus(st,'error','Please enter a passphrase.'); return; }
-  if(p1!==p2){ showStatus(st,'error','Passphrases do not match.'); return; }
-  if(p1.length<8){ showStatus(st,'error','Passphrase must be at least 8 characters.'); return; }
-  showStatus(st,'info','Generating cryptographic key…');
-  try{
-    const salt = crypto.getRandomValues(new Uint8Array(16));
-    writeKey = { key: await deriveKey(p1, salt), salt: b64(salt) };
-    writeGreeting = gr;
-    document.getElementById('write-gate').style.display='none';
-    document.getElementById('write-panel').style.display='block';
-    initThemes(); initStickers();
-  } catch(e){ showStatus(st,'error','Key generation failed: '+e.message); }
-}
-
-async function addLetter(){
-  const occ = document.getElementById('w-custom').value.trim() || document.getElementById('w-occasion').value;
-  const emoji = document.getElementById('w-emoji').value.trim() || '💌';
-  const body = document.getElementById('rich-editor').innerHTML.trim();
-  const st = document.getElementById('add-status');
-  if(!occ){ showStatus(st,'error','Please choose or type an occasion.'); return; }
-  if(!body || body==='<br>'){ showStatus(st,'error','Please write the letter content.'); return; }
-  writeLetters.push({
-    occasion: occ, emoji, body,
-    photos: currentPhotos.map(p=>p.dataUrl),
-    theme: selectedTheme
-  });
-  renderWriteList();
-  clearCompose();
-  showStatus(st,'success',`💌 "Open When ${occ}" added! (${writeLetters.length} total)`);
-}
-
-function clearCompose(){
-  document.getElementById('w-occasion').value='';
-  document.getElementById('w-custom').value='';
-  document.getElementById('w-emoji').value='';
-  document.getElementById('rich-editor').innerHTML='';
-  currentPhotos=[];
-  renderPhotoPreviews();
-}
-
-function renderWriteList(){
-  const el=document.getElementById('letter-list-write');
-  document.getElementById('letter-count-badge').textContent=writeLetters.length+' letter'+(writeLetters.length!==1?'s':'');
-  if(!writeLetters.length){ el.innerHTML='<p style="color:var(--muted);font-size:.9rem;font-style:italic">No letters yet.</p>'; return; }
-  el.innerHTML=writeLetters.map((l,i)=>`
-    <div class="write-item">
-      <span class="wi-emoji">${l.emoji}</span>
-      <div class="wi-info">
-        <div class="wi-name">Open when ${l.occasion}</div>
-        <div class="wi-preview">${l.body.replace(/<[^>]+>/g,'').substring(0,70)}…</div>
-        ${l.photos.length?`<div class="wi-photos">📸 ${l.photos.length} photo${l.photos.length>1?'s':''}</div>`:''}
-      </div>
-      <button class="btn btn-danger" onclick="deleteLetter(${i})">🗑️</button>
-    </div>
-  `).join('');
-}
-
-function deleteLetter(i){ writeLetters.splice(i,1); renderWriteList(); }
-
-function previewLetter(){
-  const occ=document.getElementById('w-custom').value.trim()||document.getElementById('w-occasion').value;
-  const emoji=document.getElementById('w-emoji').value.trim()||'💌';
-  const body=document.getElementById('rich-editor').innerHTML.trim();
-  if(!occ||!body){ showStatus(document.getElementById('add-status'),'error','Fill in the occasion and letter to preview.'); return; }
-  openModal({ occasion:occ, emoji, body, photos:currentPhotos.map(p=>p.dataUrl), theme:selectedTheme });
-}
-
-async function exportLetters(){
-  const st=document.getElementById('export-status');
-  const prog=document.getElementById('export-progress');
-  if(!writeLetters.length){ showStatus(st,'error','No letters to export.'); return; }
-  prog.style.display='block';
-  showStatus(st,'info','Encrypting all letters and photos…');
-  try{
-    const encrypted=[];
-    for(const l of writeLetters){
-      const payload=JSON.stringify({ occasion:l.occasion, body:l.body, photos:l.photos||[] });
-      const {iv,ct}=await aesEncrypt(payload,writeKey.key);
-      encrypted.push({ iv, ct, emoji:l.emoji, theme:l.theme||'cream' });
-    }
-    const out=JSON.stringify({ v:2, salt:writeKey.salt, greeting:writeGreeting, letters:encrypted }, null, 2);
-    const blob=new Blob([out],{type:'application/json'});
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a'); a.href=url; a.download='letters.json'; a.click();
-    URL.revokeObjectURL(url);
-    prog.style.display='none';
-    showStatus(st,'success',`✅ Exported ${writeLetters.length} encrypted letter(s)! Share letters.json + index.html with your friend.`);
-  }catch(e){ prog.style.display='none'; showStatus(st,'error','Export failed: '+e.message); }
-}
-
-// ══════════════════════════════════════════════════
-//  READ FLOW
-// ══════════════════════════════════════════════════
-async function unlockLetters(){
-  const fi=document.getElementById('read-file');
-  const pass=document.getElementById('read-pass').value;
-  const st=document.getElementById('read-status');
-  const prog=document.getElementById('read-progress');
-  if(!fi.files.length){ showStatus(st,'error','Please upload your letters.json file.'); return; }
-  if(!pass){ showStatus(st,'error','Please enter the passphrase.'); return; }
-  prog.style.display='block';
-  showStatus(st,'info','Deriving key & decrypting… (may take a moment)');
-  try{
-    const data=JSON.parse(await fi.files[0].text());
-    if(data.v!==1 && data.v!==2) throw new Error('Unknown file format.');
-    const salt=unb64(data.salt);
-    const key=await deriveKey(pass,salt);
-    const decrypted=[];
-    for(const l of data.letters){
-      const pt=await aesDecrypt(l.iv,l.ct,key);
-      const parsed=JSON.parse(pt);
-      decrypted.push({ ...parsed, emoji:l.emoji, theme:l.theme||'cream' });
-    }
-    readLetters=decrypted;
-    readGreeting=data.greeting||'';
-    prog.style.display='none';
-    renderReadLetters();
-  }catch(e){
-    prog.style.display='none';
-    if(e.name==='OperationError'||String(e).includes('OperationError'))
-      showStatus(st,'error','❌ Wrong passphrase or corrupted file.');
-    else
-      showStatus(st,'error','Decryption failed: '+(e.message||'unknown error'));
-  }
-}
-
-function renderReadLetters(){
-  document.getElementById('read-gate').style.display='none';
-  document.getElementById('read-letters').style.display='block';
-  if(readGreeting) document.getElementById('read-greeting').textContent='Letters for '+readGreeting+' 💕';
-  const grid=document.getElementById('letters-grid');
-  grid.innerHTML=readLetters.map((l,i)=>{
-    const photoStrip=l.photos&&l.photos.length
-      ?`<div class="env-photo-strip">${l.photos.slice(0,3).map(p=>`<img src="${p}" />`).join('')}</div>`
-      :'';
-    return `
-      <div class="envelope-card" onclick="openLetter(${i})">
-        <div class="env-flap"></div>
-        <div class="env-body">
-          <span class="env-emoji">${l.emoji}</span>
-          <div class="env-title">Open When…</div>
-          <div class="env-sub">${l.occasion}</div>
-          <div class="env-seal">💌</div>
-        </div>
-        ${photoStrip}
-      </div>
-    `;
-  }).join('');
-}
-
-function lockLetters(){
-  readLetters=[];
-  document.getElementById('read-gate').style.display='block';
-  document.getElementById('read-letters').style.display='none';
-  document.getElementById('read-pass').value='';
-  document.getElementById('read-file').value='';
-  document.getElementById('read-status').className='status';
-}
-
-function openLetter(i){ openModal(readLetters[i]); }
-
-// ══════════════════════════════════════════════════
-//  MODAL
-// ══════════════════════════════════════════════════
-function openModal(l){
-  const theme = THEMES.find(t=>t.id===(l.theme||'cream'))||THEMES[0];
-  const inner = document.getElementById('letter-modal-inner');
-  inner.style.background = theme.bg;
-  // apply lined paper overlay tint
-  document.getElementById('modal-emoji').textContent = l.emoji;
-  document.getElementById('modal-title').textContent = 'Open When '+l.occasion;
-  document.getElementById('modal-body').innerHTML = l.body||'';
-  // photos
-  const ph = document.getElementById('modal-photos');
-  ph.innerHTML='';
-  if(l.photos&&l.photos.length){
-    l.photos.forEach((src,i)=>{
-      const wrap=document.createElement('div');
-      wrap.className='polaroid-wrap';
-      const img=document.createElement('img');
-      img.src=src; img.alt='Photo '+(i+1);
-      wrap.appendChild(img);
-      ph.appendChild(wrap);
-    });
-  }
-  if(l.theme==='dark'){
-    document.querySelector('.modal-body-wrap').style.color='#f0e6d8';
-  } else {
-    document.querySelector('.modal-body-wrap').style.color='';
-  }
-  document.getElementById('modal').classList.add('open');
-}
-function closeModal(e){ if(e.target===document.getElementById('modal')) closeModalBtn(); }
-function closeModalBtn(){ document.getElementById('modal').classList.remove('open'); }
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModalBtn(); });
-
-// ══════════════════════════════════════════════════
-//  UTILS
-// ══════════════════════════════════════════════════
-function showStatus(el,type,msg){ el.className='status '+type; el.textContent=msg; }
-</script>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const toggle = document.querySelector('[data-theme-toggle]');
+      let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.setAttribute('data-theme', theme);
+      const syncLabel = () => {
+        if (!toggle) return;
+        toggle.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+        toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+      };
+      syncLabel();
+      toggle?.addEventListener('click', () => {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', theme);
+        syncLabel();
+      });
+    })();
+  </script>
 </body>
 </html>
