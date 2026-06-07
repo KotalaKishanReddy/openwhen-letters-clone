@@ -1,0 +1,9 @@
+/* THEME: KRAFT — Brown kraft / vintage newspaper */
+[data-paper="kraft"] {
+  --paper-bg: #c8a97a;
+  --paper-line: rgba(80,50,20,0.12);
+  --paper-border: rgba(80,50,20,0.25);
+  --paper-shadow: rgba(40,20,0,0.20);
+  --paper-font: var(--font-mono);
+  /* TODO: heavy grain + sepia tone */
+}

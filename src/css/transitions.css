@@ -1,0 +1,11 @@
+/* TRANSITIONS.CSS — View Transitions API + shared element morphing */
+
+/* TODO: @view-transition { navigation: auto; } */
+/* TODO: ::view-transition-old(root) — fade out */
+/* TODO: ::view-transition-new(root) — fade in */
+/* TODO: .page-enter — slide in from right */
+/* TODO: .page-exit  — slide out to left */
+/* TODO: Named transitions: toolbar, sidebar-left, canvas-area */
+/* TODO: .envelope-card { view-transition-name: envelope; } */
+/* TODO: .letter-reader { view-transition-name: envelope; } */
+/* TODO: Reduced motion fallback */

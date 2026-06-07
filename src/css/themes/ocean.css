@@ -1,0 +1,9 @@
+/* THEME: OCEAN — Dusty blue coastal */
+[data-paper="ocean"] {
+  --paper-bg: #eef4f8;
+  --paper-line: rgba(40,80,120,0.08);
+  --paper-border: rgba(40,80,120,0.15);
+  --paper-shadow: rgba(0,40,80,0.10);
+  --paper-font: var(--font-body);
+  /* TODO: wave / seafoam watermark */
+}

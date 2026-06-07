@@ -1,0 +1,8 @@
+/* DARK-MODE.CSS — Dark mode overrides beyond token swaps */
+
+/* TODO: [data-theme="dark"] .glass — adjust opacity + blur */
+/* TODO: [data-theme="dark"] .texture-grain — higher opacity */
+/* TODO: [data-theme="dark"] .canvas-area — darker checkerboard */
+/* TODO: [data-theme="dark"] img — brightness(0.9) */
+/* TODO: [data-theme="dark"] .paper-cream — dark parchment remap */
+/* TODO: @media (prefers-color-scheme: dark) :root:not([data-theme]) */

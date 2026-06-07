@@ -1,0 +1,9 @@
+/* THEME: ROSE — Blush pink stationery */
+[data-paper="rose"] {
+  --paper-bg: #fdf0f3;
+  --paper-line: rgba(180,80,100,0.08);
+  --paper-border: rgba(200,120,140,0.2);
+  --paper-shadow: rgba(120,20,40,0.10);
+  --paper-font: var(--font-script);
+  /* TODO: soft floral watermark */
+}

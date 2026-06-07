@@ -1,0 +1,8 @@
+/* ENVELOPE.CSS — 3D envelope flip animation */
+/* TODO: .envelope — perspective + preserve-3d container */
+/* TODO: .envelope-front — address side */
+/* TODO: .envelope-back  — seal side, backface-visibility hidden */
+/* TODO: .envelope-flap  — top triangle, rotateX open animation */
+/* TODO: .envelope.open  — rotateY(180deg) flip */
+/* TODO: timing: 600ms cubic-bezier(0.4, 0, 0.2, 1) */
+/* TODO: wax seal on back flap */

@@ -1,0 +1,19 @@
+/* CUSTOM-PROPERTIES.CSS — Runtime JS-writable CSS variables */
+:root {
+  --zoom: 1;
+  --canvas-w: 794px;
+  --canvas-h: 1123px;
+  --canvas-bg: var(--color-bg);
+  --grid-size: 8px;
+  --snap-threshold: 6px;
+  --tool-cursor: default;
+  --selection-color: #4f8ef7;
+  --selection-width: 2px;
+  --sidebar-left-w: 260px;
+  --sidebar-right-w: 280px;
+  --toolbar-h: 52px;
+  --page-strip-h: 96px;
+  --sticker-tray-h: 320px;
+  --viewer-cols: 3;
+  --envelope-aspect: 1.4;
+}

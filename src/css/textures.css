@@ -1,0 +1,18 @@
+/* TEXTURES.CSS — CSS-only grain, noise, linen, dot, halftone */
+
+/* TODO: .texture-grain   — SVG feTurbulence noise at opacity 0.04 */
+/* TODO: .texture-linen   — repeating fine cross-hatch lines */
+/* TODO: .texture-dot     — 1px dots at 4px intervals */
+/* TODO: .texture-grid    — 1px lines both axes at 20px */
+/* TODO: .texture-halftone — radial-gradient circles */
+/* TODO: .texture-watercolor — layered blurry radial gradients */
+/* TODO: .texture-aged    — yellowed vignette + noise combined */
+
+/* Inject once into body:
+<svg style="display:none">
+  <filter id="grain">
+    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+</svg>
+*/

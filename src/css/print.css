@@ -1,0 +1,7 @@
+/* PRINT.CSS — Hide UI chrome, print only canvas pages */
+@media print {
+  /* TODO: hide .toolbar, .sidebar-left, .sidebar-right, .page-strip */
+  /* TODO: .canvas-page { page-break-after: always; } */
+  /* TODO: -webkit-print-color-adjust: exact */
+  /* TODO: remove shadows, transitions, animations */
+}

@@ -1,0 +1,9 @@
+/* THEME: GOLD — Luxury gold foil accents */
+[data-paper="gold"] {
+  --paper-bg: #1a1408;
+  --paper-line: rgba(220,170,60,0.10);
+  --paper-border: rgba(220,170,60,0.30);
+  --paper-shadow: rgba(0,0,0,0.50);
+  --paper-font: var(--font-display);
+  /* TODO: animated gold foil shimmer */
+}

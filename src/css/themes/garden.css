@@ -1,0 +1,9 @@
+/* THEME: GARDEN — Soft sage green botanical */
+[data-paper="garden"] {
+  --paper-bg: #f0f4ee;
+  --paper-line: rgba(60,100,60,0.08);
+  --paper-border: rgba(60,100,60,0.15);
+  --paper-shadow: rgba(20,60,20,0.10);
+  --paper-font: var(--font-script);
+  /* TODO: botanical watermark / leaf pattern */
+}

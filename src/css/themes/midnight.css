@@ -1,0 +1,9 @@
+/* THEME: MIDNIGHT — Dark moody black scrapbook */
+[data-paper="midnight"] {
+  --paper-bg: #12100e;
+  --paper-line: rgba(255,255,255,0.04);
+  --paper-border: rgba(255,255,255,0.10);
+  --paper-shadow: rgba(0,0,0,0.60);
+  --paper-font: var(--font-display);
+  /* TODO: starfield + gold foil accents */
+}

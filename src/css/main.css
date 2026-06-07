@@ -1,0 +1,62 @@
+/* MAIN.CSS — Master import (load order matters) */
+
+/* 1. Vendor */
+@import './vendor/normalize.css';
+@import './vendor/overrides.css';
+
+/* 2. Foundation */
+@import './tokens.css';
+@import './custom-properties.css';
+@import './base.css';
+@import './utilities.css';
+
+/* 3. Typography */
+@import './typography.css';
+
+/* 4. Layout */
+@import './layout.css';
+
+/* 5. Visual FX */
+@import './textures.css';
+@import './effects.css';
+@import './dark-mode.css';
+
+/* 6. Animations */
+@import './animations.css';
+@import './transitions.css';
+
+/* 7. Components */
+@import './components.css';
+@import './panels.css';
+@import './stickers.css';
+@import './paper.css';
+@import './editor.css';
+@import './viewer.css';
+
+/* 8. Elements */
+@import './elements/text-element.css';
+@import './elements/photo-element.css';
+@import './elements/sticker-element.css';
+@import './elements/tape-element.css';
+@import './elements/shape-element.css';
+@import './elements/wax-seal.css';
+@import './elements/torn-paper.css';
+@import './elements/polaroid.css';
+@import './elements/postage.css';
+@import './elements/envelope.css';
+
+/* 9. Pages */
+@import './pages/home.css';
+@import './pages/editor-view.css';
+@import './pages/viewer-view.css';
+@import './pages/onboarding.css';
+
+/* 10. Themes */
+@import './themes/cream.css';
+@import './themes/rose.css';
+@import './themes/kraft.css';
+@import './themes/linen.css';
+@import './themes/midnight.css';
+@import './themes/garden.css';
+@import './themes/ocean.css';
+@import './themes/gold.css';

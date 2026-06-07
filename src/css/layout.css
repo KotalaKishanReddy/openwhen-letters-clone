@@ -1,0 +1,14 @@
+/* LAYOUT.CSS — App shell grid, breakpoints, containers */
+
+/* TODO: .app-shell — CSS grid:
+   [toolbar] full width
+   [sidebar-left] [canvas-area] [sidebar-right]
+   [page-strip] full width
+*/
+/* TODO: .canvas-area — scrollable, centered, checkerboard bg */
+/* TODO: .canvas-wrapper — transform: scale(var(--zoom)) */
+/* TODO: Breakpoints: <768px, 768px, 1024px, 1440px+ */
+/* TODO: container queries on .panel */
+/* TODO: .container-narrow / default / wide */
+/* TODO: .grid-auto — auto-fill responsive grid */
+/* TODO: .masonry — CSS columns */
