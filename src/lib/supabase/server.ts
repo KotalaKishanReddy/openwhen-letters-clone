@@ -1,10 +1,16 @@
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import { env } from '../env'
 
-// Service-role client — only used in API routes (server-side)
+/** Service-role client — ONLY for server-side API routes. Never expose to client. */
 export function createServiceClient() {
   return createSupabaseClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { autoRefreshToken: false, persistSession: false } }
+    env.SUPABASE_URL,
+    env.SUPABASE_SERVICE_KEY,
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession:   false,
+      },
+    }
   )
 }

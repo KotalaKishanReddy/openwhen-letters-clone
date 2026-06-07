@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
-import { COOKIE } from '@/lib/auth'
+import { makeClearCookie } from '@/lib/auth'
 
 export async function POST() {
   const res = NextResponse.json({ ok: true })
-  res.cookies.set(COOKIE, '', { maxAge: 0, path: '/' })
+  res.cookies.set(makeClearCookie())
   return res
 }
