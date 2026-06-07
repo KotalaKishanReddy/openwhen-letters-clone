@@ -26,6 +26,13 @@ const FEATURES = [
   { icon: Heart,    text: 'Fully customisable' },
 ]
 
+// Bug fix: actual card height = py-5 (20px top + 20px bottom) + ~72px content ≈ 112px
+// The magic number 56 was wrong (half the real height), causing the scroll loop to
+// jump instead of seamlessly looping. We animate exactly one full set's height.
+const CARD_HEIGHT   = 112  // px — matches rendered card height
+const CARD_GAP      = 12   // px — gap-3 = 0.75rem = 12px
+const SINGLE_HEIGHT = CARDS.length * (CARD_HEIGHT + CARD_GAP)
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-cream flex flex-col">
@@ -88,7 +95,7 @@ export default function Home() {
           className="hidden md:block overflow-hidden h-[500px]"
           style={{ maskImage: 'linear-gradient(to bottom, transparent, black 12%, black 88%, transparent)' }}>
           <motion.div
-            animate={{ y: [0, -(56 * CARDS.length)] }}
+            animate={{ y: [0, -SINGLE_HEIGHT] }}
             transition={{ repeat: Infinity, duration: 22, ease: 'linear' }}
             className="flex flex-col gap-3">
             {[...CARDS, ...CARDS].map((c, i) => (

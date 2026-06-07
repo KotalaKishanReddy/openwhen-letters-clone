@@ -8,7 +8,7 @@ import Highlight from '@tiptap/extension-highlight'
 import Underline from '@tiptap/extension-underline'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import {
   Bold, Italic, UnderlineIcon, Strikethrough, AlignLeft,
   AlignCenter, AlignRight, Heading1, Heading2, List, ListOrdered,
@@ -36,6 +36,17 @@ export default function RichEditor({ content, onChange }: Props) {
       attributes: { class: 'ProseMirror focus:outline-none' }
     }
   })
+
+  // Bug fix: sync editor content when the parent switches the active letter.
+  // Without this, switching letters in the editor panel kept the previous
+  // letter's content because TipTap doesn't react to prop changes by default.
+  useEffect(() => {
+    if (!editor) return
+    const current = editor.getHTML()
+    if (content !== current) {
+      editor.commands.setContent(content, false)
+    }
+  }, [content, editor])
 
   const addImage = useCallback(() => {
     const url = window.prompt('Image URL')

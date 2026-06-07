@@ -1,11 +1,15 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
 
 export const metadata: Metadata = {
   title: 'openwhen — personal letters',
   description: 'Private digital open when letters, just for you two.',
-  themeColor: '#3d2c1e'
+}
+
+// Bug fix: themeColor moved to viewport export — deprecated in Next.js 14.2+ inside metadata
+export const viewport: Viewport = {
+  themeColor: '#3d2c1e',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -65,8 +65,16 @@ export default function EditorClient({ collection: initial, letters: initialLett
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(letter),
     })
-    if (res.ok) toast.success('Letter saved 💌')
-    else toast.error('Failed to save')
+    if (res.ok) {
+      // Bug fix: update local state with the server response so updated_at
+      // and any server-side changes stay in sync. Previously saveLetter never
+      // updated the local letters array after a successful save.
+      const updated: Letter = await res.json()
+      setLetters(prev => prev.map(l => l.id === updated.id ? updated : l))
+      toast.success('Letter saved 💌')
+    } else {
+      toast.error('Failed to save')
+    }
   }
 
   async function deleteLetter(id: string) {
@@ -234,220 +242,213 @@ export default function EditorClient({ collection: initial, letters: initialLett
               <h3 className="font-medium text-sm text-brown">letters ({letters.length})</h3>
               <button onClick={addLetter}
                 className="flex items-center gap-1 text-xs text-brown-light hover:text-brown transition">
-                <Plus size={13}/> add
+                <Plus size={12}/> add
               </button>
             </div>
-            {letters.length === 0 && (
-              <div className="text-xs text-brown-light py-6 text-center">
-                <p className="text-2xl mb-2">✉️</p>
-                no letters yet — click add
-              </div>
+            {letters.length === 0 ? (
+              <p className="text-xs text-brown-light/60 text-center py-4">
+                no letters yet — add one above
+              </p>
+            ) : (
+              letters.map(l => (
+                <button key={l.id}
+                  onClick={() => setOpenLetter(openLetter === l.id ? null : l.id)}
+                  className={cn(
+                    'w-full text-left px-3 py-2.5 rounded-xl text-sm transition',
+                    openLetter === l.id
+                      ? 'bg-brown text-cream'
+                      : 'hover:bg-beige text-brown-light hover:text-brown'
+                  )}>
+                  <span className="mr-2">{l.card_emoji}</span>
+                  <span className="italic truncate">{l.trigger_label}</span>
+                </button>
+              ))
             )}
-            {letters.map(l => (
-              <button key={l.id} onClick={() => setOpenLetter(openLetter === l.id ? null : l.id)}
-                className={cn(
-                  'w-full text-left px-3.5 py-2.5 rounded-xl text-sm transition flex items-center gap-2',
-                  openLetter === l.id
-                    ? 'bg-brown text-cream'
-                    : 'hover:bg-beige text-brown'
-                )}>
-                <GripVertical size={12} className="opacity-30 shrink-0"/>
-                <span className="truncate flex-1">{l.card_emoji} {l.trigger_label || 'untitled'}</span>
-              </button>
-            ))}
           </div>
         </aside>
 
-        {/* ── Right: letter editor ───────────────────────────── */}
-        <main className="min-h-[60vh]">
-          <AnimatePresence mode="wait">
-            {!activeLetter ? (
-              <motion.div key="empty"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                className="flex flex-col items-center justify-center h-64 text-brown-light gap-3">
-                <span className="text-5xl">✉️</span>
-                <p className="text-sm">select a letter or add a new one</p>
-                <button onClick={addLetter}
-                  className="mt-1 flex items-center gap-1.5 bg-brown text-cream px-5 py-2.5
-                    rounded-full text-sm font-medium hover:opacity-85 transition">
-                  <Plus size={14}/> add first letter
-                </button>
-              </motion.div>
-            ) : (
+        {/* ── Right panel: letter editor ─────────────────── */}
+        <div className="flex flex-col gap-4">
+          {!activeLetter ? (
+            <div className="bg-white rounded-2xl border border-brown/10 shadow-card
+              flex flex-col items-center justify-center py-24 gap-4 text-center">
+              <div className="text-5xl">💌</div>
+              <p className="text-brown-light text-sm">select a letter to edit,<br/>or add a new one</p>
+            </div>
+          ) : (
+            <AnimatePresence mode="wait">
               <motion.div key={activeLetter.id}
-                initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -12 }}
-                transition={{ duration: .18 }}>
-                <LetterEditor
-                  letter={activeLetter}
-                  onChange={patch => updateLetter(activeLetter.id, patch)}
-                  onSave={() => saveLetter(activeLetter)}
-                  onDelete={() => deleteLetter(activeLetter.id)}
-                />
+                initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.18 }}
+                className="bg-white rounded-2xl border border-brown/10 shadow-card overflow-hidden">
+
+                {/* Letter header */}
+                <div className="flex items-center justify-between px-5 py-4 border-b border-brown/8">
+                  <h3 className="font-medium text-sm text-brown">editing letter</h3>
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => deleteLetter(activeLetter.id)}
+                      className="p-1.5 rounded-lg text-brown-light hover:text-red-500 hover:bg-red-50 transition">
+                      <Trash2 size={13}/>
+                    </button>
+                    <button onClick={() => saveLetter(activeLetter)}
+                      className="flex items-center gap-1.5 bg-brown text-cream px-4 py-1.5
+                        rounded-full text-xs font-medium hover:opacity-85 transition">
+                      <Save size={11}/> save letter
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-5 flex flex-col gap-5">
+
+                  {/* Trigger label */}
+                  <label className="flex flex-col gap-1.5">
+                    <span className="text-xs font-medium text-brown uppercase tracking-wide">
+                      open when...
+                    </span>
+                    <input
+                      value={activeLetter.trigger_label}
+                      onChange={e => updateLetter(activeLetter.id, { trigger_label: e.target.value })}
+                      className="input-field font-serif-display italic text-lg"
+                      placeholder="you're feeling down"
+                      maxLength={120}
+                    />
+                  </label>
+
+                  {/* Card appearance row */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <span className="text-xs font-medium text-brown uppercase tracking-wide">card colour</span>
+                      <div className="flex flex-wrap gap-2">
+                        {Object.entries(CARD_COLORS).map(([key, { bg, label }]) => (
+                          <button key={key} type="button" title={label}
+                            onClick={() => updateLetter(activeLetter.id, { card_color: key })}
+                            className={cn(
+                              'w-7 h-7 rounded-full border-2 transition hover:scale-110',
+                              activeLetter.card_color === key ? 'border-brown scale-110' : 'border-brown/20'
+                            )}
+                            style={{ background: bg || '#e5e7eb' }}
+                          />
+                        ))}
+                      </div>
+                      {activeLetter.card_color === 'custom' && (
+                        <ColorPicker
+                          value={activeLetter.card_bg_hex || '#ffffff'}
+                          onChange={v => updateLetter(activeLetter.id, { card_bg_hex: v })}
+                        />
+                      )}
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <span className="text-xs font-medium text-brown uppercase tracking-wide">text colour</span>
+                      <ColorPicker
+                        value={activeLetter.text_color || '#3d2c1e'}
+                        onChange={v => updateLetter(activeLetter.id, { text_color: v })}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Pattern + emoji */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1.5">
+                      <span className="text-xs font-medium text-brown uppercase tracking-wide">background pattern</span>
+                      <select value={activeLetter.bg_pattern}
+                        onChange={e => updateLetter(activeLetter.id, { bg_pattern: e.target.value })}
+                        className="input-field">
+                        {Object.keys(BG_PATTERNS).map(k => (
+                          <option key={k} value={k}>{k}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <span className="text-xs font-medium text-brown uppercase tracking-wide">card emoji</span>
+                      <input value={activeLetter.card_emoji}
+                        onChange={e => updateLetter(activeLetter.id, { card_emoji: e.target.value.slice(0,8) })}
+                        className="input-field w-20 text-center text-xl"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Font override */}
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-xs font-medium text-brown uppercase tracking-wide">font override</span>
+                    <select
+                      value={activeLetter.font_override || ''}
+                      onChange={e => updateLetter(activeLetter.id, { font_override: e.target.value || null })}
+                      className="input-field">
+                      <option value="">Use collection font</option>
+                      {FONT_OPTIONS.map(f => (
+                        <option key={f.value} value={f.value}>{f.label}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Stickers */}
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-xs font-medium text-brown uppercase tracking-wide">stickers</span>
+                    <div className="flex flex-wrap gap-2">
+                      {STICKER_SETS.map(s => (
+                        <button key={s} type="button"
+                          onClick={() => {
+                            const current = activeLetter.sticker_set || []
+                            const next = current.includes(s)
+                              ? current.filter(x => x !== s)
+                              : [...current, s]
+                            updateLetter(activeLetter.id, { sticker_set: next })
+                          }}
+                          className={cn(
+                            'text-xl p-1 rounded-lg transition hover:scale-110',
+                            (activeLetter.sticker_set || []).includes(s)
+                              ? 'bg-beige ring-1 ring-brown/30'
+                              : 'hover:bg-beige/60'
+                          )}>
+                          {s}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Lock settings */}
+                  <div className="flex items-center gap-3">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="checkbox"
+                        checked={activeLetter.is_locked}
+                        onChange={e => updateLetter(activeLetter.id, { is_locked: e.target.checked })}
+                        className="w-4 h-4 rounded accent-brown"
+                      />
+                      <span className="text-sm text-brown-light">lock until date</span>
+                    </label>
+                    {activeLetter.is_locked && (
+                      <input type="date"
+                        value={activeLetter.unlock_date ? activeLetter.unlock_date.slice(0,10) : ''}
+                        onChange={e => updateLetter(activeLetter.id, { unlock_date: e.target.value })}
+                        className="input-field text-sm flex-1"
+                      />
+                    )}
+                  </div>
+
+                  {/* Rich text content */}
+                  <div className="flex flex-col gap-1.5">
+                    <span className="text-xs font-medium text-brown uppercase tracking-wide">letter content</span>
+                    <div className="rounded-xl border border-brown/15 overflow-hidden"
+                      style={{
+                        background: activeLetter.card_color === 'custom' && activeLetter.card_bg_hex
+                          ? activeLetter.card_bg_hex
+                          : CARD_COLORS[activeLetter.card_color]?.bg || '#ffffff',
+                        color: activeLetter.text_color || '#3d2c1e',
+                      }}>
+                      <RichEditor
+                        content={activeLetter.content_html}
+                        onChange={html => updateLetter(activeLetter.id, { content_html: html })}
+                      />
+                    </div>
+                  </div>
+
+                </div>
               </motion.div>
-            )}
-          </AnimatePresence>
-        </main>
-      </div>
-    </div>
-  )
-}
-
-// ── LetterEditor ──────────────────────────────────────────────────────────
-function LetterEditor({
-  letter, onChange, onSave, onDelete
-}: {
-  letter: Letter
-  onChange: (patch: Partial<Letter>) => void
-  onSave: () => void
-  onDelete: () => void
-}) {
-  const [stickerOpen, setStickerOpen] = useState(false)
-  const [letterSaving, setLetterSaving] = useState(false)
-
-  async function handleSave() {
-    setLetterSaving(true)
-    await onSave()
-    setLetterSaving(false)
-  }
-
-  return (
-    <div className="bg-white rounded-2xl border border-brown/10 shadow-card p-6 flex flex-col gap-5">
-
-      {/* Trigger label */}
-      <div className="flex flex-col gap-1">
-        <label className="text-xs font-medium text-brown-light uppercase tracking-wide">open when...</label>
-        <input value={letter.trigger_label}
-          onChange={e => onChange({ trigger_label: e.target.value })}
-          className="input-field text-lg font-serif-display italic"
-          placeholder="you're feeling stressed" />
-      </div>
-
-      {/* Appearance grid */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="flex flex-col gap-1">
-          <label className="text-xs text-brown-light">card color</label>
-          <select value={letter.card_color}
-            onChange={e => onChange({ card_color: e.target.value })}
-            className="input-field">
-            {Object.entries(CARD_COLORS).map(([k, v]) => (
-              <option key={k} value={k}>{v.label}</option>
-            ))}
-          </select>
+            </AnimatePresence>
+          )}
         </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-xs text-brown-light">card emoji</label>
-          <input value={letter.card_emoji}
-            onChange={e => onChange({ card_emoji: e.target.value })}
-            className="input-field text-center text-xl" maxLength={4} />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-xs text-brown-light">text color</label>
-          <ColorPicker value={letter.text_color} onChange={v => onChange({ text_color: v })} />
-        </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-xs text-brown-light">bg pattern</label>
-          <select value={letter.bg_pattern}
-            onChange={e => onChange({ bg_pattern: e.target.value })}
-            className="input-field">
-            {Object.keys(BG_PATTERNS).map(p => (
-              <option key={p} value={p}>{p}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      {letter.card_color === 'custom' && (
-        <div className="flex flex-col gap-1">
-          <label className="text-xs text-brown-light">custom card color</label>
-          <ColorPicker value={letter.card_bg_hex || '#ffffff'}
-            onChange={v => onChange({ card_bg_hex: v })} />
-        </div>
-      )}
-
-      {/* Font override */}
-      <div className="flex flex-col gap-1">
-        <label className="text-xs text-brown-light">font (optional override)</label>
-        <select value={letter.font_override || ''}
-          onChange={e => onChange({ font_override: e.target.value || null })}
-          className="input-field">
-          <option value="">inherit from collection</option>
-          {FONT_OPTIONS.map(f => (
-            <option key={f.value} value={f.value}>{f.label}</option>
-          ))}
-        </select>
-      </div>
-
-      {/* Stickers */}
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
-          <label className="text-xs text-brown-light">stickers</label>
-          <button onClick={() => setStickerOpen(v => !v)}
-            className="text-xs text-brown-light hover:text-brown flex items-center gap-1">
-            {stickerOpen ? <><ChevronUp size={12}/> hide</> : <><ChevronDown size={12}/> add</>}
-          </button>
-        </div>
-        {letter.sticker_set?.length > 0 && (
-          <div className="flex flex-wrap gap-1.5">
-            {letter.sticker_set.map((s, i) => (
-              <button key={i} title="click to remove"
-                onClick={() => onChange({ sticker_set: letter.sticker_set.filter((_, j) => j !== i) })}
-                className="text-xl hover:opacity-50 transition">{s}
-              </button>
-            ))}
-          </div>
-        )}
-        {stickerOpen && (
-          <div className="flex flex-wrap gap-2 bg-beige rounded-xl p-3">
-            {STICKER_SETS.map(s => (
-              <button key={s} onClick={() => onChange({ sticker_set: [...(letter.sticker_set || []), s] })}
-                className="text-xl hover:scale-125 transition-transform">{s}</button>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Rich content */}
-      <div className="flex flex-col gap-1">
-        <label className="text-xs text-brown-light">letter content</label>
-        <div className="border border-brown/15 rounded-xl overflow-hidden">
-          <RichEditor
-            content={letter.content_html}
-            onChange={v => onChange({ content_html: v })}
-          />
-        </div>
-      </div>
-
-      {/* Date lock */}
-      <div className="flex items-center gap-3 flex-wrap">
-        <label className="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" checked={letter.is_locked}
-            onChange={e => onChange({ is_locked: e.target.checked })}
-            className="rounded accent-brown" />
-          <span className="text-xs text-brown-light">lock until date</span>
-        </label>
-        {letter.is_locked && (
-          <input type="datetime-local"
-            value={letter.unlock_date?.slice(0,16) || ''}
-            onChange={e => onChange({ unlock_date: e.target.value })}
-            className="input-field text-xs" />
-        )}
-      </div>
-
-      {/* Footer actions */}
-      <div className="flex justify-between items-center pt-2 border-t border-brown/8">
-        <button onClick={onDelete}
-          className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-600 transition">
-          <Trash2 size={12}/> delete letter
-        </button>
-        <button onClick={handleSave} disabled={letterSaving}
-          className="flex items-center gap-2 bg-brown text-cream px-6 py-2.5
-            rounded-full text-sm font-medium hover:opacity-85 transition disabled:opacity-50">
-          {letterSaving
-            ? <><span className="w-3.5 h-3.5 border-2 border-cream/40 border-t-cream rounded-full animate-spin"/>saving...</>
-            : <><Save size={13}/> save letter</>
-          }
-        </button>
       </div>
     </div>
   )

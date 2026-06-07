@@ -1,7 +1,10 @@
 import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
+// Bug fix: use twMerge so conflicting Tailwind classes resolve correctly
+// e.g. cn('px-2', 'px-4') → 'px-4' instead of 'px-2 px-4'
 export function cn(...inputs: ClassValue[]) {
-  return clsx(inputs)
+  return twMerge(clsx(inputs))
 }
 
 export function generateSlug(length = 10): string {
