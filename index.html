@@ -17,664 +17,274 @@
       --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
       --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
       --text-3xl: clamp(2.5rem, 1rem + 4vw, 5rem);
-
-      --space-1: 0.25rem;
-      --space-2: 0.5rem;
-      --space-3: 0.75rem;
-      --space-4: 1rem;
-      --space-5: 1.25rem;
-      --space-6: 1.5rem;
-      --space-8: 2rem;
-      --space-10: 2.5rem;
-      --space-12: 3rem;
-      --space-16: 4rem;
-      --space-20: 5rem;
-
-      --color-bg: #f6efe7;
-      --color-surface: #fff9f2;
-      --color-surface-2: #fffdf9;
-      --color-surface-offset: #efe4d7;
-      --color-surface-dynamic: #e3d3c1;
-      --color-border: rgba(68, 45, 30, 0.14);
-      --color-divider: rgba(68, 45, 30, 0.1);
-      --color-text: #3a2418;
-      --color-text-muted: #7b5d4d;
-      --color-text-faint: #b39a8b;
-      --color-primary: #b85c72;
-      --color-primary-hover: #9d4359;
-      --color-secondary: #d9a441;
-      --color-accent: #8d6ab8;
-      --color-paper-line: rgba(136, 90, 72, 0.09);
-      --color-tape: rgba(244, 224, 190, 0.8);
-      --color-shadow: 20, 8, 0;
-
-      --radius-sm: 0.5rem;
-      --radius-md: 0.9rem;
-      --radius-lg: 1.4rem;
-      --radius-xl: 2rem;
-      --radius-full: 999px;
-
-      --shadow-sm: 0 8px 18px rgba(var(--color-shadow), 0.06);
-      --shadow-md: 0 18px 40px rgba(var(--color-shadow), 0.1);
-      --shadow-lg: 0 30px 80px rgba(var(--color-shadow), 0.14);
-
-      --font-display: 'Cormorant Garamond', Georgia, serif;
-      --font-body: 'DM Sans', system-ui, sans-serif;
-      --font-script: 'Caveat', cursive;
-      --transition: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;
+      --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
+      --space-12:3rem;--space-16:4rem;--space-20:5rem;
+      --color-bg:#f6efe7;--color-surface:#fff9f2;--color-surface-2:#fffdf9;
+      --color-surface-offset:#efe4d7;--color-surface-dynamic:#e3d3c1;
+      --color-border:rgba(68,45,30,0.14);--color-divider:rgba(68,45,30,0.1);
+      --color-text:#3a2418;--color-text-muted:#7b5d4d;--color-text-faint:#b39a8b;
+      --color-primary:#b85c72;--color-primary-hover:#9d4359;
+      --color-secondary:#d9a441;--color-accent:#8d6ab8;
+      --color-paper-line:rgba(136,90,72,0.09);--color-tape:rgba(244,224,190,0.8);
+      --color-shadow:20,8,0;
+      --radius-sm:0.5rem;--radius-md:0.9rem;--radius-lg:1.4rem;
+      --radius-xl:2rem;--radius-full:999px;
+      --shadow-sm:0 8px 18px rgba(var(--color-shadow),0.06);
+      --shadow-md:0 18px 40px rgba(var(--color-shadow),0.1);
+      --shadow-lg:0 30px 80px rgba(var(--color-shadow),0.14);
+      --font-display:'Cormorant Garamond',Georgia,serif;
+      --font-body:'DM Sans',system-ui,sans-serif;
+      --font-script:'Caveat',cursive;
+      --transition:180ms cubic-bezier(0.16,1,0.3,1);
     }
-
     [data-theme="dark"] {
-      --color-bg: #1d1715;
-      --color-surface: #2a201d;
-      --color-surface-2: #332724;
-      --color-surface-offset: #251d1a;
-      --color-surface-dynamic: #3a2f2b;
-      --color-border: rgba(255, 234, 218, 0.12);
-      --color-divider: rgba(255, 234, 218, 0.08);
-      --color-text: #f2e6d9;
-      --color-text-muted: #cfb7a5;
-      --color-text-faint: #8e766a;
-      --color-primary: #ec8da2;
-      --color-primary-hover: #ffadc0;
-      --color-secondary: #f5c467;
-      --color-accent: #bea3ec;
-      --color-paper-line: rgba(255, 231, 209, 0.07);
-      --color-tape: rgba(218, 179, 125, 0.24);
-      --color-shadow: 0, 0, 0;
-      --shadow-sm: 0 8px 18px rgba(var(--color-shadow), 0.22);
-      --shadow-md: 0 18px 40px rgba(var(--color-shadow), 0.28);
-      --shadow-lg: 0 30px 80px rgba(var(--color-shadow), 0.4);
+      --color-bg:#1d1715;--color-surface:#2a201d;--color-surface-2:#332724;
+      --color-surface-offset:#251d1a;--color-surface-dynamic:#3a2f2b;
+      --color-border:rgba(255,234,218,0.12);--color-divider:rgba(255,234,218,0.08);
+      --color-text:#f2e6d9;--color-text-muted:#cfb7a5;--color-text-faint:#8e766a;
+      --color-primary:#ec8da2;--color-primary-hover:#ffadc0;
+      --color-secondary:#f5c467;--color-accent:#bea3ec;
+      --color-paper-line:rgba(255,231,209,0.07);--color-tape:rgba(218,179,125,0.24);
+      --color-shadow:0,0,0;
+      --shadow-sm:0 8px 18px rgba(var(--color-shadow),0.22);
+      --shadow-md:0 18px 40px rgba(var(--color-shadow),0.28);
+      --shadow-lg:0 30px 80px rgba(var(--color-shadow),0.4);
     }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: var(--font-body);
-      font-size: var(--text-base);
-      color: var(--color-text);
-      background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.65), transparent 28%),
-        radial-gradient(circle at right 20%, rgba(255,226,194,0.28), transparent 22%),
-        linear-gradient(180deg, rgba(255,255,255,0.08), transparent 30%),
-        var(--color-bg);
-      position: relative;
-      overflow-x: hidden;
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      margin:0;min-height:100vh;font-family:var(--font-body);
+      font-size:var(--text-base);color:var(--color-text);
+      background:radial-gradient(circle at top left,rgba(255,255,255,0.65),transparent 28%),
+        radial-gradient(circle at right 20%,rgba(255,226,194,0.28),transparent 22%),
+        linear-gradient(180deg,rgba(255,255,255,0.08),transparent 30%),var(--color-bg);
+      position:relative;overflow-x:hidden;
     }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        radial-gradient(rgba(255,255,255,0.18) 0.7px, transparent 0.7px),
-        radial-gradient(rgba(95,57,35,0.04) 0.7px, transparent 0.7px);
-      background-position: 0 0, 14px 14px;
-      background-size: 28px 28px;
-      opacity: 0.55;
-      mix-blend-mode: soft-light;
+    body::before{
+      content:"";position:fixed;inset:0;pointer-events:none;
+      background-image:radial-gradient(rgba(255,255,255,0.18) 0.7px,transparent 0.7px),
+        radial-gradient(rgba(95,57,35,0.04) 0.7px,transparent 0.7px);
+      background-position:0 0,14px 14px;background-size:28px 28px;
+      opacity:0.55;mix-blend-mode:soft-light;
     }
+    img{display:block;max-width:100%;}
+    a{color:inherit;text-decoration:none;}
+    button{font:inherit;}
 
-    img { display: block; max-width: 100%; }
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
+    /* ── LAYOUT ── */
+    .app-shell{width:min(1200px,calc(100% - 2rem));margin:0 auto;padding:var(--space-8) 0 var(--space-16);position:relative;z-index:1;}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-8);padding:var(--space-4) var(--space-5);border:1px solid var(--color-border);border-radius:var(--radius-xl);background:color-mix(in srgb,var(--color-surface) 82%,white 18%);box-shadow:var(--shadow-sm);backdrop-filter:blur(18px);}
+    .brand{display:flex;align-items:center;gap:var(--space-4);}
+    .brand-mark{width:3.25rem;aspect-ratio:1;border-radius:1rem 1.25rem 0.8rem 1.25rem;background:linear-gradient(145deg,rgba(255,255,255,0.95),rgba(255,236,223,0.7)),var(--color-surface);border:1px solid var(--color-border);box-shadow:var(--shadow-sm);display:grid;place-items:center;font-family:var(--font-script);font-size:1.45rem;color:var(--color-primary);transform:rotate(-6deg);}
+    .brand h1{margin:0;font-family:var(--font-display);font-size:var(--text-xl);line-height:0.95;letter-spacing:-0.03em;}
+    .brand p{margin:0.35rem 0 0;color:var(--color-text-muted);font-size:var(--text-sm);}
+    .topbar-actions{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;justify-content:flex-end;}
+    .chip,.ghost-btn,.theme-btn,.primary-btn{border-radius:var(--radius-full);border:1px solid var(--color-border);background:var(--color-surface-2);color:var(--color-text);padding:0.8rem 1.1rem;transition:transform var(--transition),background var(--transition),border-color var(--transition);cursor:pointer;}
+    .chip{font-size:var(--text-sm);cursor:default;}
+    .primary-btn{background:var(--color-primary);color:#fff8f5;border-color:transparent;box-shadow:var(--shadow-sm);}
+    .primary-btn:hover{background:var(--color-primary-hover);transform:translateY(-1px);}
+    .ghost-btn:hover,.theme-btn:hover{background:var(--color-surface-offset);}
+    .hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,0.85fr);gap:var(--space-8);align-items:center;margin-bottom:var(--space-8);}
+    .hero-card,.preview-card,.panel,.timeline-card,.sticker-card{border:1px solid var(--color-border);background:color-mix(in srgb,var(--color-surface) 90%,white 10%);border-radius:var(--radius-xl);box-shadow:var(--shadow-md);position:relative;overflow:hidden;}
+    .hero-card{padding:clamp(1.5rem,4vw,3rem);isolation:isolate;background:linear-gradient(180deg,rgba(255,255,255,0.45),transparent),linear-gradient(145deg,rgba(255,228,218,0.55),rgba(255,247,240,0.92) 32%,rgba(244,233,224,0.95));}
+    .paper-tape{position:absolute;width:96px;height:26px;background:var(--color-tape);border:1px solid rgba(166,132,88,0.12);backdrop-filter:blur(2px);top:1rem;left:2rem;transform:rotate(-7deg);border-radius:3px;}
+    .eyebrow{display:inline-flex;align-items:center;gap:0.5rem;padding:0.45rem 0.9rem;border-radius:var(--radius-full);background:rgba(255,255,255,0.72);border:1px solid rgba(112,73,43,0.1);font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-5);}
+    .hero h2{margin:0;font-family:var(--font-display);font-size:clamp(3rem,6vw,5.6rem);line-height:0.88;letter-spacing:-0.045em;max-width:9ch;}
+    .hero-copy{margin:var(--space-5) 0 var(--space-6);color:var(--color-text-muted);max-width:58ch;line-height:1.7;}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-6);}
+    .scrap-notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3);}
+    .mini-note{padding:var(--space-4);border-radius:1.2rem;background:repeating-linear-gradient(to bottom,transparent,transparent 27px,var(--color-paper-line) 27px,var(--color-paper-line) 28px),var(--color-surface-2);border:1px dashed rgba(122,88,69,0.18);min-height:120px;}
+    .mini-note strong{display:block;margin-bottom:0.6rem;font-family:var(--font-script);font-size:1.4rem;color:var(--color-primary);}
+    .preview-card{padding:var(--space-6);background:radial-gradient(circle at top right,rgba(255,216,183,0.34),transparent 30%),linear-gradient(160deg,rgba(255,255,255,0.85),rgba(247,236,226,0.96));}
+    .polaroid-stack{position:relative;min-height:470px;}
+    .polaroid,.sticky,.ticket{position:absolute;border:1px solid var(--color-border);box-shadow:var(--shadow-md);}
+    .polaroid{width:230px;padding:14px 14px 54px;background:#fffdf9;border-radius:1rem;}
+    .polaroid-img{display:block;aspect-ratio:1/1;border-radius:0.8rem;background:linear-gradient(135deg,rgba(214,176,164,0.25),rgba(255,227,196,0.52));margin-bottom:14px;width:100%;}
+    .polaroid h3,.polaroid p{margin:0;}
+    .polaroid h3{font-family:var(--font-script);font-size:1.6rem;margin-bottom:0.25rem;color:var(--color-primary);}
+    .polaroid p{color:var(--color-text-muted);font-size:var(--text-sm);}
+    .polaroid.one{top:10px;left:10px;transform:rotate(-8deg);}
+    .polaroid.two{top:128px;right:10px;transform:rotate(7deg);}
+    .sticky{top:28px;right:30px;width:140px;min-height:140px;padding:1rem;border-radius:0.6rem;background:#ffe89c;transform:rotate(5deg);font-family:var(--font-script);font-size:1.35rem;color:#714806;}
+    .ticket{left:50px;bottom:24px;width:270px;padding:1rem 1.2rem;border-radius:1.25rem;background:linear-gradient(135deg,#f4d5d8,#fff2ec);transform:rotate(-4deg);}
+    .ticket small{display:block;color:var(--color-text-muted);margin-bottom:0.3rem;}
+    .ticket strong{font-size:var(--text-lg);font-family:var(--font-display);}
+    .content-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:var(--space-8);}
+    .panel{padding:var(--space-6);background:repeating-linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0) 31px,var(--color-paper-line) 31px,var(--color-paper-line) 32px),var(--color-surface-2);}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-5);}
+    .section-head h3,.section-head h4{margin:0;font-family:var(--font-display);font-size:var(--text-xl);letter-spacing:-0.03em;}
+    .section-head p{margin:0.45rem 0 0;color:var(--color-text-muted);font-size:var(--text-sm);}
+    .editor-area{display:grid;gap:var(--space-4);}
+    .toolbar{display:flex;flex-wrap:wrap;gap:var(--space-2);padding-bottom:var(--space-4);border-bottom:1px dashed var(--color-divider);}
+    .tool{padding:0.7rem 0.95rem;border-radius:1rem;border:1px solid var(--color-border);background:rgba(255,255,255,0.66);font-size:var(--text-sm);cursor:pointer;transition:background var(--transition);}
+    .tool:hover{background:var(--color-surface-offset);}
+    .letter-canvas{min-height:360px;border-radius:1.4rem;padding:var(--space-6);background:linear-gradient(180deg,rgba(255,255,255,0.58),transparent 16%),repeating-linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0) 31px,var(--color-paper-line) 31px,var(--color-paper-line) 32px),#fffdf8;border:1px solid rgba(101,70,50,0.14);position:relative;overflow:hidden;}
+    .letter-canvas::after{content:"";position:absolute;inset:18px;border:1px dashed rgba(150,109,74,0.12);border-radius:1rem;pointer-events:none;}
+    .canvas-title{font-family:var(--font-script);font-size:2rem;color:var(--color-primary);margin-bottom:var(--space-3);}
+    .canvas-lines{color:var(--color-text-muted);max-width:55ch;line-height:1.9;}
+    .sticker-row,.theme-swatches,.material-row{display:flex;flex-wrap:wrap;gap:var(--space-3);}
+    .sticker-pill,.swatch,.material-chip{border-radius:var(--radius-full);border:1px solid var(--color-border);background:rgba(255,255,255,0.72);padding:0.75rem 1rem;box-shadow:var(--shadow-sm);}
+    .swatch{width:54px;height:54px;padding:0;cursor:pointer;border-radius:50%;}
+    .swatch.rose{background:linear-gradient(135deg,#ffd5dd,#fff0f2);}
+    .swatch.sun{background:linear-gradient(135deg,#ffd98d,#fff5d8);}
+    .swatch.lilac{background:linear-gradient(135deg,#d6cbff,#f6f0ff);}
+    .swatch.mint{background:linear-gradient(135deg,#bdebd6,#f0fff8);}
+    .swatch.night{background:linear-gradient(135deg,#2b2035,#51406a);}
+    .timeline-card,.sticker-card{padding:var(--space-6);background:color-mix(in srgb,var(--color-surface) 88%,white 12%);}
+    .timeline-list{display:grid;gap:var(--space-4);}
+    .timeline-item{display:grid;grid-template-columns:auto 1fr;gap:var(--space-3);align-items:start;}
+    .timeline-dot{width:14px;height:14px;border-radius:999px;margin-top:0.45rem;background:linear-gradient(135deg,var(--color-primary),var(--color-secondary));box-shadow:0 0 0 6px rgba(184,92,114,0.12);}
+    .timeline-item h5,.timeline-item p{margin:0;}
+    .timeline-item h5{font-size:1rem;}
+    .timeline-item p{color:var(--color-text-muted);font-size:var(--text-sm);margin-top:0.2rem;}
+    .sticker-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3);margin-top:var(--space-4);}
+    .sticker-tile{min-height:92px;border-radius:1.25rem;border:1px solid var(--color-border);background:linear-gradient(160deg,rgba(255,255,255,0.9),rgba(245,233,223,0.75));display:grid;place-items:center;font-size:2rem;cursor:pointer;transition:transform var(--transition);}
+    .sticker-tile:hover{transform:scale(1.08) rotate(3deg);}
+    .footer-strip{margin-top:var(--space-8);padding:var(--space-5);border-radius:var(--radius-xl);border:1px solid var(--color-border);background:linear-gradient(135deg,rgba(255,242,232,0.85),rgba(255,249,243,0.7));display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--space-4);align-items:center;}
+    .footer-strip strong{display:block;font-family:var(--font-display);font-size:var(--text-lg);}
+    .floating-deco{position:absolute;pointer-events:none;opacity:0.75;filter:drop-shadow(0 18px 30px rgba(58,27,9,0.08));}
+    .floating-deco.one{top:130px;right:-18px;transform:rotate(12deg);font-size:4.5rem;}
+    .floating-deco.two{left:-14px;bottom:140px;transform:rotate(-16deg);font-size:4rem;}
 
-    .app-shell {
-      width: min(1200px, calc(100% - 2rem));
-      margin: 0 auto;
-      padding: var(--space-8) 0 var(--space-16);
-      position: relative;
-      z-index: 1;
+    /* ── MODAL ── */
+    .modal-backdrop{
+      display:none;position:fixed;inset:0;z-index:1000;
+      background:rgba(30,14,8,0.62);backdrop-filter:blur(10px);
+      align-items:center;justify-content:center;padding:1rem;
     }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-4);
-      margin-bottom: var(--space-8);
-      padding: var(--space-4) var(--space-5);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-xl);
-      background: color-mix(in srgb, var(--color-surface) 82%, white 18%);
-      box-shadow: var(--shadow-sm);
-      backdrop-filter: blur(18px);
+    .modal-backdrop.open{display:flex;}
+    .modal{
+      width:min(900px,100%);max-height:92vh;overflow-y:auto;
+      background:var(--color-surface);border:1px solid var(--color-border);
+      border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);
+      display:flex;flex-direction:column;
+      animation:modal-in 0.28s cubic-bezier(0.16,1,0.3,1) both;
     }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: var(--space-4);
+    @keyframes modal-in{from{opacity:0;transform:translateY(24px) scale(0.97);}to{opacity:1;transform:none;}}
+    .modal-header{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:1.4rem 1.8rem 1rem;border-bottom:1px solid var(--color-divider);
+      position:sticky;top:0;background:var(--color-surface);z-index:2;
     }
-
-    .brand-mark {
-      width: 3.25rem;
-      aspect-ratio: 1;
-      border-radius: 1rem 1.25rem 0.8rem 1.25rem;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,236,223,0.7)),
-        var(--color-surface);
-      border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-sm);
-      display: grid;
-      place-items: center;
-      font-family: var(--font-script);
-      font-size: 1.45rem;
-      color: var(--color-primary);
-      transform: rotate(-6deg);
+    .modal-header h2{margin:0;font-family:var(--font-display);font-size:var(--text-xl);letter-spacing:-0.03em;}
+    .modal-close{
+      width:36px;height:36px;border-radius:50%;border:1px solid var(--color-border);
+      background:transparent;display:grid;place-items:center;
+      font-size:1.2rem;cursor:pointer;color:var(--color-text-muted);
+      transition:background var(--transition);
     }
+    .modal-close:hover{background:var(--color-surface-offset);}
+    .modal-body{padding:1.5rem 1.8rem;display:flex;flex-direction:column;gap:1.5rem;}
 
-    .brand h1 {
-      margin: 0;
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      line-height: 0.95;
-      letter-spacing: -0.03em;
+    /* occasion row */
+    .occ-row{display:flex;flex-wrap:wrap;gap:0.75rem;}
+    .occ-btn{
+      padding:0.65rem 1.1rem;border-radius:var(--radius-full);
+      border:1px solid var(--color-border);background:var(--color-surface-2);
+      color:var(--color-text-muted);font-size:var(--text-sm);cursor:pointer;
+      transition:background var(--transition),border-color var(--transition),color var(--transition);
     }
+    .occ-btn.active,.occ-btn:hover{background:var(--color-primary);color:#fff8f5;border-color:transparent;}
 
-    .brand p {
-      margin: 0.35rem 0 0;
-      color: var(--color-text-muted);
-      font-size: var(--text-sm);
+    /* theme row */
+    .theme-row{display:flex;flex-wrap:wrap;gap:0.75rem;}
+    .theme-opt{
+      display:flex;align-items:center;gap:0.5rem;
+      padding:0.6rem 1rem;border-radius:var(--radius-full);
+      border:1px solid var(--color-border);background:var(--color-surface-2);
+      font-size:var(--text-sm);cursor:pointer;
+      transition:background var(--transition),border-color var(--transition);
     }
+    .theme-opt .dot{width:14px;height:14px;border-radius:50%;}
+    .theme-opt.active,.theme-opt:hover{border-color:var(--color-primary);background:rgba(184,92,114,0.08);}
 
-    .topbar-actions {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-      flex-wrap: wrap;
-      justify-content: flex-end;
+    /* editor canvas */
+    .spread-canvas{
+      min-height:280px;border-radius:var(--radius-lg);
+      padding:2rem 2rem 2.5rem;position:relative;
+      border:1px solid rgba(101,70,50,0.14);
+      font-family:var(--font-script);
+      transition:background 0.4s ease, color 0.4s ease;
     }
+    /* theme skins */
+    .spread-canvas[data-paper="rose"]{background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(200,100,120,0.07) 31px,rgba(200,100,120,0.07) 32px),linear-gradient(160deg,#fff0f2,#ffe8ec);color:#5a1f2c;}
+    .spread-canvas[data-paper="sun"]{background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(180,130,30,0.08) 31px,rgba(180,130,30,0.08) 32px),linear-gradient(160deg,#fff8e1,#fff0c0);color:#5a3c00;}
+    .spread-canvas[data-paper="lilac"]{background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(120,80,200,0.07) 31px,rgba(120,80,200,0.07) 32px),linear-gradient(160deg,#f6f0ff,#ede4ff);color:#3d1f6e;}
+    .spread-canvas[data-paper="mint"]{background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(40,160,100,0.07) 31px,rgba(40,160,100,0.07) 32px),linear-gradient(160deg,#f0fff8,#d9f7ea);color:#1a4d36;}
+    .spread-canvas[data-paper="night"]{background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(200,180,255,0.07) 31px,rgba(200,180,255,0.07) 32px),linear-gradient(160deg,#2b2035,#1a1425);color:#e8dcff;}
+    .spread-canvas[data-paper="kraft"]{background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(120,80,30,0.09) 31px,rgba(120,80,30,0.09) 32px),linear-gradient(160deg,#d4a96a,#c89040);color:#2e1a02;}
+    .spread-canvas[data-paper="cream"]{background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(120,90,60,0.07) 31px,rgba(120,90,60,0.07) 32px),linear-gradient(160deg,#fffdf5,#fdf6e3);color:#3a2418;}
 
-    .chip,
-    .ghost-btn,
-    .theme-btn,
-    .primary-btn {
-      border-radius: var(--radius-full);
-      border: 1px solid var(--color-border);
-      background: var(--color-surface-2);
-      color: var(--color-text);
-      padding: 0.8rem 1.1rem;
-      transition: transform var(--transition), background var(--transition), border-color var(--transition);
-      cursor: pointer;
+    .spread-canvas .tape-strip{position:absolute;top:-8px;left:50%;transform:translateX(-50%) rotate(-2deg);width:110px;height:22px;background:rgba(244,224,180,0.7);border-radius:3px;border:1px solid rgba(166,132,88,0.15);}
+    .canvas-greeting{
+      font-size:2.2rem;font-weight:700;margin-bottom:0.5rem;
+      outline:none;border:none;background:transparent;
+      width:100%;color:inherit;font-family:var(--font-script);
     }
-
-    .chip { font-size: var(--text-sm); cursor: default; }
-    .primary-btn {
-      background: var(--color-primary);
-      color: #fff8f5;
-      border-color: transparent;
-      box-shadow: var(--shadow-sm);
+    .canvas-greeting:focus{border-bottom:1px dashed currentColor;}
+    .canvas-body{
+      width:100%;min-height:140px;border:none;background:transparent;
+      resize:none;font-family:var(--font-script);font-size:1.35rem;
+      line-height:2;color:inherit;outline:none;
     }
-    .primary-btn:hover { background: var(--color-primary-hover); transform: translateY(-1px); }
-    .ghost-btn:hover, .theme-btn:hover { background: var(--color-surface-offset); }
+    .canvas-stickers{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.75rem;}
+    .placed-sticker{font-size:1.8rem;cursor:pointer;transition:transform 0.15s;display:inline-block;}
+    .placed-sticker:hover{transform:scale(1.25) rotate(8deg);}
 
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
-      gap: var(--space-8);
-      align-items: center;
-      margin-bottom: var(--space-8);
+    /* sticker tray */
+    .sticker-tray{display:flex;flex-wrap:wrap;gap:0.6rem;}
+    .tray-sticker{
+      font-size:1.6rem;width:48px;height:48px;border-radius:1rem;
+      border:1px solid var(--color-border);background:rgba(255,255,255,0.7);
+      display:grid;place-items:center;cursor:pointer;
+      transition:transform var(--transition),box-shadow var(--transition);
     }
+    .tray-sticker:hover{transform:scale(1.15) rotate(4deg);box-shadow:var(--shadow-sm);}
 
-    .hero-card,
-    .preview-card,
-    .panel,
-    .timeline-card,
-    .sticker-card {
-      border: 1px solid var(--color-border);
-      background: color-mix(in srgb, var(--color-surface) 90%, white 10%);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-md);
-      position: relative;
-      overflow: hidden;
+    /* recipient / message fields */
+    .field-group{display:grid;gap:0.75rem;}
+    .field-group label{font-size:var(--text-sm);color:var(--color-text-muted);font-weight:500;}
+    .field-group input,.field-group select{
+      width:100%;padding:0.75rem 1rem;border-radius:var(--radius-md);
+      border:1px solid var(--color-border);background:var(--color-surface-2);
+      color:var(--color-text);font-family:var(--font-body);font-size:var(--text-base);
+      outline:none;transition:border-color var(--transition);
     }
+    .field-group input:focus,.field-group select:focus{border-color:var(--color-primary);}
 
-    .hero-card {
-      padding: clamp(1.5rem, 4vw, 3rem);
-      isolation: isolate;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.45), transparent),
-        linear-gradient(145deg, rgba(255,228,218,0.55), rgba(255,247,240,0.92) 32%, rgba(244,233,224,0.95));
+    /* modal footer */
+    .modal-footer{
+      padding:1rem 1.8rem 1.5rem;border-top:1px solid var(--color-divider);
+      display:flex;justify-content:space-between;align-items:center;
+      gap:1rem;flex-wrap:wrap;
+      position:sticky;bottom:0;background:var(--color-surface);z-index:2;
     }
+    .modal-footer-left{color:var(--color-text-muted);font-size:var(--text-sm);}
 
-    .paper-tape {
-      content: "";
-      position: absolute;
-      width: 96px;
-      height: 26px;
-      background: var(--color-tape);
-      border: 1px solid rgba(166, 132, 88, 0.12);
-      backdrop-filter: blur(2px);
-      top: 1rem;
-      left: 2rem;
-      transform: rotate(-7deg);
-      border-radius: 3px;
+    /* label */
+    .field-label{font-family:var(--font-display);font-size:1.2rem;font-weight:600;margin-bottom:0.5rem;color:var(--color-text);}
+
+    /* success toast */
+    .toast{
+      position:fixed;bottom:2rem;right:2rem;z-index:2000;
+      padding:1rem 1.5rem;border-radius:var(--radius-lg);
+      background:var(--color-primary);color:#fff8f5;
+      box-shadow:var(--shadow-lg);font-size:var(--text-sm);
+      transform:translateY(100px);opacity:0;
+      transition:transform 0.35s cubic-bezier(0.16,1,0.3,1),opacity 0.35s;
+      pointer-events:none;max-width:320px;
     }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.45rem 0.9rem;
-      border-radius: var(--radius-full);
-      background: rgba(255,255,255,0.72);
-      border: 1px solid rgba(112, 73, 43, 0.1);
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      margin-bottom: var(--space-5);
-    }
-
-    .hero h2 {
-      margin: 0;
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 6vw, 5.6rem);
-      line-height: 0.88;
-      letter-spacing: -0.045em;
-      max-width: 9ch;
-    }
-
-    .hero-copy {
-      margin: var(--space-5) 0 var(--space-6);
-      color: var(--color-text-muted);
-      max-width: 58ch;
-      line-height: 1.7;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      margin-bottom: var(--space-6);
-    }
-
-    .scrap-notes {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: var(--space-3);
-    }
-
-    .mini-note {
-      padding: var(--space-4);
-      border-radius: 1.2rem;
-      background:
-        repeating-linear-gradient(
-          to bottom,
-          transparent,
-          transparent 27px,
-          var(--color-paper-line) 27px,
-          var(--color-paper-line) 28px
-        ),
-        var(--color-surface-2);
-      border: 1px dashed rgba(122, 88, 69, 0.18);
-      min-height: 120px;
-    }
-
-    .mini-note strong {
-      display: block;
-      margin-bottom: 0.6rem;
-      font-family: var(--font-script);
-      font-size: 1.4rem;
-      color: var(--color-primary);
-    }
-
-    .preview-card {
-      padding: var(--space-6);
-      background:
-        radial-gradient(circle at top right, rgba(255,216,183,0.34), transparent 30%),
-        linear-gradient(160deg, rgba(255,255,255,0.85), rgba(247,236,226,0.96));
-    }
-
-    .polaroid-stack {
-      position: relative;
-      min-height: 470px;
-    }
-
-    .polaroid,
-    .sticky,
-    .ticket {
-      position: absolute;
-      border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-md);
-    }
-
-    .polaroid {
-      width: 230px;
-      padding: 14px 14px 54px;
-      background: #fffdf9;
-      border-radius: 1rem;
-    }
-
-    .polaroid-img {
-      display: block;
-      aspect-ratio: 1 / 1;
-      border-radius: 0.8rem;
-      background:
-        linear-gradient(135deg, rgba(214,176,164,0.25), rgba(255,227,196,0.52));
-      margin-bottom: 14px;
-      width: 100%;
-    }
-
-    .polaroid h3,
-    .polaroid p { margin: 0; }
-    .polaroid h3 {
-      font-family: var(--font-script);
-      font-size: 1.6rem;
-      margin-bottom: 0.25rem;
-      color: var(--color-primary);
-    }
-
-    .polaroid p { color: var(--color-text-muted); font-size: var(--text-sm); }
-    .polaroid.one { top: 10px; left: 10px; transform: rotate(-8deg); }
-    .polaroid.two { top: 128px; right: 10px; transform: rotate(7deg); }
-
-    .sticky {
-      top: 28px;
-      right: 30px;
-      width: 140px;
-      min-height: 140px;
-      padding: 1rem;
-      border-radius: 0.6rem;
-      background: #ffe89c;
-      transform: rotate(5deg);
-      font-family: var(--font-script);
-      font-size: 1.35rem;
-      color: #714806;
-    }
-
-    .ticket {
-      left: 50px;
-      bottom: 24px;
-      width: 270px;
-      padding: 1rem 1.2rem;
-      border-radius: 1.25rem;
-      background: linear-gradient(135deg, #f4d5d8, #fff2ec);
-      transform: rotate(-4deg);
-    }
-
-    .ticket small { display: block; color: var(--color-text-muted); margin-bottom: 0.3rem; }
-    .ticket strong { font-size: var(--text-lg); font-family: var(--font-display); }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: var(--space-8);
-    }
-
-    .panel {
-      padding: var(--space-6);
-      background:
-        repeating-linear-gradient(
-          to bottom,
-          rgba(0,0,0,0),
-          rgba(0,0,0,0) 31px,
-          var(--color-paper-line) 31px,
-          var(--color-paper-line) 32px
-        ),
-        var(--color-surface-2);
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: var(--space-4);
-      margin-bottom: var(--space-5);
-    }
-
-    .section-head h3,
-    .section-head h4 {
-      margin: 0;
-      font-family: var(--font-display);
-      font-size: var(--text-xl);
-      letter-spacing: -0.03em;
-    }
-
-    .section-head p {
-      margin: 0.45rem 0 0;
-      color: var(--color-text-muted);
-      font-size: var(--text-sm);
-    }
-
-    .editor-area {
-      display: grid;
-      gap: var(--space-4);
-    }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-2);
-      padding-bottom: var(--space-4);
-      border-bottom: 1px dashed var(--color-divider);
-    }
-
-    .tool {
-      padding: 0.7rem 0.95rem;
-      border-radius: 1rem;
-      border: 1px solid var(--color-border);
-      background: rgba(255,255,255,0.66);
-      font-size: var(--text-sm);
-      cursor: pointer;
-      transition: background var(--transition);
-    }
-    .tool:hover { background: var(--color-surface-offset); }
-
-    .letter-canvas {
-      min-height: 360px;
-      border-radius: 1.4rem;
-      padding: var(--space-6);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.58), transparent 16%),
-        repeating-linear-gradient(
-          to bottom,
-          rgba(0,0,0,0),
-          rgba(0,0,0,0) 31px,
-          var(--color-paper-line) 31px,
-          var(--color-paper-line) 32px
-        ),
-        #fffdf8;
-      border: 1px solid rgba(101, 70, 50, 0.14);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .letter-canvas::after {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      border: 1px dashed rgba(150, 109, 74, 0.12);
-      border-radius: 1rem;
-      pointer-events: none;
-    }
-
-    .canvas-title {
-      font-family: var(--font-script);
-      font-size: 2rem;
-      color: var(--color-primary);
-      margin-bottom: var(--space-3);
-    }
-
-    .canvas-lines {
-      color: var(--color-text-muted);
-      max-width: 55ch;
-      line-height: 1.9;
-    }
-
-    .sticker-row,
-    .theme-swatches,
-    .material-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-    }
-
-    .sticker-pill,
-    .swatch,
-    .material-chip {
-      border-radius: var(--radius-full);
-      border: 1px solid var(--color-border);
-      background: rgba(255,255,255,0.72);
-      padding: 0.75rem 1rem;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .swatch { width: 54px; height: 54px; padding: 0; cursor: pointer; border-radius: 50%; }
-    .swatch.rose { background: linear-gradient(135deg, #ffd5dd, #fff0f2); }
-    .swatch.sun { background: linear-gradient(135deg, #ffd98d, #fff5d8); }
-    .swatch.lilac { background: linear-gradient(135deg, #d6cbff, #f6f0ff); }
-    .swatch.mint { background: linear-gradient(135deg, #bdebd6, #f0fff8); }
-    .swatch.night { background: linear-gradient(135deg, #2b2035, #51406a); }
-
-    .timeline-card,
-    .sticker-card {
-      padding: var(--space-6);
-      background: color-mix(in srgb, var(--color-surface) 88%, white 12%);
-    }
-
-    .timeline-list {
-      display: grid;
-      gap: var(--space-4);
-    }
-
-    .timeline-item {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: var(--space-3);
-      align-items: start;
-    }
-
-    .timeline-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
-      margin-top: 0.45rem;
-      background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-      box-shadow: 0 0 0 6px rgba(184,92,114,0.12);
-    }
-
-    .timeline-item h5,
-    .timeline-item p { margin: 0; }
-    .timeline-item h5 { font-size: 1rem; }
-    .timeline-item p { color: var(--color-text-muted); font-size: var(--text-sm); margin-top: 0.2rem; }
-
-    .sticker-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: var(--space-3);
-      margin-top: var(--space-4);
-    }
-
-    .sticker-tile {
-      min-height: 92px;
-      border-radius: 1.25rem;
-      border: 1px solid var(--color-border);
-      background: linear-gradient(160deg, rgba(255,255,255,0.9), rgba(245,233,223,0.75));
-      display: grid;
-      place-items: center;
-      font-size: 2rem;
-      cursor: pointer;
-      transition: transform var(--transition);
-    }
-    .sticker-tile:hover { transform: scale(1.08) rotate(3deg); }
-
-    .footer-strip {
-      margin-top: var(--space-8);
-      padding: var(--space-5);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--color-border);
-      background: linear-gradient(135deg, rgba(255,242,232,0.85), rgba(255,249,243,0.7));
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: var(--space-4);
-      align-items: center;
-    }
-
-    .footer-strip strong {
-      display: block;
-      font-family: var(--font-display);
-      font-size: var(--text-lg);
-    }
-
-    .floating-deco {
-      position: absolute;
-      pointer-events: none;
-      opacity: 0.75;
-      filter: drop-shadow(0 18px 30px rgba(58, 27, 9, 0.08));
-    }
-
-    .floating-deco.one {
-      top: 130px;
-      right: -18px;
-      transform: rotate(12deg);
-      font-size: 4.5rem;
-    }
-
-    .floating-deco.two {
-      left: -14px;
-      bottom: 140px;
-      transform: rotate(-16deg);
-      font-size: 4rem;
-    }
+    .toast.show{transform:translateY(0);opacity:1;}
 
     @supports (animation-timeline: view()) {
-      .fade-in {
-        opacity: 0;
-        animation: reveal-fade linear both;
-        animation-timeline: view();
-        animation-range: entry 0% entry 70%;
-      }
+      .fade-in{opacity:0;animation:reveal-fade linear both;animation-timeline:view();animation-range:entry 0% entry 70%;}
     }
-
-    @keyframes reveal-fade {
-      to { opacity: 1; }
-    }
-
-    @media (max-width: 980px) {
-      .hero,
-      .content-grid {
-        grid-template-columns: 1fr;
-      }
-      .preview-card { order: -1; }
-      .scrap-notes,
-      .sticker-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 640px) {
-      .app-shell { width: min(100% - 1rem, 100%); padding-top: 1rem; }
-      .topbar,
-      .hero-card,
-      .preview-card,
-      .panel,
-      .timeline-card,
-      .sticker-card,
-      .footer-strip { border-radius: 1.4rem; }
-      .topbar { align-items: flex-start; flex-direction: column; }
-      .topbar-actions { width: 100%; justify-content: flex-start; }
-      .hero h2 { font-size: clamp(2.6rem, 14vw, 4rem); }
-      .scrap-notes,
-      .sticker-grid { grid-template-columns: 1fr; }
-      .polaroid-stack { min-height: 420px; }
-      .polaroid { width: 190px; }
-      .polaroid.two { top: 160px; }
-      .sticky { right: 4px; width: 128px; min-height: 124px; }
-      .ticket { left: 14px; width: 220px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-    }
+    @keyframes reveal-fade{to{opacity:1;}}
+    @media (max-width:980px){.hero,.content-grid{grid-template-columns:1fr;}.preview-card{order:-1;}.scrap-notes,.sticker-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media (max-width:640px){.app-shell{width:min(100% - 1rem,100%);padding-top:1rem;}.topbar,.hero-card,.preview-card,.panel,.timeline-card,.sticker-card,.footer-strip{border-radius:1.4rem;}.topbar{align-items:flex-start;flex-direction:column;}.topbar-actions{width:100%;justify-content:flex-start;}.hero h2{font-size:clamp(2.6rem,14vw,4rem);}.scrap-notes,.sticker-grid{grid-template-columns:1fr;}.polaroid-stack{min-height:420px;}.polaroid{width:190px;}.polaroid.two{top:160px;}.sticky{right:4px;width:128px;min-height:124px;}.ticket{left:14px;width:220px;}}
+    @media (max-width:600px){.modal{border-radius:1.2rem;}.modal-body,.modal-header,.modal-footer{padding-left:1rem;padding-right:1rem;}}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}}
   </style>
 </head>
 <body>
@@ -692,9 +302,9 @@
       </div>
       <div class="topbar-actions">
         <span class="chip">Paper mode</span>
-        <button class="ghost-btn" type="button">Sticker tray</button>
+        <button class="ghost-btn" type="button" id="stickerTrayBtn">Sticker tray</button>
         <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch theme">Dark mode</button>
-        <button class="primary-btn" type="button">Create spread</button>
+        <button class="primary-btn" type="button" id="openSpread">✦ Create spread</button>
       </div>
     </header>
 
@@ -703,88 +313,51 @@
         <div class="paper-tape"></div>
         <div class="eyebrow">✿ Scrapbook editor · layered memories</div>
         <h2>Build letters that feel handmade.</h2>
-        <p class="hero-copy">This base template is designed for a soft scrapbook aesthetic: torn-paper cards, tape accents, polaroid photo blocks, sticker trays, lined journal paper, dreamy typography, and space for a richer Canva-style editing suite.</p>
+        <p class="hero-copy">Pick an occasion, choose a paper theme, write your message, sprinkle stickers — then save or share your spread.</p>
         <div class="hero-actions">
-          <button class="primary-btn" type="button">Open composer</button>
-          <button class="ghost-btn" type="button">Preview themes</button>
+          <button class="primary-btn" type="button" id="openSpread2">Open composer</button>
+          <button class="ghost-btn" type="button" id="openThemes">Preview themes</button>
         </div>
         <div class="scrap-notes">
-          <div class="mini-note">
-            <strong>Photos</strong>
-            Drag polaroids, film strips, framed memories, and mood images.
-          </div>
-          <div class="mini-note">
-            <strong>Paper</strong>
-            Mix stationery textures, torn notes, tags, and layered cards.
-          </div>
-          <div class="mini-note">
-            <strong>Decor</strong>
-            Add bows, stamps, pressed flowers, doodles, and date labels.
-          </div>
+          <div class="mini-note"><strong>Photos</strong>Drag polaroids, film strips, framed memories, and mood images.</div>
+          <div class="mini-note"><strong>Paper</strong>Mix stationery textures, torn notes, tags, and layered cards.</div>
+          <div class="mini-note"><strong>Decor</strong>Add bows, stamps, pressed flowers, doodles, and date labels.</div>
         </div>
       </article>
-
       <aside class="preview-card fade-in">
         <div class="section-head">
-          <div>
-            <h3>Spread preview</h3>
-            <p>Base layout for a dreamy keepsake board.</p>
-          </div>
+          <div><h3>Spread preview</h3><p>Base layout for a dreamy keepsake board.</p></div>
           <span class="chip">v1 theme</span>
         </div>
         <div class="polaroid-stack">
-          <article class="polaroid one">
-            <div class="polaroid-img"></div>
-            <h3>Golden hour</h3>
-            <p>Photo memory block with handwritten caption.</p>
-          </article>
-          <article class="polaroid two">
-            <div class="polaroid-img"></div>
-            <h3>Little things</h3>
-            <p>Layer more cards, stickers, and ribbon accents.</p>
-          </article>
+          <article class="polaroid one"><div class="polaroid-img"></div><h3>Golden hour</h3><p>Photo memory block with handwritten caption.</p></article>
+          <article class="polaroid two"><div class="polaroid-img"></div><h3>Little things</h3><p>Layer more cards, stickers, and ribbon accents.</p></article>
           <div class="sticky">remember this feeling ♡</div>
-          <div class="ticket">
-            <small>Ephemera slot</small>
-            <strong>Tickets, tags, dates, little notes</strong>
-          </div>
+          <div class="ticket"><small>Ephemera slot</small><strong>Tickets, tags, dates, little notes</strong></div>
         </div>
       </aside>
     </section>
 
     <section class="content-grid">
       <article class="panel fade-in">
-        <div class="section-head">
-          <div>
-            <h4>Editor shell</h4>
-            <p>A strong base for your full scrapbook composer.</p>
-          </div>
-          <span class="chip">Canvas</span>
-        </div>
+        <div class="section-head"><div><h4>Editor shell</h4><p>A strong base for your full scrapbook composer.</p></div><span class="chip">Canvas</span></div>
         <div class="editor-area">
           <div class="toolbar">
-            <button class="tool">Aa Fonts</button>
-            <button class="tool">Paper styles</button>
-            <button class="tool">Frames</button>
-            <button class="tool">Stickers</button>
-            <button class="tool">Tape</button>
-            <button class="tool">Textures</button>
-            <button class="tool">Photos</button>
-            <button class="tool">Layers</button>
+            <button class="tool" onclick="openModal()">Aa Fonts</button>
+            <button class="tool" onclick="openModal()">Paper styles</button>
+            <button class="tool" onclick="openModal()">Frames</button>
+            <button class="tool" onclick="openModal()">Stickers</button>
+            <button class="tool" onclick="openModal()">Tape</button>
+            <button class="tool" onclick="openModal()">Textures</button>
+            <button class="tool" onclick="openModal()">Photos</button>
+            <button class="tool" onclick="openModal()">Layers</button>
           </div>
           <div class="letter-canvas">
             <div class="canvas-title">Dear you,</div>
-            <div class="canvas-lines">
-              This area is your editable paper stage. Add rich text, collage photos, little taped notes, ribbon dividers, pressed-flower stickers, heart doodles, and draggable memory fragments. The layout is already styled to feel soft, tactile, and handmade.
-            </div>
+            <div class="canvas-lines">This area is your editable paper stage. Click <strong>Create spread</strong> above to open the full composer — write your message, pick a paper theme, and scatter stickers.</div>
           </div>
           <div>
-            <div class="section-head" style="margin: 0 0 1rem 0;">
-              <div>
-                <h4 style="font-size: 1.5rem;">Sticker suite</h4>
-                <p>Use these as the starting visual language.</p>
-              </div>
-            </div>
+            <div class="section-head" style="margin:0 0 1rem 0;"><div><h4 style="font-size:1.5rem;">Sticker suite</h4><p>Use these as the starting visual language.</p></div></div>
             <div class="sticker-row">
               <span class="sticker-pill">🌷 Soft florals</span>
               <span class="sticker-pill">🎀 Satin bows</span>
@@ -795,85 +368,41 @@
             </div>
           </div>
           <div>
-            <div class="section-head" style="margin: 0 0 1rem 0;">
-              <div>
-                <h4 style="font-size: 1.5rem;">Paper palettes</h4>
-                <p>Soft tones for layered stationery moods.</p>
-              </div>
-            </div>
+            <div class="section-head" style="margin:0 0 1rem 0;"><div><h4 style="font-size:1.5rem;">Paper palettes</h4><p>Soft tones for layered stationery moods.</p></div></div>
             <div class="theme-swatches">
-              <button class="swatch rose" aria-label="Rose paper"></button>
-              <button class="swatch sun" aria-label="Sun paper"></button>
-              <button class="swatch lilac" aria-label="Lilac paper"></button>
-              <button class="swatch mint" aria-label="Mint paper"></button>
-              <button class="swatch night" aria-label="Night paper"></button>
+              <button class="swatch rose" aria-label="Rose paper" onclick="openModal('rose')"></button>
+              <button class="swatch sun" aria-label="Sun paper" onclick="openModal('sun')"></button>
+              <button class="swatch lilac" aria-label="Lilac paper" onclick="openModal('lilac')"></button>
+              <button class="swatch mint" aria-label="Mint paper" onclick="openModal('mint')"></button>
+              <button class="swatch night" aria-label="Night paper" onclick="openModal('night')"></button>
             </div>
           </div>
         </div>
       </article>
-
-      <div style="display: grid; gap: 2rem;">
+      <div style="display:grid;gap:2rem;">
         <aside class="timeline-card fade-in">
-          <div class="section-head">
-            <div>
-              <h4>Scrapbook layers</h4>
-              <p>Suggested feature buckets for the full build.</p>
-            </div>
-          </div>
+          <div class="section-head"><div><h4>Scrapbook layers</h4><p>Suggested feature buckets for the full build.</p></div></div>
           <div class="timeline-list">
-            <div class="timeline-item">
-              <span class="timeline-dot"></span>
-              <div>
-                <h5>Photo collage system</h5>
-                <p>Polaroids, film strips, taped corners, shadows, overlap presets, and caption tags.</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <span class="timeline-dot"></span>
-              <div>
-                <h5>Paper ephemera pack</h5>
-                <p>Journal scraps, torn edges, tags, postage marks, receipt strips, notes, and labels.</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <span class="timeline-dot"></span>
-              <div>
-                <h5>Romantic motion</h5>
-                <p>Gentle fades, layered reveals, paper-lift hover, modal zoom, and floating ambience.</p>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <span class="timeline-dot"></span>
-              <div>
-                <h5>Customization controls</h5>
-                <p>Font library, colors, sticker recolors, page templates, and scene-based arrangements.</p>
-              </div>
-            </div>
+            <div class="timeline-item"><span class="timeline-dot"></span><div><h5>Photo collage system</h5><p>Polaroids, film strips, taped corners, shadows, overlap presets, and caption tags.</p></div></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><div><h5>Paper ephemera pack</h5><p>Journal scraps, torn edges, tags, postage marks, receipt strips, notes, and labels.</p></div></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><div><h5>Romantic motion</h5><p>Gentle fades, layered reveals, paper-lift hover, modal zoom, and floating ambience.</p></div></div>
+            <div class="timeline-item"><span class="timeline-dot"></span><div><h5>Customization controls</h5><p>Font library, colors, sticker recolors, page templates, and scene-based arrangements.</p></div></div>
           </div>
         </aside>
-
         <aside class="sticker-card fade-in">
-          <div class="section-head">
-            <div>
-              <h4>Visual language</h4>
-              <p>Starter aesthetic elements for your theme.</p>
-            </div>
-          </div>
+          <div class="section-head"><div><h4>Visual language</h4><p>Starter aesthetic elements for your theme.</p></div></div>
           <div class="material-row">
-            <span class="material-chip">Torn paper</span>
-            <span class="material-chip">Washi tape</span>
-            <span class="material-chip">Wax seals</span>
-            <span class="material-chip">Pressed flowers</span>
-            <span class="material-chip">Ribbon loops</span>
-            <span class="material-chip">Vintage stamps</span>
+            <span class="material-chip">Torn paper</span><span class="material-chip">Washi tape</span>
+            <span class="material-chip">Wax seals</span><span class="material-chip">Pressed flowers</span>
+            <span class="material-chip">Ribbon loops</span><span class="material-chip">Vintage stamps</span>
           </div>
           <div class="sticker-grid">
-            <div class="sticker-tile">🌸</div>
-            <div class="sticker-tile">🎀</div>
-            <div class="sticker-tile">🕯️</div>
-            <div class="sticker-tile">💐</div>
-            <div class="sticker-tile">📷</div>
-            <div class="sticker-tile">💌</div>
+            <div class="sticker-tile" onclick="openModal()">🌸</div>
+            <div class="sticker-tile" onclick="openModal()">🎀</div>
+            <div class="sticker-tile" onclick="openModal()">🕯️</div>
+            <div class="sticker-tile" onclick="openModal()">💐</div>
+            <div class="sticker-tile" onclick="openModal()">📷</div>
+            <div class="sticker-tile" onclick="openModal()">💌</div>
           </div>
         </aside>
       </div>
@@ -881,18 +410,118 @@
 
     <div class="footer-strip fade-in">
       <div>
-        <strong>Base template ready</strong>
-        <span style="color: var(--color-text-muted);">Use this as the foundation for your full scrapbook editor and letter experience.</span>
+        <strong>Ready to create your spread</strong>
+        <span style="color:var(--color-text-muted);">Open the composer, write your letter, pick a theme, and download your keepsake.</span>
       </div>
       <div class="topbar-actions">
-        <button class="ghost-btn" type="button">Add gallery rail</button>
-        <button class="primary-btn" type="button">Expand into full suite</button>
+        <button class="ghost-btn" type="button" onclick="openModal()">Add gallery rail</button>
+        <button class="primary-btn" type="button" onclick="openModal()">✦ Create spread</button>
       </div>
     </div>
   </div>
 
+  <!-- ═══════════════════ CREATE SPREAD MODAL ═══════════════════ -->
+  <div class="modal-backdrop" id="spreadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">✦ Create your spread</h2>
+        <button class="modal-close" id="closeModal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <!-- 1. Occasion -->
+        <div>
+          <div class="field-label">Occasion</div>
+          <div class="occ-row" id="occRow">
+            <button class="occ-btn active" data-occ="💌 Love letter">💌 Love letter</button>
+            <button class="occ-btn" data-occ="🎂 Birthday">🎂 Birthday</button>
+            <button class="occ-btn" data-occ="💐 Anniversary">💐 Anniversary</button>
+            <button class="occ-btn" data-occ="🙏 Thank you">🙏 Thank you</button>
+            <button class="occ-btn" data-occ="✨ Just because">✨ Just because</button>
+            <button class="occ-btn" data-occ="🌟 Encouragement">🌟 Encouragement</button>
+            <button class="occ-btn" data-occ="🎄 Holiday">🎄 Holiday</button>
+          </div>
+        </div>
+
+        <!-- 2. Paper theme -->
+        <div>
+          <div class="field-label">Paper theme</div>
+          <div class="theme-row" id="themeRow">
+            <button class="theme-opt active" data-paper="rose"><span class="dot" style="background:linear-gradient(135deg,#ffd5dd,#ffb5c2)"></span>Rose</button>
+            <button class="theme-opt" data-paper="sun"><span class="dot" style="background:linear-gradient(135deg,#ffd98d,#ffcc55)"></span>Sun</button>
+            <button class="theme-opt" data-paper="lilac"><span class="dot" style="background:linear-gradient(135deg,#d6cbff,#bfadff)"></span>Lilac</button>
+            <button class="theme-opt" data-paper="mint"><span class="dot" style="background:linear-gradient(135deg,#bdebd6,#8de0be)"></span>Mint</button>
+            <button class="theme-opt" data-paper="night"><span class="dot" style="background:linear-gradient(135deg,#2b2035,#51406a)"></span>Night</button>
+            <button class="theme-opt" data-paper="kraft"><span class="dot" style="background:linear-gradient(135deg,#d4a96a,#c89040)"></span>Kraft</button>
+            <button class="theme-opt" data-paper="cream"><span class="dot" style="background:linear-gradient(135deg,#fffdf5,#fdf6e3)"></span>Cream</button>
+          </div>
+        </div>
+
+        <!-- 3. Live canvas -->
+        <div>
+          <div class="field-label">Write your letter</div>
+          <div class="spread-canvas" id="spreadCanvas" data-paper="rose">
+            <div class="tape-strip"></div>
+            <input class="canvas-greeting" id="greetingInput" value="Dear you," maxlength="60" aria-label="Greeting line" />
+            <textarea class="canvas-body" id="bodyInput" rows="5" placeholder="Write your heart out here... every word is a keepsake." aria-label="Letter body"></textarea>
+            <div class="canvas-stickers" id="placedStickers"></div>
+          </div>
+        </div>
+
+        <!-- 4. Sticker tray -->
+        <div>
+          <div class="field-label">Add stickers</div>
+          <div class="sticker-tray">
+            <button class="tray-sticker" data-s="🌸" aria-label="Cherry blossom">🌸</button>
+            <button class="tray-sticker" data-s="🎀" aria-label="Bow">🎀</button>
+            <button class="tray-sticker" data-s="💌" aria-label="Love letter">💌</button>
+            <button class="tray-sticker" data-s="🌷" aria-label="Tulip">🌷</button>
+            <button class="tray-sticker" data-s="✨" aria-label="Sparkles">✨</button>
+            <button class="tray-sticker" data-s="🕯️" aria-label="Candle">🕯️</button>
+            <button class="tray-sticker" data-s="🫶" aria-label="Heart hands">🫶</button>
+            <button class="tray-sticker" data-s="💐" aria-label="Bouquet">💐</button>
+            <button class="tray-sticker" data-s="🦋" aria-label="Butterfly">🦋</button>
+            <button class="tray-sticker" data-s="🌙" aria-label="Moon">🌙</button>
+            <button class="tray-sticker" data-s="⭐" aria-label="Star">⭐</button>
+            <button class="tray-sticker" data-s="🍃" aria-label="Leaves">🍃</button>
+            <button class="tray-sticker" data-s="📷" aria-label="Camera">📷</button>
+            <button class="tray-sticker" data-s="📮" aria-label="Postbox">📮</button>
+            <button class="tray-sticker" data-s="🎵" aria-label="Music note">🎵</button>
+            <button class="tray-sticker" data-s="☁️" aria-label="Cloud">☁️</button>
+          </div>
+          <p style="margin:0.5rem 0 0;font-size:var(--text-sm);color:var(--color-text-muted);">Tap a sticker to place it · tap a placed sticker to remove it</p>
+        </div>
+
+        <!-- 5. Recipient + delivery -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="field-group">
+            <label for="recipientName">Recipient name</label>
+            <input type="text" id="recipientName" placeholder="e.g. Alex" />
+          </div>
+          <div class="field-group">
+            <label for="deliveryDate">Open when…</label>
+            <input type="text" id="deliveryDate" placeholder="e.g. you miss me" />
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <span class="modal-footer-left" id="footerHint">Tip: pick a theme to change the paper colour.</span>
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <button class="ghost-btn" id="clearBtn" type="button">Clear</button>
+          <button class="ghost-btn" id="copyBtn" type="button">📋 Copy text</button>
+          <button class="primary-btn" id="saveBtn" type="button">💾 Save spread</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
   <script>
     (() => {
+      /* ── theme toggle ── */
       const root = document.documentElement;
       const toggle = document.querySelector('[data-theme-toggle]');
       let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -903,11 +532,154 @@
         toggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
       };
       syncLabel();
-      toggle?.addEventListener('click', () => {
-        theme = theme === 'dark' ? 'light' : 'dark';
-        root.setAttribute('data-theme', theme);
-        syncLabel();
+      toggle?.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', theme); syncLabel(); });
+
+      /* ── modal state ── */
+      const backdrop = document.getElementById('spreadModal');
+      const canvas   = document.getElementById('spreadCanvas');
+      let selectedPaper = 'rose';
+      let selectedOcc   = '💌 Love letter';
+
+      window.openModal = function(paper) {
+        if (paper) { selectedPaper = paper; setTheme(paper); }
+        backdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('greetingInput').focus();
+      };
+
+      document.getElementById('openSpread').addEventListener('click', () => openModal());
+      document.getElementById('openSpread2').addEventListener('click', () => openModal());
+      document.getElementById('openThemes').addEventListener('click', () => openModal());
+      document.getElementById('stickerTrayBtn').addEventListener('click', () => openModal());
+      document.getElementById('closeModal').addEventListener('click', closeModal);
+      backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+      function closeModal() {
+        backdrop.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      /* ── occasion buttons ── */
+      document.getElementById('occRow').addEventListener('click', e => {
+        const btn = e.target.closest('.occ-btn');
+        if (!btn) return;
+        document.querySelectorAll('.occ-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedOcc = btn.dataset.occ;
+        updateHint();
       });
+
+      /* ── theme buttons ── */
+      document.getElementById('themeRow').addEventListener('click', e => {
+        const btn = e.target.closest('.theme-opt');
+        if (!btn) return;
+        document.querySelectorAll('.theme-opt').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedPaper = btn.dataset.paper;
+        setTheme(selectedPaper);
+        updateHint();
+      });
+
+      function setTheme(p) {
+        canvas.setAttribute('data-paper', p);
+      }
+
+      /* ── sticker tray ── */
+      document.querySelector('.sticker-tray').addEventListener('click', e => {
+        const btn = e.target.closest('.tray-sticker');
+        if (!btn) return;
+        const s = btn.dataset.s;
+        const el = document.createElement('span');
+        el.className = 'placed-sticker';
+        el.textContent = s;
+        el.title = 'Tap to remove';
+        el.setAttribute('role', 'img');
+        el.setAttribute('aria-label', btn.getAttribute('aria-label'));
+        el.addEventListener('click', () => el.remove());
+        document.getElementById('placedStickers').appendChild(el);
+      });
+
+      /* ── clear ── */
+      document.getElementById('clearBtn').addEventListener('click', () => {
+        document.getElementById('greetingInput').value = 'Dear you,';
+        document.getElementById('bodyInput').value = '';
+        document.getElementById('placedStickers').innerHTML = '';
+        document.getElementById('recipientName').value = '';
+        document.getElementById('deliveryDate').value = '';
+        showToast('Spread cleared ✦');
+      });
+
+      /* ── copy ── */
+      document.getElementById('copyBtn').addEventListener('click', () => {
+        const greeting = document.getElementById('greetingInput').value;
+        const body     = document.getElementById('bodyInput').value;
+        const stickers = [...document.querySelectorAll('.placed-sticker')].map(s => s.textContent).join(' ');
+        const recipient = document.getElementById('recipientName').value;
+        const when      = document.getElementById('deliveryDate').value;
+        let text = '';
+        if (recipient) text += `To: ${recipient}\n`;
+        if (when)      text += `Open when: ${when}\n\n`;
+        text += `${greeting}\n\n${body}`;
+        if (stickers)  text += `\n\n${stickers}`;
+        navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard 📋')).catch(() => showToast('Could not copy — try manually'));
+      });
+
+      /* ── save ── */
+      document.getElementById('saveBtn').addEventListener('click', () => {
+        const greeting  = document.getElementById('greetingInput').value || 'Dear you,';
+        const body      = document.getElementById('bodyInput').value || '';
+        const stickers  = [...document.querySelectorAll('.placed-sticker')].map(s => s.textContent).join(' ');
+        const recipient = document.getElementById('recipientName').value || 'My person';
+        const when      = document.getElementById('deliveryDate').value || 'the right moment';
+        const occ       = selectedOcc;
+        const paper     = selectedPaper;
+
+        const paperColors = {
+          rose: {bg:'#fff0f2', line:'rgba(200,100,120,0.07)', text:'#5a1f2c'},
+          sun:  {bg:'#fff8e1', line:'rgba(180,130,30,0.08)',  text:'#5a3c00'},
+          lilac:{bg:'#f6f0ff', line:'rgba(120,80,200,0.07)',  text:'#3d1f6e'},
+          mint: {bg:'#f0fff8', line:'rgba(40,160,100,0.07)',  text:'#1a4d36'},
+          night:{bg:'#2b2035', line:'rgba(200,180,255,0.07)', text:'#e8dcff'},
+          kraft:{bg:'#d4a96a', line:'rgba(120,80,30,0.09)',   text:'#2e1a02'},
+          cream:{bg:'#fffdf5', line:'rgba(120,90,60,0.07)',   text:'#3a2418'},
+        };
+        const pc = paperColors[paper] || paperColors.rose;
+
+        const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>${occ} for ${recipient}</title><link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet"><style>*{box-sizing:border-box;margin:0;padding:0;}body{min-height:100vh;display:grid;place-items:center;background:${pc.bg};font-family:'Caveat',cursive;padding:2rem;}
+.card{max-width:560px;width:100%;padding:2.5rem 2.5rem 3rem;border-radius:2rem;background:repeating-linear-gradient(to bottom,transparent,transparent 31px,${pc.line} 31px,${pc.line} 32px),${pc.bg};box-shadow:0 30px 80px rgba(0,0,0,0.14);border:1px solid rgba(0,0,0,0.08);color:${pc.text};position:relative;}
+.tape{position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-2deg);width:100px;height:22px;background:rgba(244,224,180,0.75);border-radius:3px;}
+.occ{font-family:'Cormorant Garamond',serif;font-size:0.95rem;opacity:0.65;margin-bottom:1rem;letter-spacing:0.06em;}
+.when{font-family:'Cormorant Garamond',serif;font-style:italic;margin-bottom:0.3rem;opacity:0.7;font-size:1rem;}
+.greeting{font-size:2rem;font-weight:700;margin-bottom:0.75rem;}
+.body{font-size:1.35rem;line-height:2;white-space:pre-wrap;margin-bottom:1rem;}
+.stickers{font-size:1.8rem;letter-spacing:0.1rem;margin-top:0.5rem;}
+.sig{margin-top:1.5rem;font-family:'Cormorant Garamond',serif;font-style:italic;opacity:0.6;font-size:1rem;}
+</style></head><body><div class="card"><div class="tape"></div><div class="occ">${occ}</div>${when ? `<div class="when">Open when: ${when}</div>` : ''}<div class="greeting">${greeting}</div><div class="body">${body.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>${stickers ? `<div class="stickers">${stickers}</div>` : ''}<div class="sig">With love, for ${recipient}</div></div></body></html>`;
+
+        const blob = new Blob([html], {type:'text/html'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `spread-${recipient.replace(/\s+/g,'-').toLowerCase()}.html`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+        showToast('Spread saved — check your downloads 💾');
+      });
+
+      /* ── hint ── */
+      function updateHint() {
+        document.getElementById('footerHint').textContent = `${selectedOcc} · ${selectedPaper} paper`;
+      }
+
+      /* ── toast ── */
+      let toastTimer;
+      function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+      }
     })();
   </script>
 </body>
