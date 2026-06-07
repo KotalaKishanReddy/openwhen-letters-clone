@@ -3,8 +3,12 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Lock, Eye, Sparkles, Heart } from 'lucide-react'
 
-const VERSION    = 'v1.2.1'
+// ── Version manifest ──────────────────────────────────────────────────────────
+// Each release gets a codename. Update VERSION + CODENAME on every release.
+const VERSION    = 'v1.3.0'
+const CODENAME   = 'Sealed with Care'
 const BUILD_DATE = 'Jun 7 2026'
+// ─────────────────────────────────────────────────────────────────────────────
 
 const CARDS = [
   { label: "you're stressed",         color: '#ffffff' },
@@ -26,11 +30,8 @@ const FEATURES = [
   { icon: Heart,    text: 'Fully customisable' },
 ]
 
-// Bug fix: actual card height = py-5 (20px top + 20px bottom) + ~72px content ≈ 112px
-// The magic number 56 was wrong (half the real height), causing the scroll loop to
-// jump instead of seamlessly looping. We animate exactly one full set's height.
-const CARD_HEIGHT   = 112  // px — matches rendered card height
-const CARD_GAP      = 12   // px — gap-3 = 0.75rem = 12px
+const CARD_HEIGHT   = 112
+const CARD_GAP      = 12
 const SINGLE_HEIGHT = CARDS.length * (CARD_HEIGHT + CARD_GAP)
 
 export default function Home() {
@@ -42,7 +43,9 @@ export default function Home() {
         bg-cream/90 backdrop-blur-md border-b border-brown/10">
         <div className="flex items-center gap-2.5">
           <span className="font-serif-display italic text-2xl text-brown select-none">openwhen</span>
-          <span className="text-[10px] font-mono text-brown/30 bg-brown/5 px-2 py-0.5 rounded-full">
+          <span
+            title={`${VERSION} — ${CODENAME}`}
+            className="text-[10px] font-mono text-brown/30 bg-brown/5 px-2 py-0.5 rounded-full cursor-default">
             {VERSION}
           </span>
         </div>
@@ -116,7 +119,13 @@ export default function Home() {
       <footer className="border-t border-brown/8 px-8 py-5 flex items-center justify-between flex-wrap gap-3">
         <span className="font-serif-display italic text-brown/40 text-sm select-none">openwhen 💌</span>
         <div className="flex items-center gap-3 text-xs text-brown/30 font-mono select-none">
-          <span className="bg-brown/5 px-2.5 py-1 rounded-full">{VERSION}</span>
+          <span
+            title={CODENAME}
+            className="bg-brown/5 px-2.5 py-1 rounded-full cursor-default">
+            {VERSION}
+          </span>
+          <span>·</span>
+          <span className="italic opacity-70">&ldquo;{CODENAME}&rdquo;</span>
           <span>·</span>
           <span>deployed {BUILD_DATE}</span>
           <span>·</span>
