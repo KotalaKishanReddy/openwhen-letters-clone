@@ -4,226 +4,683 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>💌 Open When Letters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
   <style>
+    /* ══════════════════════════════════════════
+       ROOT & RESET
+    ══════════════════════════════════════════ */
     :root {
-      --bg: #fdf6f0;
-      --card: #fff8f3;
-      --accent: #c0392b;
-      --accent2: #e74c3c;
-      --text: #2c2c2c;
-      --muted: #7f8c8d;
-      --border: #f0d9cc;
-      --shadow: 0 4px 24px rgba(192,57,43,0.08);
-      --radius: 18px;
+      --rose:    #c0392b;
+      --rose2:   #e74c3c;
+      --rose3:   #ff8a80;
+      --cream:   #fdf6ef;
+      --paper:   #fefaf4;
+      --paperdark: #f5ead8;
+      --ink:     #2c1810;
+      --ink2:    #5c3d2e;
+      --muted:   #9e7b6b;
+      --border:  #e8d5c4;
+      --gold:    #d4a843;
+      --shadow:  0 6px 32px rgba(192,57,43,0.10);
+      --r: 20px;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Georgia', serif;
-      background: var(--bg);
-      color: var(--text);
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
       min-height: 100vh;
+      overflow-x: hidden;
     }
-    /* ── HEADER ── */
+
+    /* ══════════════════════════════════════════
+       PARTICLES CANVAS
+    ══════════════════════════════════════════ */
+    #particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .5; }
+
+    /* ══════════════════════════════════════════
+       HEADER
+    ══════════════════════════════════════════ */
     header {
-      background: linear-gradient(135deg, #c0392b 0%, #e74c3c 50%, #ff6b6b 100%);
+      position: relative;
+      background: linear-gradient(135deg, #7b1e14 0%, #c0392b 40%, #e74c3c 75%, #ff8a80 100%);
       color: #fff;
       text-align: center;
-      padding: 48px 20px 36px;
-      position: relative;
+      padding: 64px 20px 52px;
       overflow: hidden;
+      z-index: 1;
     }
     header::before {
-      content: '💌';
-      font-size: 72px;
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .header-envelope {
+      font-size: 80px;
       display: block;
-      margin-bottom: 12px;
-      animation: float 3s ease-in-out infinite;
+      margin-bottom: 16px;
+      animation: floatBob 3.5s ease-in-out infinite;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,.25));
     }
-    @keyframes float {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+    @keyframes floatBob {
+      0%,100% { transform: translateY(0) rotate(-2deg); }
+      50%      { transform: translateY(-14px) rotate(2deg); }
     }
-    header h1 { font-size: 2.2rem; font-weight: bold; letter-spacing: 1px; }
-    header p { margin-top: 8px; opacity: 0.88; font-size: 1rem; font-style: italic; }
-    /* ── MAIN ── */
-    main { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
-    /* ── TABS ── */
+    header h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.2rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 12px rgba(0,0,0,.2);
+    }
+    header p {
+      margin-top: 10px;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      opacity: .88;
+      font-size: 1.05rem;
+    }
+    .enc-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.15);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,.3);
+      color: #fff;
+      font-size: .78rem; font-family: monospace;
+      padding: 5px 14px; border-radius: 30px;
+      margin-top: 16px;
+    }
+    .ribbon {
+      position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 40px;
+      background: var(--cream);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    /* ══════════════════════════════════════════
+       MAIN LAYOUT
+    ══════════════════════════════════════════ */
+    main { max-width: 980px; margin: 0 auto; padding: 36px 18px 80px; position: relative; z-index: 1; }
+
+    /* ══════════════════════════════════════════
+       TABS
+    ══════════════════════════════════════════ */
     .tabs {
-      display: flex; gap: 12px; margin-bottom: 32px;
-      border-bottom: 2px solid var(--border); padding-bottom: 0;
+      display: flex; gap: 4px;
+      background: var(--paperdark);
+      border-radius: 14px;
+      padding: 5px;
+      margin-bottom: 36px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,.07);
     }
     .tab-btn {
-      padding: 12px 28px; border: none; background: none;
-      font-size: 1rem; cursor: pointer; color: var(--muted);
-      border-bottom: 3px solid transparent; margin-bottom: -2px;
-      font-family: inherit; transition: all .2s;
+      flex: 1; padding: 11px 12px;
+      border: none; background: none;
+      font-family: 'Lato', sans-serif;
+      font-size: .92rem; cursor: pointer;
+      color: var(--muted); border-radius: 10px;
+      transition: all .22s; font-weight: 600;
     }
-    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: bold; }
-    .tab-btn:hover { color: var(--accent2); }
+    .tab-btn.active {
+      background: #fff;
+      color: var(--rose);
+      box-shadow: 0 2px 10px rgba(192,57,43,.15);
+    }
+    .tab-btn:hover:not(.active) { background: rgba(255,255,255,.5); color: var(--rose2); }
     .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-    /* ── CARDS ── */
-    .card {
-      background: var(--card);
+    .tab-panel.active { display: block; animation: fadeIn .3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* ══════════════════════════════════════════
+       PAPER CARD
+    ══════════════════════════════════════════ */
+    .paper {
+      background: var(--paper);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 28px 24px;
-      box-shadow: var(--shadow);
+      border-radius: var(--r);
+      padding: 32px;
+      box-shadow: var(--shadow), 0 1px 0 rgba(255,255,255,.9) inset;
       margin-bottom: 24px;
+      position: relative;
     }
-    .card h2 { font-size: 1.2rem; color: var(--accent); margin-bottom: 16px; }
-    /* ── FORM ELEMENTS ── */
-    label { display: block; font-size: .9rem; color: var(--muted); margin-bottom: 5px; }
-    input[type=text], input[type=password], textarea, select {
-      width: 100%; padding: 12px 14px;
-      border: 1.5px solid var(--border); border-radius: 10px;
-      font-family: inherit; font-size: 1rem; color: var(--text);
-      background: #fff; margin-bottom: 16px;
-      transition: border-color .2s;
+    .paper::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: var(--r);
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 27px,
+        rgba(200,180,160,.13) 27px,
+        rgba(200,180,160,.13) 28px
+      );
+      pointer-events: none;
     }
-    input:focus, textarea:focus, select:focus {
-      outline: none; border-color: var(--accent2);
+    .paper-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--rose);
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
     }
-    textarea { min-height: 160px; resize: vertical; line-height: 1.6; }
-    /* ── BUTTONS ── */
+    .paper-title::after {
+      content: '';
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    /* ══════════════════════════════════════════
+       FORM ELEMENTS
+    ══════════════════════════════════════════ */
+    .field { margin-bottom: 18px; }
+    .field label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 6px;
+    }
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      color: var(--ink);
+      background: #fffcf7;
+      transition: border-color .2s, box-shadow .2s;
+      appearance: none;
+    }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline: none;
+      border-color: var(--rose2);
+      box-shadow: 0 0 0 3px rgba(231,76,60,.1);
+    }
+    .field textarea {
+      min-height: 180px;
+      resize: vertical;
+      line-height: 1.8;
+      font-family: 'Playfair Display', serif;
+      font-size: .97rem;
+    }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media(max-width:540px) { .field-row { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════════════════
+       RICH TEXT TOOLBAR
+    ══════════════════════════════════════════ */
+    .toolbar {
+      display: flex; flex-wrap: wrap; gap: 4px;
+      padding: 8px 10px;
+      background: var(--paperdark);
+      border: 1.5px solid var(--border);
+      border-bottom: none;
+      border-radius: 12px 12px 0 0;
+    }
+    .tool-btn {
+      padding: 5px 9px; border: none;
+      background: none; border-radius: 6px;
+      cursor: pointer; font-size: .9rem;
+      color: var(--ink2); transition: background .15s;
+      font-family: inherit;
+    }
+    .tool-btn:hover { background: rgba(192,57,43,.12); color: var(--rose); }
+    .tool-btn.active-tool { background: rgba(192,57,43,.18); color: var(--rose); }
+    .tool-sep { width: 1px; background: var(--border); margin: 3px 2px; align-self: stretch; }
+    #rich-editor {
+      width: 100%;
+      min-height: 200px;
+      padding: 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 0 0 12px 12px;
+      font-family: 'Playfair Display', serif;
+      font-size: .97rem;
+      line-height: 1.8;
+      color: var(--ink);
+      background: #fffcf7;
+      outline: none;
+      overflow-y: auto;
+    }
+    #rich-editor:focus { border-color: var(--rose2); box-shadow: 0 0 0 3px rgba(231,76,60,.1); }
+    #rich-editor[placeholder]:empty::before {
+      content: attr(placeholder);
+      color: var(--muted); pointer-events: none;
+      font-style: italic;
+    }
+    .color-swatch {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid rgba(0,0,0,.1); cursor: pointer;
+      display: inline-block; transition: transform .15s;
+    }
+    .color-swatch:hover { transform: scale(1.2); }
+    .font-select {
+      padding: 4px 6px; border: 1px solid var(--border);
+      border-radius: 6px; font-size: .82rem;
+      background: #fff; color: var(--ink2);
+      cursor: pointer;
+    }
+
+    /* ══════════════════════════════════════════
+       PHOTO UPLOAD
+    ══════════════════════════════════════════ */
+    .photo-drop {
+      border: 2px dashed var(--border);
+      border-radius: 14px;
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+      background: rgba(255,255,255,.5);
+      position: relative;
+    }
+    .photo-drop:hover, .photo-drop.drag-over {
+      border-color: var(--rose2);
+      background: rgba(231,76,60,.04);
+    }
+    .photo-drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .photo-drop .drop-icon { font-size: 2.4rem; display: block; margin-bottom: 8px; }
+    .photo-drop p { color: var(--muted); font-size: .9rem; }
+    .photo-drop strong { color: var(--rose); }
+    .photo-previews {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 14px;
+    }
+    .photo-thumb {
+      position: relative;
+      width: 90px; height: 90px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      transition: transform .2s;
+    }
+    .photo-thumb:hover { transform: scale(1.05); }
+    .photo-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-thumb .del-photo {
+      position: absolute; top: 3px; right: 3px;
+      background: rgba(0,0,0,.6); color: #fff;
+      border: none; border-radius: 50%;
+      width: 20px; height: 20px;
+      font-size: .7rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* Polaroid style variant */
+    .photo-thumb.polaroid {
+      width: 100px; height: 116px;
+      background: #fff;
+      padding: 6px 6px 22px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+      transform: rotate(-2deg);
+    }
+    .photo-thumb.polaroid:nth-child(even) { transform: rotate(1.5deg); }
+    .photo-thumb.polaroid img { height: 100%; border-radius: 2px; }
+
+    /* ══════════════════════════════════════════
+       STICKER PICKER
+    ══════════════════════════════════════════ */
+    .sticker-bar {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      padding: 10px 12px;
+      background: var(--paperdark);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 4px;
+    }
+    .sticker-btn {
+      font-size: 1.5rem; cursor: pointer;
+      padding: 4px; border-radius: 6px;
+      border: none; background: none;
+      transition: transform .15s;
+    }
+    .sticker-btn:hover { transform: scale(1.35); }
+
+    /* ══════════════════════════════════════════
+       PAPER THEME SELECTOR
+    ══════════════════════════════════════════ */
+    .theme-row {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+    .theme-swatch {
+      width: 44px; height: 44px; border-radius: 10px;
+      cursor: pointer; border: 3px solid transparent;
+      transition: all .2s; box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      position: relative;
+    }
+    .theme-swatch:hover { transform: scale(1.1); }
+    .theme-swatch.selected { border-color: var(--rose); }
+    .theme-swatch span {
+      position: absolute; inset: 0;
+      border-radius: 8px;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 5px,
+        rgba(0,0,0,.06) 5px, rgba(0,0,0,.06) 6px
+      );
+    }
+
+    /* ══════════════════════════════════════════
+       BUTTONS
+    ══════════════════════════════════════════ */
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 26px; border: none; border-radius: 10px;
-      font-size: 1rem; cursor: pointer; font-family: inherit;
-      transition: all .2s; font-weight: bold;
+      padding: 12px 26px; border: none; border-radius: 12px;
+      font-family: 'Lato', sans-serif;
+      font-size: .95rem; cursor: pointer;
+      transition: all .22s; font-weight: 700;
+      letter-spacing: .02em;
     }
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #fff; box-shadow: 0 3px 12px rgba(192,57,43,.25);
+      background: linear-gradient(135deg, var(--rose), var(--rose2));
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(192,57,43,.28);
     }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(192,57,43,.35); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(192,57,43,.38); }
+    .btn-primary:active { transform: translateY(0); }
     .btn-secondary {
-      background: var(--card); color: var(--accent);
+      background: #fff; color: var(--rose);
       border: 1.5px solid var(--border);
     }
-    .btn-secondary:hover { background: var(--border); }
-    .btn-danger { background: #e74c3c; color: #fff; }
+    .btn-secondary:hover { background: var(--paperdark); border-color: var(--rose2); }
+    .btn-ghost { background: none; color: var(--muted); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { background: var(--paperdark); color: var(--ink); }
+    .btn-danger { background: #e74c3c; color: #fff; padding: 6px 12px; font-size: .8rem; }
     .btn-danger:hover { background: #c0392b; }
-    /* ── LETTER GRID ── */
+    .btn-sm { padding: 8px 16px; font-size: .85rem; }
+    .flex-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+    /* ══════════════════════════════════════════
+       PASSPHRASE GATE
+    ══════════════════════════════════════════ */
+    .gate-wrap {
+      text-align: center;
+      padding: 48px 24px;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .gate-icon { font-size: 5rem; display: block; margin-bottom: 20px; animation: floatBob 3s ease-in-out infinite; }
+    .gate-wrap h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; color: var(--rose);
+      margin-bottom: 8px;
+    }
+    .gate-wrap p { color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+
+    /* ══════════════════════════════════════════
+       LETTER GRID (Read view)
+    ══════════════════════════════════════════ */
     .letters-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px; margin-top: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 18px;
+      margin-top: 20px;
     }
-    .letter-card {
-      background: linear-gradient(135deg, #fff8f3, #fdecea);
-      border: 1.5px solid var(--border); border-radius: 14px;
-      padding: 20px 16px; cursor: pointer;
-      text-align: center; transition: all .2s;
-      box-shadow: 0 2px 8px rgba(192,57,43,.06);
+    .envelope-card {
+      background: linear-gradient(145deg, #fff9f2, #fdecea);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 0;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all .25s;
+      box-shadow: 0 3px 12px rgba(192,57,43,.07);
+      position: relative;
     }
-    .letter-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(192,57,43,.15); border-color: var(--accent2); }
-    .letter-card .emoji { font-size: 2.4rem; display: block; margin-bottom: 10px; }
-    .letter-card .title { font-size: .95rem; font-weight: bold; color: var(--text); }
-    .letter-card .desc { font-size: .78rem; color: var(--muted); margin-top: 4px; }
-    /* ── MODAL ── */
+    .envelope-card:hover {
+      transform: translateY(-5px) rotate(.5deg);
+      box-shadow: 0 14px 36px rgba(192,57,43,.18);
+      border-color: var(--rose2);
+    }
+    .env-flap {
+      height: 48px;
+      background: linear-gradient(135deg, var(--rose), var(--rose2));
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      margin-bottom: -2px;
+    }
+    .env-body { padding: 16px 14px 18px; text-align: center; }
+    .env-emoji { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+    .env-title {
+      font-family: 'Playfair Display', serif;
+      font-size: .88rem; font-weight: 700;
+      color: var(--ink); line-height: 1.3;
+    }
+    .env-sub { font-size: .75rem; color: var(--muted); margin-top: 4px; font-style: italic; }
+    .env-seal {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--rose), var(--rose2));
+      margin: 10px auto 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; color: #fff;
+      box-shadow: 0 2px 6px rgba(192,57,43,.3);
+    }
+    /* thumb preview on card */
+    .env-photo-strip {
+      display: flex; gap: 2px; padding: 0 10px 10px;
+      justify-content: center;
+    }
+    .env-photo-strip img {
+      width: 36px; height: 36px;
+      border-radius: 5px; object-fit: cover;
+      border: 1.5px solid var(--border);
+    }
+
+    /* ══════════════════════════════════════════
+       MODAL — LETTER READER
+    ══════════════════════════════════════════ */
     .modal-overlay {
       position: fixed; inset: 0;
-      background: rgba(0,0,0,.5); backdrop-filter: blur(4px);
+      background: rgba(44,24,16,.55);
+      backdrop-filter: blur(6px);
       display: flex; align-items: center; justify-content: center;
-      z-index: 100; padding: 20px;
-      opacity: 0; pointer-events: none; transition: opacity .3s;
+      z-index: 200; padding: 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s;
     }
     .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal {
-      background: var(--card); border-radius: 20px;
-      max-width: 560px; width: 100%;
-      padding: 36px 32px; position: relative;
-      box-shadow: 0 20px 60px rgba(0,0,0,.25);
-      transform: scale(.94); transition: transform .3s;
+    .letter-modal {
+      background: var(--paper);
+      border-radius: 22px;
+      max-width: 640px; width: 100%;
+      max-height: 92vh; overflow-y: auto;
+      padding: 0;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(0,0,0,.3);
+      transform: scale(.9) translateY(20px);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1);
     }
-    .modal-overlay.open .modal { transform: scale(1); }
-    .modal-close {
-      position: absolute; top: 14px; right: 18px;
-      background: none; border: none; font-size: 1.4rem;
-      cursor: pointer; color: var(--muted);
+    .modal-overlay.open .letter-modal { transform: scale(1) translateY(0); }
+    .letter-modal::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 22px;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 27px,
+        rgba(200,180,160,.12) 27px,
+        rgba(200,180,160,.12) 28px
+      );
+      pointer-events: none; z-index: 0;
     }
-    .modal-emoji { font-size: 3rem; display: block; margin-bottom: 12px; }
-    .modal-title { font-size: 1.4rem; color: var(--accent); margin-bottom: 16px; }
-    .modal-body {
-      font-size: 1rem; line-height: 1.8; color: var(--text);
-      white-space: pre-wrap; max-height: 340px; overflow-y: auto;
-      background: #fff; border-radius: 10px; padding: 16px;
-      border: 1px solid var(--border);
+    .modal-header {
+      background: linear-gradient(135deg, var(--rose), var(--rose2));
+      border-radius: 22px 22px 0 0;
+      padding: 24px 28px 20px;
+      color: #fff;
+      position: relative;
+      z-index: 1;
     }
-    /* ── PASSPHRASE GATE ── */
-    .passphrase-gate {
-      text-align: center; padding: 40px 20px;
+    .modal-header .close-btn {
+      position: absolute; top: 14px; right: 16px;
+      background: rgba(255,255,255,.2);
+      border: none; border-radius: 50%;
+      width: 32px; height: 32px;
+      color: #fff; font-size: 1rem;
+      cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      transition: background .2s;
     }
-    .passphrase-gate .lock-icon { font-size: 4rem; display: block; margin-bottom: 16px; }
-    .passphrase-gate h2 { color: var(--accent); margin-bottom: 8px; }
-    .passphrase-gate p { color: var(--muted); margin-bottom: 24px; font-size: .95rem; }
-    /* ── WRITE SECTION ── */
-    .letter-list-write { margin-top: 16px; }
-    .letter-item-write {
+    .modal-header .close-btn:hover { background: rgba(255,255,255,.35); }
+    .modal-header .m-emoji { font-size: 2.6rem; display: block; margin-bottom: 8px; }
+    .modal-header .m-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.9rem; font-weight: 600;
+    }
+    .modal-body-wrap { padding: 28px 32px 32px; position: relative; z-index: 1; }
+    .modal-letter-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; line-height: 1.9;
+      color: var(--ink); min-height: 60px;
+    }
+    .modal-photos {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 20px;
+    }
+    .modal-photos img {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.12);
+      flex: 1; min-width: 120px;
+    }
+    .modal-photos .polaroid-wrap {
+      background: #fff;
+      padding: 8px 8px 28px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+      border-radius: 3px;
+      transform: rotate(-1.5deg);
+      transition: transform .2s;
+      flex: 1; min-width: 120px;
+    }
+    .modal-photos .polaroid-wrap:nth-child(even) { transform: rotate(1deg); }
+    .modal-photos .polaroid-wrap:hover { transform: rotate(0) scale(1.03); }
+    .modal-photos .polaroid-wrap img { border-radius: 2px; width: 100%; }
+    .divider-wax {
+      text-align: center; margin: 18px 0;
+      color: var(--rose); font-size: 1.1rem; opacity: .4;
+      letter-spacing: 8px;
+    }
+
+    /* ══════════════════════════════════════════
+       WRITE LIST
+    ══════════════════════════════════════════ */
+    .write-item {
       display: flex; align-items: center; gap: 12px;
-      padding: 10px 14px; border-radius: 10px;
-      border: 1px solid var(--border); margin-bottom: 8px;
-      background: #fff; cursor: pointer; transition: background .2s;
+      padding: 12px 14px; border-radius: 12px;
+      border: 1.5px solid var(--border);
+      margin-bottom: 8px; background: #fffcf7;
+      cursor: default; transition: background .2s;
     }
-    .letter-item-write:hover { background: #fdecea; }
-    .letter-item-write .emoji { font-size: 1.6rem; }
-    .letter-item-write .info { flex: 1; }
-    .letter-item-write .info .name { font-weight: bold; font-size: .95rem; }
-    .letter-item-write .info .preview { font-size: .8rem; color: var(--muted); margin-top: 2px; }
-    /* ── STATUS ── */
+    .write-item:hover { background: #fdecea; border-color: var(--rose3); }
+    .write-item .wi-emoji { font-size: 1.7rem; flex-shrink: 0; }
+    .write-item .wi-info { flex: 1; min-width: 0; }
+    .write-item .wi-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700; font-size: .95rem;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .write-item .wi-preview { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+    .write-item .wi-photos { font-size: .75rem; color: var(--rose2); margin-top: 2px; }
+
+    /* ══════════════════════════════════════════
+       STATUS & PROGRESS
+    ══════════════════════════════════════════ */
     .status {
-      padding: 10px 16px; border-radius: 8px;
-      font-size: .9rem; margin-bottom: 16px;
-      display: none;
+      padding: 10px 16px; border-radius: 10px;
+      font-size: .88rem; margin: 10px 0;
+      display: none; animation: fadeIn .3s ease;
     }
-    .status.success { background: #d5f5e3; color: #1e8449; display: block; }
-    .status.error { background: #fde8e8; color: #a93226; display: block; }
-    .status.info { background: #eaf4fd; color: #1a5276; display: block; }
-    /* ── ENCRYPTION BADGE ── */
-    .enc-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: #d5f5e3; color: #1e8449;
-      font-size: .78rem; padding: 4px 10px; border-radius: 20px;
-      margin-top: 8px; font-family: monospace;
+    .status.success { background: #d5f5e3; color: #1a6635; display: block; }
+    .status.error   { background: #fde8e8; color: #a93226; display: block; }
+    .status.info    { background: #eaf4fd; color: #1a5276; display: block; }
+    .progress { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; display: none; margin-top: 8px; }
+    .progress-bar { height: 100%; background: linear-gradient(90deg, var(--rose), var(--rose2)); animation: prog 1.6s ease-in-out infinite; }
+    @keyframes prog { 0%{width:0} 60%{width:70%} 100%{width:100%} }
+
+    /* ══════════════════════════════════════════
+       SECURITY TAB
+    ══════════════════════════════════════════ */
+    .sec-block {
+      padding: 18px 20px;
+      background: #f8f4ef;
+      border-radius: 14px;
+      border-left: 5px solid var(--rose);
+      margin-bottom: 14px;
     }
-    /* ── FOOTER ── */
-    footer {
-      text-align: center; padding: 24px;
-      color: var(--muted); font-size: .85rem;
-      border-top: 1px solid var(--border);
+    .sec-block h3 { font-family: 'Playfair Display', serif; color: var(--ink); margin-bottom: 6px; }
+    .sec-block p  { font-size: .9rem; color: var(--ink2); line-height: 1.6; }
+    .sec-block.green  { border-left-color: #27ae60; }
+    .sec-block.blue   { border-left-color: #2980b9; }
+    .sec-block.purple { border-left-color: #8e44ad; }
+    pre.code-block {
+      background: #1e1e1e; color: #dcdcdc;
+      padding: 18px; border-radius: 12px;
+      font-size: .82rem; overflow-x: auto;
+      line-height: 1.6;
     }
-    /* ── RESPONSIVE ── */
-    @media (max-width: 520px) {
-      header h1 { font-size: 1.5rem; }
-      .letters-grid { grid-template-columns: 1fr 1fr; }
-      .modal { padding: 24px 18px; }
-    }
-    .divider { height: 1px; background: var(--border); margin: 20px 0; }
-    .flex-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+    /* ══════════════════════════════════════════
+       BADGE
+    ══════════════════════════════════════════ */
     .badge {
-      display: inline-block; padding: 3px 10px; border-radius: 20px;
-      font-size: .78rem; background: var(--border); color: var(--muted);
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: .75rem; font-weight: 700;
     }
-    .badge.encrypted { background: #d5f5e3; color: #1e8449; }
-    .loading { opacity: .6; pointer-events: none; }
-    .progress {
-      height: 4px; background: var(--border); border-radius: 2px;
-      overflow: hidden; margin-top: 8px; display: none;
+    .badge-green { background: #d5f5e3; color: #1a6635; }
+    .badge-rose  { background: #fde8e8; color: var(--rose); }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    footer {
+      text-align: center;
+      padding: 28px 20px;
+      color: var(--muted);
+      font-size: .82rem;
+      border-top: 1px solid var(--border);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
     }
-    .progress-bar {
-      height: 100%; background: var(--accent2);
-      animation: progress 1.5s ease-in-out infinite;
+
+    /* ══════════════════════════════════════════
+       MISC
+    ══════════════════════════════════════════ */
+    @media(max-width:520px) {
+      header h1 { font-size: 2.2rem; }
+      .letters-grid { grid-template-columns: 1fr 1fr; }
+      .letter-modal { max-height: 95vh; }
+      .modal-body-wrap { padding: 20px 18px 24px; }
+      main { padding: 24px 12px 60px; }
     }
-    @keyframes progress { 0%{width:0} 50%{width:60%} 100%{width:100%} }
+    .wax-seal {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--rose), #7b1e14);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: #fff;
+      box-shadow: 0 3px 10px rgba(192,57,43,.35);
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
 
+<!-- Floating particles -->
+<canvas id="particles"></canvas>
+
+<!-- HEADER -->
 <header>
+  <span class="header-envelope">💌</span>
   <h1>Open When Letters</h1>
-  <p>A private collection of letters, just for you 💕</p>
-  <div class="enc-badge">🔐 AES-256-GCM Encrypted</div>
+  <p>A private, encrypted collection of letters — just for you 💕</p>
+  <div class="enc-pill">🔐 AES-256-GCM · PBKDF2-SHA256</div>
+  <div class="ribbon"></div>
 </header>
 
 <main>
@@ -234,62 +691,97 @@
     <button class="tab-btn" onclick="switchTab('about')">🔐 Security</button>
   </div>
 
-  <!-- ═══ READ TAB ═══ -->
+  <!-- ════════════════ READ TAB ════════════════ -->
   <div id="tab-read" class="tab-panel active">
-    <div id="read-gate" class="card">
-      <div class="passphrase-gate">
-        <span class="lock-icon">🔒</span>
-        <h2>Enter Passphrase</h2>
-        <p>Upload your letters file and enter the secret passphrase to unlock your letters.</p>
-        <div style="max-width:380px;margin:0 auto;text-align:left">
-          <label>Letters File (letters.json)</label>
-          <input type="file" id="read-file" accept=".json" style="margin-bottom:16px;padding:8px;" />
-          <label>Passphrase</label>
-          <input type="password" id="read-pass" placeholder="Enter your secret passphrase…" />
-          <div id="read-status" class="status"></div>
-          <div class="progress" id="read-progress"><div class="progress-bar"></div></div>
-          <button class="btn btn-primary" onclick="unlockLetters()" style="width:100%;margin-top:4px">🔓 Unlock Letters</button>
+
+    <div id="read-gate">
+      <div class="paper">
+        <div class="gate-wrap">
+          <span class="gate-icon">🔒</span>
+          <h2>Unlock Your Letters</h2>
+          <p>Upload your encrypted <code>letters.json</code> file and enter the secret passphrase to reveal the letters inside.</p>
+          <div style="text-align:left">
+            <div class="field">
+              <label>Letters File (letters.json)</label>
+              <input type="file" id="read-file" accept=".json" />
+            </div>
+            <div class="field">
+              <label>Passphrase</label>
+              <input type="password" id="read-pass" placeholder="Enter your secret passphrase…" />
+            </div>
+            <div id="read-status" class="status"></div>
+            <div class="progress" id="read-progress"><div class="progress-bar"></div></div>
+            <button class="btn btn-primary" onclick="unlockLetters()" style="width:100%;margin-top:8px;justify-content:center">🔓 Unlock Letters</button>
+          </div>
         </div>
       </div>
     </div>
+
     <div id="read-letters" style="display:none">
-      <div class="card" style="padding:16px 24px">
+      <div class="paper" style="padding:16px 24px">
         <div class="flex-row">
-          <div><strong id="read-greeting">Your Letters</strong></div>
-          <span class="badge encrypted">🔐 Decrypted</span>
-          <button class="btn btn-secondary" style="margin-left:auto;padding:7px 16px;font-size:.85rem" onclick="lockLetters()">🔒 Lock</button>
+          <div class="wax-seal">💕</div>
+          <div>
+            <strong id="read-greeting" style="font-family:'Playfair Display',serif;font-size:1.1rem">Your Letters</strong>
+            <div style="font-size:.78rem;color:var(--muted)">Click any envelope to open it</div>
+          </div>
+          <span class="badge badge-green" style="margin-left:auto">🔓 Decrypted</span>
+          <button class="btn btn-ghost btn-sm" onclick="lockLetters()">🔒 Lock</button>
         </div>
       </div>
       <div id="letters-grid" class="letters-grid"></div>
     </div>
+
   </div>
 
-  <!-- ═══ WRITE TAB ═══ -->
+  <!-- ════════════════ WRITE TAB ════════════════ -->
   <div id="tab-write" class="tab-panel">
-    <div id="write-gate" class="card">
-      <div class="passphrase-gate">
-        <span class="lock-icon">✍️</span>
-        <h2>Set Passphrase</h2>
-        <p>Set a passphrase to encrypt your letters. Share this passphrase with your friend privately.</p>
-        <div style="max-width:380px;margin:0 auto;text-align:left">
-          <label>Passphrase</label>
-          <input type="password" id="write-pass" placeholder="Choose a strong passphrase…" />
-          <label>Confirm Passphrase</label>
-          <input type="password" id="write-pass2" placeholder="Confirm passphrase…" />
-          <div id="write-status" class="status"></div>
-          <button class="btn btn-primary" onclick="initWriter()" style="width:100%;margin-top:4px">🚀 Start Writing</button>
+
+    <!-- GATE -->
+    <div id="write-gate">
+      <div class="paper">
+        <div class="gate-wrap">
+          <span class="gate-icon">✍️</span>
+          <h2>Start Writing</h2>
+          <p>Set a passphrase to encrypt your letters. You'll share this with your friend privately (call, in person, etc.).</p>
+          <div style="text-align:left">
+            <div class="field">
+              <label>Recipient's Name (optional)</label>
+              <input type="text" id="write-greeting" placeholder="e.g. Priya, Best Friend, My Love…" />
+            </div>
+            <div class="field">
+              <label>Passphrase</label>
+              <input type="password" id="write-pass" placeholder="Choose a strong passphrase…" />
+            </div>
+            <div class="field">
+              <label>Confirm Passphrase</label>
+              <input type="password" id="write-pass2" placeholder="Confirm passphrase…" />
+            </div>
+            <div id="write-status" class="status"></div>
+            <button class="btn btn-primary" onclick="initWriter()" style="width:100%;margin-top:8px;justify-content:center">🚀 Start Writing Letters</button>
+          </div>
         </div>
       </div>
     </div>
+
+    <!-- WRITE PANEL -->
     <div id="write-panel" style="display:none">
-      <!-- Add Letter Form -->
-      <div class="card">
-        <h2>✍️ Write a New Letter</h2>
-        <div class="flex-row" style="margin-bottom:16px">
-          <div style="flex:1">
+
+      <!-- Paper theme picker -->
+      <div class="paper" style="padding:20px 24px">
+        <div class="paper-title">🎨 Paper Theme</div>
+        <div class="theme-row" id="theme-row"></div>
+      </div>
+
+      <!-- Letter composer -->
+      <div class="paper" id="compose-paper">
+        <div class="paper-title">✍️ Compose a Letter</div>
+
+        <div class="field-row">
+          <div class="field">
             <label>Occasion (Open When…)</label>
             <select id="w-occasion">
-              <option value="">-- Choose or type custom --</option>
+              <option value="">— Choose or write custom —</option>
               <option value="you're sad">😢 You're sad</option>
               <option value="you're happy">😊 You're happy</option>
               <option value="you miss me">🥺 You miss me</option>
@@ -304,354 +796,550 @@
               <option value="you're missing home">🏠 You're missing home</option>
               <option value="you need to smile">😄 You need to smile</option>
               <option value="it's a rainy day">🌧️ It's a rainy day</option>
+              <option value="you get good news">🌟 You get good news</option>
+              <option value="you feel lonely">🌌 You feel lonely</option>
+              <option value="you're stressed">😰 You're stressed</option>
+              <option value="you're proud of yourself">🏆 You're proud of yourself</option>
             </select>
           </div>
+          <div class="field">
+            <label>Custom Occasion</label>
+            <input type="text" id="w-custom" placeholder="e.g. you get the job…" />
+          </div>
         </div>
-        <label>Custom Occasion (if not in list)</label>
-        <input type="text" id="w-custom" placeholder="e.g. you get the job…" />
-        <label>Emoji for this letter</label>
-        <input type="text" id="w-emoji" placeholder="💌" maxlength="2" style="max-width:80px" />
-        <label>Your Letter</label>
-        <textarea id="w-body" placeholder="Dear friend, open this when…"></textarea>
-        <div class="flex-row">
-          <button class="btn btn-primary" onclick="addLetter()">➕ Add Letter</button>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Letter Emoji</label>
+            <input type="text" id="w-emoji" placeholder="💌" maxlength="2" style="max-width:80px" />
+          </div>
+          <div class="field" style="flex:1">
+            <label>Quick Stickers</label>
+            <div class="sticker-bar" id="sticker-bar"></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Letter Content</label>
+          <div class="toolbar" id="toolbar">
+            <select class="font-select" onchange="execCmd('fontName', this.value)">
+              <option value="Playfair Display">Playfair</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Dancing Script">Handwriting</option>
+              <option value="Lato">Lato</option>
+              <option value="Courier New">Typewriter</option>
+            </select>
+            <select class="font-select" onchange="execCmd('fontSize', this.value)">
+              <option value="3">Normal</option>
+              <option value="2">Small</option>
+              <option value="4">Large</option>
+              <option value="5">XL</option>
+            </select>
+            <div class="tool-sep"></div>
+            <button class="tool-btn" onclick="execCmd('bold')" title="Bold"><b>B</b></button>
+            <button class="tool-btn" onclick="execCmd('italic')" title="Italic"><i>I</i></button>
+            <button class="tool-btn" onclick="execCmd('underline')" title="Underline"><u>U</u></button>
+            <button class="tool-btn" onclick="execCmd('strikeThrough')" title="Strike">S̶</button>
+            <div class="tool-sep"></div>
+            <button class="tool-btn" onclick="execCmd('justifyLeft')" title="Left">⬅</button>
+            <button class="tool-btn" onclick="execCmd('justifyCenter')" title="Center">⬛</button>
+            <button class="tool-btn" onclick="execCmd('justifyRight')" title="Right">➡</button>
+            <div class="tool-sep"></div>
+            <span class="color-swatch" style="background:#c0392b" onclick="execCmd('foreColor','#c0392b')" title="Rose"></span>
+            <span class="color-swatch" style="background:#2c1810" onclick="execCmd('foreColor','#2c1810')" title="Ink"></span>
+            <span class="color-swatch" style="background:#2980b9" onclick="execCmd('foreColor','#2980b9')" title="Blue"></span>
+            <span class="color-swatch" style="background:#27ae60" onclick="execCmd('foreColor','#27ae60')" title="Green"></span>
+            <span class="color-swatch" style="background:#8e44ad" onclick="execCmd('foreColor','#8e44ad')" title="Purple"></span>
+            <div class="tool-sep"></div>
+            <button class="tool-btn" onclick="execCmd('removeFormat')" title="Clear">✕</button>
+          </div>
+          <div
+            id="rich-editor"
+            contenteditable="true"
+            placeholder="Dear friend, open this when…"
+          ></div>
+        </div>
+
+        <!-- Photo Upload -->
+        <div class="field">
+          <label>📸 Attach Photos (optional)</label>
+          <div class="photo-drop" id="photo-drop" onclick="document.getElementById('photo-input').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropPhoto(event)">
+            <input type="file" id="photo-input" accept="image/*" multiple style="position:absolute;inset:0;opacity:0;cursor:pointer;" onchange="handlePhotos(event)" />
+            <span class="drop-icon">🖼️</span>
+            <p><strong>Click to upload</strong> or drag & drop photos</p>
+            <p style="font-size:.78rem;margin-top:4px">They'll be embedded and encrypted with the letter</p>
+          </div>
+          <div class="photo-previews" id="photo-previews"></div>
+        </div>
+
+        <div class="flex-row" style="margin-top:8px">
+          <button class="btn btn-primary" onclick="addLetter()">➕ Add to Collection</button>
           <button class="btn btn-secondary" onclick="previewLetter()">👁️ Preview</button>
+          <button class="btn btn-ghost btn-sm" onclick="clearCompose()">🗑️ Clear</button>
         </div>
-        <div id="add-status" class="status" style="margin-top:12px"></div>
+        <div id="add-status" class="status"></div>
       </div>
-      <!-- Letters List -->
-      <div class="card">
-        <div class="flex-row" style="margin-bottom:16px">
-          <h2 style="margin:0">📬 Letters (<span id="letter-count">0</span>)</h2>
-          <button class="btn btn-primary" onclick="exportLetters()" style="margin-left:auto">📥 Export Encrypted File</button>
+
+      <!-- Letters collection -->
+      <div class="paper">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap">
+          <div class="paper-title" style="margin:0">📬 Your Collection</div>
+          <span class="badge badge-rose" id="letter-count-badge">0 letters</span>
+          <button class="btn btn-primary btn-sm" onclick="exportLetters()" style="margin-left:auto">📥 Export Encrypted File</button>
         </div>
-        <div id="letter-list-write" class="letter-list-write">
-          <p style="color:var(--muted);font-size:.9rem">No letters yet. Write your first one above!</p>
+        <div id="letter-list-write">
+          <p style="color:var(--muted);font-size:.9rem;font-style:italic">No letters yet — write your first one above!</p>
         </div>
-        <div id="export-status" class="status" style="margin-top:12px"></div>
+        <div id="export-status" class="status"></div>
         <div class="progress" id="export-progress"><div class="progress-bar"></div></div>
       </div>
+
     </div>
   </div>
 
-  <!-- ═══ ABOUT TAB ═══ -->
+  <!-- ════════════════ SECURITY TAB ════════════════ -->
   <div id="tab-about" class="tab-panel">
-    <div class="card">
-      <h2>🔐 Encryption Details</h2>
-      <p style="color:var(--muted);margin-bottom:20px;font-size:.95rem">This app uses mathematically proven, industry-standard encryption. Here's exactly what happens:</p>
-      <div style="display:grid;gap:16px">
-        <div style="padding:16px;background:#f8f9fa;border-radius:12px;border-left:4px solid var(--accent)">
-          <strong>1. Key Derivation — PBKDF2-SHA256</strong>
-          <p style="font-size:.9rem;color:var(--muted);margin-top:6px">Your passphrase is never used directly. It's fed into PBKDF2 (Password-Based Key Derivation Function 2) with <strong>310,000 iterations</strong>, a <strong>random 16-byte salt</strong>, using SHA-256. This makes brute-force attacks astronomically expensive. The output is a 256-bit cryptographic key.</p>
-        </div>
-        <div style="padding:16px;background:#f8f9fa;border-radius:12px;border-left:4px solid #27ae60">
-          <strong>2. Encryption — AES-256-GCM</strong>
-          <p style="font-size:.9rem;color:var(--muted);margin-top:6px">Each letter is encrypted independently using <strong>AES-256 in GCM mode</strong> (Galois/Counter Mode). GCM is an authenticated encryption scheme — it provides both confidentiality AND integrity. Any tampering with the ciphertext is detected. Each letter gets a unique <strong>random 12-byte IV</strong>.</p>
-        </div>
-        <div style="padding:16px;background:#f8f9fa;border-radius:12px;border-left:4px solid #2980b9">
-          <strong>3. Web Crypto API</strong>
-          <p style="font-size:.9rem;color:var(--muted);margin-top:6px">All cryptographic operations use the browser's built-in <strong>SubtleCrypto API</strong> — the same API used by banks and governments. No third-party crypto libraries. No JavaScript shims. Cryptographically secure random numbers from <code>crypto.getRandomValues()</code>.</p>
-        </div>
-        <div style="padding:16px;background:#f8f9fa;border-radius:12px;border-left:4px solid #8e44ad">
-          <strong>4. Zero Server, Zero Tracking</strong>
-          <p style="font-size:.9rem;color:var(--muted);margin-top:6px">Everything runs 100% in the browser. Your passphrase and decrypted letters <strong>never leave your device</strong>. There are no cookies, no analytics, no network requests. The encrypted file is a plain JSON you control entirely.</p>
-        </div>
+    <div class="paper">
+      <div class="paper-title">🔐 How Encryption Works</div>
+      <p style="color:var(--muted);margin-bottom:20px;line-height:1.7">This app uses mathematically proven, browser-native cryptography. Zero dependencies. Zero servers. Zero tracking.</p>
+      <div class="sec-block">
+        <h3>1. Key Derivation — PBKDF2-SHA256</h3>
+        <p>Your passphrase is fed into <strong>PBKDF2</strong> with <strong>310,000 iterations</strong> + a random 16-byte salt using SHA-256. This makes brute-force attacks computationally infeasible. Output: a 256-bit key.</p>
+      </div>
+      <div class="sec-block green">
+        <h3>2. Encryption — AES-256-GCM</h3>
+        <p>Each letter + photos are encrypted with <strong>AES-256-GCM</strong>. GCM provides both <strong>confidentiality and authentication</strong> — any tampering is detected. Each letter has a unique random 12-byte IV.</p>
+      </div>
+      <div class="sec-block blue">
+        <h3>3. Web Crypto API (SubtleCrypto)</h3>
+        <p>All operations use the browser's built-in <strong>SubtleCrypto</strong> — the same API used by banks. No JS crypto libraries. Random bytes come from <code>crypto.getRandomValues()</code>.</p>
+      </div>
+      <div class="sec-block purple">
+        <h3>4. Photos — Base64 + AES-GCM</h3>
+        <p>Photos are converted to Base64 and encrypted <strong>together with the letter text</strong> in the same AES-GCM payload. Even the photo count is hidden from anyone without the passphrase.</p>
       </div>
     </div>
-    <div class="card">
-      <h2>📋 Encrypted File Format</h2>
-      <pre style="background:#f8f9fa;padding:16px;border-radius:10px;font-size:.82rem;overflow-x:auto;color:#2c3e50">{{
-  "v": 1,
-  "salt": "<base64 random 16 bytes>",
-  "greeting": "<optional name>",
+    <div class="paper">
+      <div class="paper-title">📋 Encrypted File Format</div>
+      <pre class="code-block">{
+  "v": 2,
+  "salt": "&lt;base64 random 16 bytes&gt;",
+  "greeting": "optional name",
   "letters": [
-    {{
-      "iv": "<base64 random 12 bytes>",
-      "ct": "<base64 AES-256-GCM ciphertext + tag>",
-      "emoji": "💌"
-    }}
+    {
+      "iv":    "&lt;base64 random 12 bytes&gt;",
+      "ct":    "&lt;base64 AES-256-GCM ciphertext&gt;",
+      "emoji": "💌",
+      "theme": "cream"
+    }
   ]
-}}</pre>
-      <p style="font-size:.85rem;color:var(--muted);margin-top:12px">The salt is shared (not secret) — it's needed to re-derive the key. The IV is unique per letter. Without the passphrase, the ciphertext is indistinguishable from random noise.</p>
+}
+
+// ct decrypts to JSON:
+{
+  "occasion": "you're sad",
+  "body":     "&lt;rich HTML content&gt;",
+  "photos":   ["&lt;base64 image&gt;", ...]
+}</pre>
     </div>
   </div>
+
 </main>
 
-<!-- MODAL -->
+<!-- LETTER MODAL -->
 <div id="modal" class="modal-overlay" onclick="closeModal(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModalBtn()">✕</button>
-    <span class="modal-emoji" id="modal-emoji">💌</span>
-    <h2 class="modal-title" id="modal-title">Open When…</h2>
-    <div class="modal-body" id="modal-body"></div>
+  <div class="letter-modal" id="letter-modal-inner">
+    <div class="modal-header" id="modal-header">
+      <button class="close-btn" onclick="closeModalBtn()">✕</button>
+      <span class="m-emoji" id="modal-emoji">💌</span>
+      <div class="m-title" id="modal-title">Open When…</div>
+    </div>
+    <div class="modal-body-wrap">
+      <div class="modal-letter-text" id="modal-body"></div>
+      <div class="modal-photos" id="modal-photos"></div>
+      <div class="divider-wax">✦ ✦ ✦</div>
+    </div>
   </div>
 </div>
 
-<footer>
-  Made with 💕 · End-to-end encrypted · AES-256-GCM · PBKDF2-SHA256
-</footer>
+<footer>Made with 💕 · End-to-end encrypted · AES-256-GCM · PBKDF2-SHA256 · Zero servers</footer>
 
 <script>
-// ═══════════════════════════════════════════════
-//  CRYPTO ENGINE  —  AES-256-GCM + PBKDF2-SHA256
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════════════
+//  PARTICLES
+// ══════════════════════════════════════════════════
+(function(){
+  const c = document.getElementById('particles');
+  const ctx = c.getContext('2d');
+  let W, H, particles;
+  const EMOJIS = ['💌','❤️','✉️','🌹','💕','⭐','🌸'];
+  function resize(){ W=c.width=innerWidth; H=c.height=innerHeight; }
+  function mkP(){
+    return {
+      x: Math.random()*W, y: Math.random()*H+H,
+      e: EMOJIS[Math.random()*EMOJIS.length|0],
+      s: 14+Math.random()*14,
+      sp: .3+Math.random()*.5,
+      sw: .4+Math.random()*.8,
+      o: .08+Math.random()*.18,
+      t: Math.random()*Math.PI*2
+    };
+  }
+  function init(){ resize(); particles=[]; for(let i=0;i<18;i++){ const p=mkP(); p.y=Math.random()*H; particles.push(p); } }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p=>{
+      p.t+=.018; p.y-=p.sp; p.x+=Math.sin(p.t)*p.sw;
+      if(p.y<-40){ Object.assign(p,mkP()); p.y=H+20; }
+      ctx.save(); ctx.globalAlpha=p.o;
+      ctx.font=p.s+'px serif'; ctx.fillText(p.e,p.x,p.y);
+      ctx.restore();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',init);
+  init(); draw();
+})();
 
-const enc = new TextEncoder();
-const dec = new TextDecoder();
+// ══════════════════════════════════════════════════
+//  CRYPTO ENGINE — AES-256-GCM + PBKDF2-SHA256
+// ══════════════════════════════════════════════════
+const ENC = new TextEncoder(), DEC = new TextDecoder();
+function b64(buf){ return btoa(String.fromCharCode(...new Uint8Array(buf))); }
+function unb64(s){ return Uint8Array.from(atob(s), c=>c.charCodeAt(0)); }
 
-function b64(buf) {
-  return btoa(String.fromCharCode(...new Uint8Array(buf)));
-}
-function unb64(str) {
-  return Uint8Array.from(atob(str), c => c.charCodeAt(0));
-}
-
-async function deriveKey(passphrase, salt) {
-  const keyMaterial = await crypto.subtle.importKey(
-    'raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']
-  );
+async function deriveKey(passphrase, salt){
+  const km = await crypto.subtle.importKey('raw', ENC.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
   return crypto.subtle.deriveKey(
-    { name: 'PBKDF2', salt, iterations: 310000, hash: 'SHA-256' },
-    keyMaterial,
-    { name: 'AES-GCM', length: 256 },
-    false,
-    ['encrypt', 'decrypt']
+    { name:'PBKDF2', salt, iterations:310000, hash:'SHA-256' },
+    km, { name:'AES-GCM', length:256 }, false, ['encrypt','decrypt']
   );
 }
-
-async function encryptLetter(text, key) {
+async function aesEncrypt(data, key){
   const iv = crypto.getRandomValues(new Uint8Array(12));
-  const ct = await crypto.subtle.encrypt(
-    { name: 'AES-GCM', iv },
-    key,
-    enc.encode(text)
-  );
+  const ct = await crypto.subtle.encrypt({ name:'AES-GCM', iv }, key, ENC.encode(data));
   return { iv: b64(iv), ct: b64(ct) };
 }
-
-async function decryptLetter(iv64, ct64, key) {
-  const pt = await crypto.subtle.decrypt(
-    { name: 'AES-GCM', iv: unb64(iv64) },
-    key,
-    unb64(ct64)
-  );
-  return dec.decode(pt);
+async function aesDecrypt(iv64, ct64, key){
+  const pt = await crypto.subtle.decrypt({ name:'AES-GCM', iv:unb64(iv64) }, key, unb64(ct64));
+  return DEC.decode(pt);
 }
 
-// ═══════════════════════════════════════════════
-//  APP STATE
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════════════
+let writeLetters=[], writeKey=null, writeGreeting='';
+let currentPhotos=[]; // [{dataUrl, name}]
+let readLetters=[], readGreeting='';
 
-let writeLetters = [];   // [{occasion, emoji, body}]
-let writeKey = null;
-let readLetters = [];    // [{occasion, emoji, body}] after decrypt
-let readGreeting = '';
-
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════════════
 //  TABS
-// ═══════════════════════════════════════════════
-
-function switchTab(name) {
-  document.querySelectorAll('.tab-btn').forEach((b, i) => {
-    b.classList.toggle('active', ['read','write','about'][i] === name);
-  });
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
+// ══════════════════════════════════════════════════
+function switchTab(name){
+  const names=['read','write','about'];
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',names[i]===name));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
 }
 
-// ═══════════════════════════════════════════════
-//  WRITE FLOW
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════════════
+//  THEMES
+// ══════════════════════════════════════════════════
+const THEMES = [
+  { id:'cream',   bg:'#fefaf4', lines:'rgba(200,180,160,.15)', label:'Cream' },
+  { id:'rose',    bg:'#fff0f0', lines:'rgba(192,57,43,.1)',    label:'Rose' },
+  { id:'sky',     bg:'#f0f7ff', lines:'rgba(41,128,185,.1)',   label:'Sky' },
+  { id:'mint',    bg:'#f0fff4', lines:'rgba(39,174,96,.1)',    label:'Mint' },
+  { id:'lavender',bg:'#f8f0ff', lines:'rgba(142,68,173,.1)',   label:'Lavender' },
+  { id:'gold',    bg:'#fffbf0', lines:'rgba(212,168,67,.15)',  label:'Gold' },
+  { id:'dark',    bg:'#1a1210', lines:'rgba(255,255,255,.06)', label:'Night' },
+];
+let selectedTheme = 'cream';
 
-async function initWriter() {
-  const p1 = document.getElementById('write-pass').value;
-  const p2 = document.getElementById('write-pass2').value;
-  const st = document.getElementById('write-status');
-  if (!p1) { showStatus(st, 'error', 'Please enter a passphrase.'); return; }
-  if (p1 !== p2) { showStatus(st, 'error', 'Passphrases do not match.'); return; }
-  if (p1.length < 8) { showStatus(st, 'error', 'Passphrase must be at least 8 characters.'); return; }
-  showStatus(st, 'info', 'Generating cryptographic key…');
-  try {
+function initThemes(){
+  const row = document.getElementById('theme-row');
+  row.innerHTML = THEMES.map(t=>`
+    <div class="theme-swatch ${t.id===selectedTheme?'selected':''}" 
+         style="background:${t.bg}" 
+         onclick="selectTheme('${t.id}',this)" 
+         title="${t.label}">
+      <span></span>
+    </div>
+  `).join('');
+}
+function selectTheme(id, el){
+  selectedTheme = id;
+  document.querySelectorAll('.theme-swatch').forEach(s=>s.classList.remove('selected'));
+  el.classList.add('selected');
+  const t = THEMES.find(x=>x.id===id);
+  const paper = document.getElementById('compose-paper');
+  paper.style.background = t.bg;
+}
+
+// ══════════════════════════════════════════════════
+//  STICKERS
+// ══════════════════════════════════════════════════
+const STICKERS = ['💕','🌹','⭐','✨','🦋','🌸','🍀','🎀','🌙','☀️','🌈','💫','🎵','🥹','💝','🌻','🍓','🫶'];
+function initStickers(){
+  const bar = document.getElementById('sticker-bar');
+  bar.innerHTML = STICKERS.map(s=>`<button class="sticker-btn" onclick="insertSticker('${s}')" title="${s}">${s}</button>`).join('');
+}
+function insertSticker(s){
+  const ed = document.getElementById('rich-editor');
+  ed.focus();
+  document.execCommand('insertText', false, s);
+}
+
+// ══════════════════════════════════════════════════
+//  RICH EDITOR
+// ══════════════════════════════════════════════════
+function execCmd(cmd, val=null){
+  document.getElementById('rich-editor').focus();
+  document.execCommand(cmd, false, val);
+}
+
+// ══════════════════════════════════════════════════
+//  PHOTO HANDLING
+// ══════════════════════════════════════════════════
+function dragOver(e){ e.preventDefault(); document.getElementById('photo-drop').classList.add('drag-over'); }
+function dragLeave(e){ document.getElementById('photo-drop').classList.remove('drag-over'); }
+function dropPhoto(e){
+  e.preventDefault();
+  document.getElementById('photo-drop').classList.remove('drag-over');
+  processFiles(e.dataTransfer.files);
+}
+function handlePhotos(e){ processFiles(e.target.files); }
+
+function processFiles(files){
+  Array.from(files).forEach(file=>{
+    if(!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = ev=>{
+      currentPhotos.push({ dataUrl: ev.target.result, name: file.name });
+      renderPhotoPreviews();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function renderPhotoPreviews(){
+  const el = document.getElementById('photo-previews');
+  el.innerHTML = currentPhotos.map((p,i)=>`
+    <div class="photo-thumb polaroid">
+      <img src="${p.dataUrl}" alt="photo ${i+1}" />
+      <button class="del-photo" onclick="removePhoto(${i})">✕</button>
+    </div>
+  `).join('');
+}
+function removePhoto(i){ currentPhotos.splice(i,1); renderPhotoPreviews(); }
+
+// ══════════════════════════════════════════════════
+//  WRITE FLOW
+// ══════════════════════════════════════════════════
+async function initWriter(){
+  const p1=document.getElementById('write-pass').value;
+  const p2=document.getElementById('write-pass2').value;
+  const gr=document.getElementById('write-greeting').value.trim();
+  const st=document.getElementById('write-status');
+  if(!p1){ showStatus(st,'error','Please enter a passphrase.'); return; }
+  if(p1!==p2){ showStatus(st,'error','Passphrases do not match.'); return; }
+  if(p1.length<8){ showStatus(st,'error','Passphrase must be at least 8 characters.'); return; }
+  showStatus(st,'info','Generating cryptographic key…');
+  try{
     const salt = crypto.getRandomValues(new Uint8Array(16));
     writeKey = { key: await deriveKey(p1, salt), salt: b64(salt) };
-    document.getElementById('write-gate').style.display = 'none';
-    document.getElementById('write-panel').style.display = 'block';
-  } catch(e) { showStatus(st, 'error', 'Key generation failed: ' + e.message); }
+    writeGreeting = gr;
+    document.getElementById('write-gate').style.display='none';
+    document.getElementById('write-panel').style.display='block';
+    initThemes(); initStickers();
+  } catch(e){ showStatus(st,'error','Key generation failed: '+e.message); }
 }
 
-async function addLetter() {
-  const occ = document.getElementById('w-occasion').value;
-  const custom = document.getElementById('w-custom').value.trim();
+async function addLetter(){
+  const occ = document.getElementById('w-custom').value.trim() || document.getElementById('w-occasion').value;
   const emoji = document.getElementById('w-emoji').value.trim() || '💌';
-  const body = document.getElementById('w-body').value.trim();
+  const body = document.getElementById('rich-editor').innerHTML.trim();
   const st = document.getElementById('add-status');
-  const occasion = custom || occ;
-  if (!occasion) { showStatus(st, 'error', 'Please choose or type an occasion.'); return; }
-  if (!body) { showStatus(st, 'error', 'Please write the letter content.'); return; }
-  writeLetters.push({ occasion, emoji, body });
+  if(!occ){ showStatus(st,'error','Please choose or type an occasion.'); return; }
+  if(!body || body==='<br>'){ showStatus(st,'error','Please write the letter content.'); return; }
+  writeLetters.push({
+    occasion: occ, emoji, body,
+    photos: currentPhotos.map(p=>p.dataUrl),
+    theme: selectedTheme
+  });
   renderWriteList();
-  document.getElementById('w-occasion').value = '';
-  document.getElementById('w-custom').value = '';
-  document.getElementById('w-emoji').value = '';
-  document.getElementById('w-body').value = '';
-  showStatus(st, 'success', `Letter "Open When ${occasion}" added! (${writeLetters.length} total)`);
+  clearCompose();
+  showStatus(st,'success',`💌 "Open When ${occ}" added! (${writeLetters.length} total)`);
 }
 
-function renderWriteList() {
-  const el = document.getElementById('letter-list-write');
-  document.getElementById('letter-count').textContent = writeLetters.length;
-  if (!writeLetters.length) {
-    el.innerHTML = '<p style="color:var(--muted);font-size:.9rem">No letters yet.</p>';
-    return;
-  }
-  el.innerHTML = writeLetters.map((l, i) => `
-    <div class="letter-item-write">
-      <span class="emoji">${l.emoji}</span>
-      <div class="info">
-        <div class="name">Open when ${l.occasion}</div>
-        <div class="preview">${l.body.substring(0,60)}${l.body.length>60?'…':''}</div>
+function clearCompose(){
+  document.getElementById('w-occasion').value='';
+  document.getElementById('w-custom').value='';
+  document.getElementById('w-emoji').value='';
+  document.getElementById('rich-editor').innerHTML='';
+  currentPhotos=[];
+  renderPhotoPreviews();
+}
+
+function renderWriteList(){
+  const el=document.getElementById('letter-list-write');
+  document.getElementById('letter-count-badge').textContent=writeLetters.length+' letter'+(writeLetters.length!==1?'s':'');
+  if(!writeLetters.length){ el.innerHTML='<p style="color:var(--muted);font-size:.9rem;font-style:italic">No letters yet.</p>'; return; }
+  el.innerHTML=writeLetters.map((l,i)=>`
+    <div class="write-item">
+      <span class="wi-emoji">${l.emoji}</span>
+      <div class="wi-info">
+        <div class="wi-name">Open when ${l.occasion}</div>
+        <div class="wi-preview">${l.body.replace(/<[^>]+>/g,'').substring(0,70)}…</div>
+        ${l.photos.length?`<div class="wi-photos">📸 ${l.photos.length} photo${l.photos.length>1?'s':''}</div>`:''}
       </div>
-      <button class="btn btn-danger" style="padding:5px 12px;font-size:.8rem" onclick="deleteLetter(${i})">🗑️</button>
+      <button class="btn btn-danger" onclick="deleteLetter(${i})">🗑️</button>
     </div>
   `).join('');
 }
 
-function deleteLetter(i) {
-  writeLetters.splice(i, 1);
-  renderWriteList();
+function deleteLetter(i){ writeLetters.splice(i,1); renderWriteList(); }
+
+function previewLetter(){
+  const occ=document.getElementById('w-custom').value.trim()||document.getElementById('w-occasion').value;
+  const emoji=document.getElementById('w-emoji').value.trim()||'💌';
+  const body=document.getElementById('rich-editor').innerHTML.trim();
+  if(!occ||!body){ showStatus(document.getElementById('add-status'),'error','Fill in the occasion and letter to preview.'); return; }
+  openModal({ occasion:occ, emoji, body, photos:currentPhotos.map(p=>p.dataUrl), theme:selectedTheme });
 }
 
-function previewLetter() {
-  const occ = document.getElementById('w-custom').value.trim() ||
-               document.getElementById('w-occasion').value;
-  const emoji = document.getElementById('w-emoji').value.trim() || '💌';
-  const body = document.getElementById('w-body').value.trim();
-  if (!occ || !body) { showStatus(document.getElementById('add-status'), 'error', 'Fill in the occasion and letter to preview.'); return; }
-  openModal({ occasion: occ, emoji, body });
-}
-
-async function exportLetters() {
-  const st = document.getElementById('export-status');
-  const prog = document.getElementById('export-progress');
-  if (!writeLetters.length) { showStatus(st, 'error', 'No letters to export.'); return; }
-  prog.style.display = 'block';
-  showStatus(st, 'info', 'Encrypting letters…');
-  try {
-    const encrypted = [];
-    for (const l of writeLetters) {
-      const payload = JSON.stringify({ occasion: l.occasion, body: l.body });
-      const { iv, ct } = await encryptLetter(payload, writeKey.key);
-      encrypted.push({ iv, ct, emoji: l.emoji });
+async function exportLetters(){
+  const st=document.getElementById('export-status');
+  const prog=document.getElementById('export-progress');
+  if(!writeLetters.length){ showStatus(st,'error','No letters to export.'); return; }
+  prog.style.display='block';
+  showStatus(st,'info','Encrypting all letters and photos…');
+  try{
+    const encrypted=[];
+    for(const l of writeLetters){
+      const payload=JSON.stringify({ occasion:l.occasion, body:l.body, photos:l.photos||[] });
+      const {iv,ct}=await aesEncrypt(payload,writeKey.key);
+      encrypted.push({ iv, ct, emoji:l.emoji, theme:l.theme||'cream' });
     }
-    const out = JSON.stringify({ v: 1, salt: writeKey.salt, letters: encrypted }, null, 2);
-    const blob = new Blob([out], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = 'letters.json'; a.click();
+    const out=JSON.stringify({ v:2, salt:writeKey.salt, greeting:writeGreeting, letters:encrypted }, null, 2);
+    const blob=new Blob([out],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download='letters.json'; a.click();
     URL.revokeObjectURL(url);
-    prog.style.display = 'none';
-    showStatus(st, 'success', `✅ Exported ${writeLetters.length} encrypted letter(s)! Share letters.json + index.html with your friend.`);
-  } catch(e) {
-    prog.style.display = 'none';
-    showStatus(st, 'error', 'Export failed: ' + e.message);
-  }
+    prog.style.display='none';
+    showStatus(st,'success',`✅ Exported ${writeLetters.length} encrypted letter(s)! Share letters.json + index.html with your friend.`);
+  }catch(e){ prog.style.display='none'; showStatus(st,'error','Export failed: '+e.message); }
 }
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════════════
 //  READ FLOW
-// ═══════════════════════════════════════════════
-
-async function unlockLetters() {
-  const fileInput = document.getElementById('read-file');
-  const pass = document.getElementById('read-pass').value;
-  const st = document.getElementById('read-status');
-  const prog = document.getElementById('read-progress');
-  if (!fileInput.files.length) { showStatus(st, 'error', 'Please upload your letters.json file.'); return; }
-  if (!pass) { showStatus(st, 'error', 'Please enter the passphrase.'); return; }
-  prog.style.display = 'block';
-  showStatus(st, 'info', 'Deriving key and decrypting… (this may take a moment)');
-  try {
-    const text = await fileInput.files[0].text();
-    const data = JSON.parse(text);
-    if (data.v !== 1) throw new Error('Unknown file format.');
-    const salt = unb64(data.salt);
-    const key = await deriveKey(pass, salt);
-    const decrypted = [];
-    for (const l of data.letters) {
-      const pt = await decryptLetter(l.iv, l.ct, key);
-      const parsed = JSON.parse(pt);
-      decrypted.push({ ...parsed, emoji: l.emoji });
+// ══════════════════════════════════════════════════
+async function unlockLetters(){
+  const fi=document.getElementById('read-file');
+  const pass=document.getElementById('read-pass').value;
+  const st=document.getElementById('read-status');
+  const prog=document.getElementById('read-progress');
+  if(!fi.files.length){ showStatus(st,'error','Please upload your letters.json file.'); return; }
+  if(!pass){ showStatus(st,'error','Please enter the passphrase.'); return; }
+  prog.style.display='block';
+  showStatus(st,'info','Deriving key & decrypting… (may take a moment)');
+  try{
+    const data=JSON.parse(await fi.files[0].text());
+    if(data.v!==1 && data.v!==2) throw new Error('Unknown file format.');
+    const salt=unb64(data.salt);
+    const key=await deriveKey(pass,salt);
+    const decrypted=[];
+    for(const l of data.letters){
+      const pt=await aesDecrypt(l.iv,l.ct,key);
+      const parsed=JSON.parse(pt);
+      decrypted.push({ ...parsed, emoji:l.emoji, theme:l.theme||'cream' });
     }
-    readLetters = decrypted;
-    readGreeting = data.greeting || '';
-    prog.style.display = 'none';
+    readLetters=decrypted;
+    readGreeting=data.greeting||'';
+    prog.style.display='none';
     renderReadLetters();
-  } catch(e) {
-    prog.style.display = 'none';
-    if (e.message.includes('OperationError') || e.name === 'OperationError') {
-      showStatus(st, 'error', '❌ Wrong passphrase or corrupted file.');
-    } else {
-      showStatus(st, 'error', 'Decryption failed: ' + (e.message || 'unknown error'));
-    }
+  }catch(e){
+    prog.style.display='none';
+    if(e.name==='OperationError'||String(e).includes('OperationError'))
+      showStatus(st,'error','❌ Wrong passphrase or corrupted file.');
+    else
+      showStatus(st,'error','Decryption failed: '+(e.message||'unknown error'));
   }
 }
 
-function renderReadLetters() {
-  document.getElementById('read-gate').style.display = 'none';
-  document.getElementById('read-letters').style.display = 'block';
-  if (readGreeting) document.getElementById('read-greeting').textContent = `Letters for ${readGreeting}`;
-  const grid = document.getElementById('letters-grid');
-  grid.innerHTML = readLetters.map((l, i) => `
-    <div class="letter-card" onclick="openLetter(${i})">
-      <span class="emoji">${l.emoji}</span>
-      <div class="title">Open When…</div>
-      <div class="desc">${l.occasion}</div>
-    </div>
-  `).join('');
+function renderReadLetters(){
+  document.getElementById('read-gate').style.display='none';
+  document.getElementById('read-letters').style.display='block';
+  if(readGreeting) document.getElementById('read-greeting').textContent='Letters for '+readGreeting+' 💕';
+  const grid=document.getElementById('letters-grid');
+  grid.innerHTML=readLetters.map((l,i)=>{
+    const photoStrip=l.photos&&l.photos.length
+      ?`<div class="env-photo-strip">${l.photos.slice(0,3).map(p=>`<img src="${p}" />`).join('')}</div>`
+      :'';
+    return `
+      <div class="envelope-card" onclick="openLetter(${i})">
+        <div class="env-flap"></div>
+        <div class="env-body">
+          <span class="env-emoji">${l.emoji}</span>
+          <div class="env-title">Open When…</div>
+          <div class="env-sub">${l.occasion}</div>
+          <div class="env-seal">💌</div>
+        </div>
+        ${photoStrip}
+      </div>
+    `;
+  }).join('');
 }
 
-function lockLetters() {
-  readLetters = [];
-  document.getElementById('read-gate').style.display = 'block';
-  document.getElementById('read-letters').style.display = 'none';
-  document.getElementById('read-pass').value = '';
-  document.getElementById('read-file').value = '';
-  document.getElementById('read-status').className = 'status';
+function lockLetters(){
+  readLetters=[];
+  document.getElementById('read-gate').style.display='block';
+  document.getElementById('read-letters').style.display='none';
+  document.getElementById('read-pass').value='';
+  document.getElementById('read-file').value='';
+  document.getElementById('read-status').className='status';
 }
 
-function openLetter(i) {
-  const l = readLetters[i];
-  openModal(l);
-}
+function openLetter(i){ openModal(readLetters[i]); }
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════════════
 //  MODAL
-// ═══════════════════════════════════════════════
-
-function openModal(l) {
+// ══════════════════════════════════════════════════
+function openModal(l){
+  const theme = THEMES.find(t=>t.id===(l.theme||'cream'))||THEMES[0];
+  const inner = document.getElementById('letter-modal-inner');
+  inner.style.background = theme.bg;
+  // apply lined paper overlay tint
   document.getElementById('modal-emoji').textContent = l.emoji;
-  document.getElementById('modal-title').textContent = `Open When ${l.occasion}`;
-  document.getElementById('modal-body').textContent = l.body;
+  document.getElementById('modal-title').textContent = 'Open When '+l.occasion;
+  document.getElementById('modal-body').innerHTML = l.body||'';
+  // photos
+  const ph = document.getElementById('modal-photos');
+  ph.innerHTML='';
+  if(l.photos&&l.photos.length){
+    l.photos.forEach((src,i)=>{
+      const wrap=document.createElement('div');
+      wrap.className='polaroid-wrap';
+      const img=document.createElement('img');
+      img.src=src; img.alt='Photo '+(i+1);
+      wrap.appendChild(img);
+      ph.appendChild(wrap);
+    });
+  }
+  if(l.theme==='dark'){
+    document.querySelector('.modal-body-wrap').style.color='#f0e6d8';
+  } else {
+    document.querySelector('.modal-body-wrap').style.color='';
+  }
   document.getElementById('modal').classList.add('open');
 }
-function closeModal(e) {
-  if (e.target === document.getElementById('modal')) closeModalBtn();
-}
-function closeModalBtn() {
-  document.getElementById('modal').classList.remove('open');
-}
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModalBtn();
-});
+function closeModal(e){ if(e.target===document.getElementById('modal')) closeModalBtn(); }
+function closeModalBtn(){ document.getElementById('modal').classList.remove('open'); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModalBtn(); });
 
-// ═══════════════════════════════════════════════
+// ══════════════════════════════════════════════════
 //  UTILS
-// ═══════════════════════════════════════════════
-
-function showStatus(el, type, msg) {
-  el.className = 'status ' + type;
-  el.textContent = msg;
-}
+// ══════════════════════════════════════════════════
+function showStatus(el,type,msg){ el.className='status '+type; el.textContent=msg; }
 </script>
 </body>
 </html>
