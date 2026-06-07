@@ -1,0 +1,13 @@
+/* ═══════════════════════════════════════════
+   EDITOR — Canvas stage, elements, selection
+═══════════════════════════════════════════ */
+
+/* TODO: .canvas-stage — A4/square/landscape drop zone */
+/* TODO: .canvas-element — base draggable item */
+/* TODO: .canvas-element.selected — ring + handles */
+/* TODO: .resize-handle — 8 corner/edge grips */
+/* TODO: .rotate-handle — top center rotation knob */
+/* TODO: .canvas-grid — dot/line grid overlay */
+/* TODO: .canvas-rulers — top + left rulers */
+/* TODO: .zoom-controls — bottom right zoom */
+/* TODO: .canvas-page — single page container */
