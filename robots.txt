@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://openwhen-letters-clone.vercel.app/sitemap.xml
