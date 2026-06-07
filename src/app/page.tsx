@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Lock, Eye, Sparkles, Heart } from 'lucide-react'
 
-const VERSION = 'v1.2.0'
+const VERSION    = 'v1.2.1'
 const BUILD_DATE = 'Jun 7 2026'
 
 const CARDS = [
@@ -30,12 +30,14 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-cream flex flex-col">
 
-      {/* ── Nav ─────────────────────────────────────────────── */}
+      {/* Nav */}
       <nav className="sticky top-0 z-50 flex items-center justify-between px-8 py-5
         bg-cream/90 backdrop-blur-md border-b border-brown/10">
         <div className="flex items-center gap-2.5">
           <span className="font-serif-display italic text-2xl text-brown select-none">openwhen</span>
-          <span className="text-[10px] font-mono text-brown/30 bg-brown/6 px-2 py-0.5 rounded-full">{VERSION}</span>
+          <span className="text-[10px] font-mono text-brown/30 bg-brown/5 px-2 py-0.5 rounded-full">
+            {VERSION}
+          </span>
         </div>
         <Link href="/admin/login"
           className="flex items-center gap-2 bg-brown text-cream px-5 py-2.5
@@ -44,11 +46,11 @@ export default function Home() {
         </Link>
       </nav>
 
-      {/* ── Hero ────────────────────────────────────────────── */}
+      {/* Hero */}
       <section className="flex-1 grid md:grid-cols-2 items-center gap-12 px-8 md:px-16 py-20 min-h-[88vh]">
         <motion.div
-          initial={{ opacity:0, y:28 }} animate={{ opacity:1, y:0 }}
-          transition={{ duration:.65, ease:[.22,1,.36,1] }}>
+          initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: .65, ease: [.22, 1, .36, 1] }}>
 
           <p className="text-xs uppercase tracking-widest text-brown-light mb-6 select-none">
             ✉️ digital open when letters
@@ -83,7 +85,7 @@ export default function Home() {
 
         {/* Scrolling card stack */}
         <div
-          className="hidden md:block overflow-hidden h-[500px] relative"
+          className="hidden md:block overflow-hidden h-[500px]"
           style={{ maskImage: 'linear-gradient(to bottom, transparent, black 12%, black 88%, transparent)' }}>
           <motion.div
             animate={{ y: [0, -(56 * CARDS.length)] }}
@@ -103,7 +105,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Footer / Version stamp ───────────────────────────── */}
+      {/* Footer / version stamp */}
       <footer className="border-t border-brown/8 px-8 py-5 flex items-center justify-between flex-wrap gap-3">
         <span className="font-serif-display italic text-brown/40 text-sm select-none">openwhen 💌</span>
         <div className="flex items-center gap-3 text-xs text-brown/30 font-mono select-none">
@@ -111,8 +113,8 @@ export default function Home() {
           <span>·</span>
           <span>deployed {BUILD_DATE}</span>
           <span>·</span>
-          <span className="flex items-center gap-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block animate-pulse"/>
+          <span className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block animate-pulse" />
             live
           </span>
         </div>

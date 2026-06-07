@@ -6,13 +6,13 @@ import { Lock, Eye, EyeOff, AlertCircle } from 'lucide-react'
 
 export default function LoginPage() {
   const router = useRouter()
-  const [form, setForm] = useState({ username: '', password: '' })
-  const [showPw, setShowPw] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [form, setForm]           = useState({ username: '', password: '' })
+  const [showPw, setShowPw]       = useState(false)
+  const [loading, setLoading]     = useState(false)
   const [retryAfter, setRetryAfter] = useState(0)
-  const [error, setError] = useState('')
+  const [error, setError]         = useState('')
 
-  // Countdown for rate-limit lockout
+  // Live countdown when rate-limited
   useEffect(() => {
     if (retryAfter <= 0) return
     const t = setInterval(() => setRetryAfter(n => Math.max(0, n - 1)), 1000)
@@ -24,21 +24,33 @@ export default function LoginPage() {
     if (retryAfter > 0) return
     setError('')
     setLoading(true)
+
     try {
       const res = await fetch('/api/auth/login', {
-        method: 'POST',
+        method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body:    JSON.stringify(form),
       })
+
+      // Read body first — headers may already be consumed
       const data = await res.json()
+
       if (res.ok) {
         toast.success('Welcome back 💌')
         router.push('/admin/dashboard')
         router.refresh()
       } else if (res.status === 429) {
-        const secs = parseInt(res.headers.get('Retry-After') || '900', 10)
+        // Retry-After comes from either header or body
+        const headerVal = res.headers.get('Retry-After')
+        const secs = headerVal
+          ? parseInt(headerVal, 10)
+          : typeof data.retryAfter === 'number'
+          ? data.retryAfter
+          : 900
         setRetryAfter(secs)
-        setError(`Too many attempts. Try again in ${Math.ceil(secs / 60)} min.`)
+        setError(
+          `Too many attempts. Try again in ${Math.ceil(secs / 60)} min.`
+        )
       } else {
         setError(data.error || 'Invalid credentials')
       }
@@ -55,7 +67,7 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen bg-cream flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        {/* Logo */}
+
         <div className="text-center mb-10">
           <div className="text-5xl mb-4 select-none">💌</div>
           <h1 className="font-serif-display italic text-4xl text-brown">openwhen</h1>
@@ -65,7 +77,6 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit}
           className="bg-white rounded-2xl border border-brown/10 shadow-card p-8 flex flex-col gap-5">
 
-          {/* Error banner */}
           {error && (
             <div className="flex items-start gap-2.5 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
               <AlertCircle size={15} className="text-red-400 mt-0.5 shrink-0" />
@@ -73,7 +84,7 @@ export default function LoginPage() {
                 {error}
                 {retryAfter > 0 && (
                   <span className="block text-xs text-red-400 mt-0.5 font-mono">
-                    {mins}:{String(secs).padStart(2,'0')} remaining
+                    {mins}:{String(secs).padStart(2, '0')} remaining
                   </span>
                 )}
               </div>
@@ -86,11 +97,11 @@ export default function LoginPage() {
               type="text" required autoFocus autoComplete="username"
               value={form.username}
               onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
-              className="border border-brown/15 rounded-xl px-4 py-3 text-sm text-brown
-                focus:outline-none focus:border-blush-dark focus:ring-2 focus:ring-blush/30 bg-cream
-                transition disabled:opacity-50"
               disabled={retryAfter > 0 || loading}
               placeholder="your username"
+              className="border border-brown/15 rounded-xl px-4 py-3 text-sm text-brown
+                focus:outline-none focus:border-blush-dark focus:ring-2 focus:ring-blush/30
+                bg-cream transition disabled:opacity-50"
             />
           </div>
 
@@ -101,11 +112,11 @@ export default function LoginPage() {
                 type={showPw ? 'text' : 'password'} required autoComplete="current-password"
                 value={form.password}
                 onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
-                className="w-full border border-brown/15 rounded-xl px-4 py-3 pr-11 text-sm text-brown
-                  focus:outline-none focus:border-blush-dark focus:ring-2 focus:ring-blush/30 bg-cream
-                  transition disabled:opacity-50"
                 disabled={retryAfter > 0 || loading}
                 placeholder="••••••••"
+                className="w-full border border-brown/15 rounded-xl px-4 py-3 pr-11 text-sm text-brown
+                  focus:outline-none focus:border-blush-dark focus:ring-2 focus:ring-blush/30
+                  bg-cream transition disabled:opacity-50"
               />
               <button type="button" tabIndex={-1}
                 onClick={() => setShowPw(v => !v)}
@@ -120,12 +131,13 @@ export default function LoginPage() {
             className="bg-brown text-cream rounded-full py-3.5 font-medium text-sm
               hover:opacity-85 transition-all flex items-center justify-center gap-2
               disabled:opacity-40 disabled:cursor-not-allowed">
-            {loading
-              ? <><span className="w-4 h-4 border-2 border-cream/40 border-t-cream rounded-full animate-spin"/> signing in...</>
-              : retryAfter > 0
-              ? `locked — ${mins}:${String(secs).padStart(2,'0')}`
-              : <><Lock size={14}/> sign in</>
-            }
+            {loading ? (
+              <><span className="w-4 h-4 border-2 border-cream/40 border-t-cream rounded-full animate-spin"/> signing in...</>
+            ) : retryAfter > 0 ? (
+              `locked — ${mins}:${String(secs).padStart(2, '0')}`
+            ) : (
+              <><Lock size={14}/> sign in</>
+            )}
           </button>
         </form>
 
