@@ -3,16 +3,19 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Lock, Eye, Sparkles, Heart } from 'lucide-react'
 
+const VERSION = 'v1.2.0'
+const BUILD_DATE = 'Jun 7 2026'
+
 const CARDS = [
-  { label: "you're stressed",     color: '#ffffff' },
-  { label: "you miss me",          color: '#f9dde0' },
-  { label: "you need a laugh",     color: '#fef3c7' },
-  { label: "you're bored",         color: '#ede9fe' },
-  { label: "you got that job! 🎉", color: '#ffffff' },
-  { label: "it's your birthday 🎂",color: '#f9dde0' },
-  { label: "you need a break",     color: '#d1fae5' },
-  { label: "it's 3 am",            color: '#ede9fe' },
-  { label: "you feel lonely",      color: '#fef3c7' },
+  { label: "you're stressed",         color: '#ffffff' },
+  { label: "you miss me",              color: '#f9dde0' },
+  { label: "you need a laugh",         color: '#fef3c7' },
+  { label: "you're bored",             color: '#ede9fe' },
+  { label: "you got that job! 🎉",     color: '#ffffff' },
+  { label: "it's your birthday 🎂",    color: '#f9dde0' },
+  { label: "you need a break",         color: '#d1fae5' },
+  { label: "it's 3 am",                color: '#ede9fe' },
+  { label: "you feel lonely",          color: '#fef3c7' },
   { label: "you're proud of yourself", color: '#d1fae5' },
 ]
 
@@ -25,12 +28,15 @@ const FEATURES = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-cream">
+    <main className="min-h-screen bg-cream flex flex-col">
 
       {/* ── Nav ─────────────────────────────────────────────── */}
       <nav className="sticky top-0 z-50 flex items-center justify-between px-8 py-5
         bg-cream/90 backdrop-blur-md border-b border-brown/10">
-        <span className="font-serif-display italic text-2xl text-brown select-none">openwhen</span>
+        <div className="flex items-center gap-2.5">
+          <span className="font-serif-display italic text-2xl text-brown select-none">openwhen</span>
+          <span className="text-[10px] font-mono text-brown/30 bg-brown/6 px-2 py-0.5 rounded-full">{VERSION}</span>
+        </div>
         <Link href="/admin/login"
           className="flex items-center gap-2 bg-brown text-cream px-5 py-2.5
             rounded-full text-sm font-medium hover:opacity-85 transition-opacity">
@@ -39,7 +45,7 @@ export default function Home() {
       </nav>
 
       {/* ── Hero ────────────────────────────────────────────── */}
-      <section className="grid md:grid-cols-2 items-center gap-12 px-8 md:px-16 py-20 min-h-[88vh]">
+      <section className="flex-1 grid md:grid-cols-2 items-center gap-12 px-8 md:px-16 py-20 min-h-[88vh]">
         <motion.div
           initial={{ opacity:0, y:28 }} animate={{ opacity:1, y:0 }}
           transition={{ duration:.65, ease:[.22,1,.36,1] }}>
@@ -96,6 +102,22 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* ── Footer / Version stamp ───────────────────────────── */}
+      <footer className="border-t border-brown/8 px-8 py-5 flex items-center justify-between flex-wrap gap-3">
+        <span className="font-serif-display italic text-brown/40 text-sm select-none">openwhen 💌</span>
+        <div className="flex items-center gap-3 text-xs text-brown/30 font-mono select-none">
+          <span className="bg-brown/5 px-2.5 py-1 rounded-full">{VERSION}</span>
+          <span>·</span>
+          <span>deployed {BUILD_DATE}</span>
+          <span>·</span>
+          <span className="flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block animate-pulse"/>
+            live
+          </span>
+        </div>
+      </footer>
+
     </main>
   )
 }
