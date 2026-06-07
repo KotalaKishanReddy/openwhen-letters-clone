@@ -1,0 +1,14 @@
+{
+  "_comment": "This is an EXAMPLE file — the ciphertext here is fake/placeholder.",
+  "_note": "Generate your real letters.json by opening index.html, writing letters, and clicking Export.",
+  "v": 1,
+  "salt": "AAAAAAAAAAAAAAAAAAAAAA==",
+  "greeting": "Your Name Here",
+  "letters": [
+    {
+      "iv": "AAAAAAAAAAAAAAAAAA==",
+      "ct": "<encrypted content — generate via the app>",
+      "emoji": "💌"
+    }
+  ]
+}

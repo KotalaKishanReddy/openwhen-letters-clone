@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💌 Open When Letters</title>
+  <style>
+    :root {
+      --bg: #fdf6f0;
+      --card: #fff8f3;
+      --accent: #c0392b;
+      --accent2: #e74c3c;
+      --text: #2c2c2c;
+      --muted: #7f8c8d;
+      --border: #f0d9cc;
+      --shadow: 0 4px 24px rgba(192,57,43,0.08);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, #c0392b 0%, #e74c3c 50%, #ff6b6b 100%);
+      color: #fff;
+      text-align: center;
+      padding: 48px 20px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '💌';
+      font-size: 72px;
+      display: block;
+      margin-bottom: 12px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    header h1 { font-size: 2.2rem; font-weight: bold; letter-spacing: 1px; }
+    header p { margin-top: 8px; opacity: 0.88; font-size: 1rem; font-style: italic; }
+    /* ── MAIN ── */
+    main { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
+    /* ── TABS ── */
+    .tabs {
+      display: flex; gap: 12px; margin-bottom: 32px;
+      border-bottom: 2px solid var(--border); padding-bottom: 0;
+    }
+    .tab-btn {
+      padding: 12px 28px; border: none; background: none;
+      font-size: 1rem; cursor: pointer; color: var(--muted);
+      border-bottom: 3px solid transparent; margin-bottom: -2px;
+      font-family: inherit; transition: all .2s;
+    }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: bold; }
+    .tab-btn:hover { color: var(--accent2); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    /* ── CARDS ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 28px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+    .card h2 { font-size: 1.2rem; color: var(--accent); margin-bottom: 16px; }
+    /* ── FORM ELEMENTS ── */
+    label { display: block; font-size: .9rem; color: var(--muted); margin-bottom: 5px; }
+    input[type=text], input[type=password], textarea, select {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-family: inherit; font-size: 1rem; color: var(--text);
+      background: #fff; margin-bottom: 16px;
+      transition: border-color .2s;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none; border-color: var(--accent2);
+    }
+    textarea { min-height: 160px; resize: vertical; line-height: 1.6; }
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 26px; border: none; border-radius: 10px;
+      font-size: 1rem; cursor: pointer; font-family: inherit;
+      transition: all .2s; font-weight: bold;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; box-shadow: 0 3px 12px rgba(192,57,43,.25);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(192,57,43,.35); }
+    .btn-secondary {
+      background: var(--card); color: var(--accent);
+      border: 1.5px solid var(--border);
+    }
+    .btn-secondary:hover { background: var(--border); }
+    .btn-danger { background: #e74c3c; color: #fff; }
+    .btn-danger:hover { background: #c0392b; }
+    /* ── LETTER GRID ── */
+    .letters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px; margin-top: 16px;
+    }
+    .letter-card {
+      background: linear-gradient(135deg, #fff8f3, #fdecea);
+      border: 1.5px solid var(--border); border-radius: 14px;
+      padding: 20px 16px; cursor: pointer;
+      text-align: center; transition: all .2s;
+      box-shadow: 0 2px 8px rgba(192,57,43,.06);
+    }
+    .letter-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(192,57,43,.15); border-color: var(--accent2); }
+    .letter-card .emoji { font-size: 2.4rem; display: block; margin-bottom: 10px; }
+    .letter-card .title { font-size: .95rem; font-weight: bold; color: var(--text); }
+    .letter-card .desc { font-size: .78rem; color: var(--muted); margin-top: 4px; }
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.5); backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100; padding: 20px;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--card); border-radius: 20px;
+      max-width: 560px; width: 100%;
+      padding: 36px 32px; position: relative;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      transform: scale(.94); transition: transform .3s;
+    }
+    .modal-overlay.open .modal { transform: scale(1); }
+    .modal-close {
+      position: absolute; top: 14px; right: 18px;
+      background: none; border: none; font-size: 1.4rem;
+      cursor: pointer; color: var(--muted);
+    }
+    .modal-emoji { font-size: 3rem; display: block; margin-bottom: 12px; }
+    .modal-title { font-size: 1.4rem; color: var(--accent); margin-bottom: 16px; }
+    .modal-body {
+      font-size: 1rem; line-height: 1.8; color: var(--text);
+      white-space: pre-wrap; max-height: 340px; overflow-y: auto;
+      background: #fff; border-radius: 10px; padding: 16px;
+      border: 1px solid var(--border);
+    }
+    /* ── PASSPHRASE GATE ── */
+    .passphrase-gate {
+      text-align: center; padding: 40px 20px;
+    }
+    .passphrase-gate .lock-icon { font-size: 4rem; display: block; margin-bottom: 16px; }
+    .passphrase-gate h2 { color: var(--accent); margin-bottom: 8px; }
+    .passphrase-gate p { color: var(--muted); margin-bottom: 24px; font-size: .95rem; }
+    /* ── WRITE SECTION ── */
+    .letter-list-write { margin-top: 16px; }
+    .letter-item-write {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; border-radius: 10px;
+      border: 1px solid var(--border); margin-bottom: 8px;
+      background: #fff; cursor: pointer; transition: background .2s;
+    }
+    .letter-item-write:hover { background: #fdecea; }
+    .letter-item-write .emoji { font-size: 1.6rem; }
+    .letter-item-write .info { flex: 1; }
+    .letter-item-write .info .name { font-weight: bold; font-size: .95rem; }
+    .letter-item-write .info .preview { font-size: .8rem; color: var(--muted); margin-top: 2px; }
+    /* ── STATUS ── */
+    .status {
+      padding: 10px 16px; border-radius: 8px;
+      font-size: .9rem; margin-bottom: 16px;
+      display: none;
+    }
+    .status.success { background: #d5f5e3; color: #1e8449; display: block; }
+    .status.error { background: #fde8e8; color: #a93226; display: block; }
+    .status.info { background: #eaf4fd; color: #1a5276; display: block; }
+    /* ── ENCRYPTION BADGE ── */
+    .enc-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #d5f5e3; color: #1e8449;
+      font-size: .78rem; padding: 4px 10px; border-radius: 20px;
+      margin-top: 8px; font-family: monospace;
+    }
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 24px;
+      color: var(--muted); font-size: .85rem;
+      border-top: 1px solid var(--border);
+    }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 520px) {
+      header h1 { font-size: 1.5rem; }
+      .letters-grid { grid-template-columns: 1fr 1fr; }
+      .modal { padding: 24px 18px; }
+    }
+    .divider { height: 1px; background: var(--border); margin: 20px 0; }
+    .flex-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: .78rem; background: var(--border); color: var(--muted);
+    }
+    .badge.encrypted { background: #d5f5e3; color: #1e8449; }
+    .loading { opacity: .6; pointer-events: none; }
+    .progress {
+      height: 4px; background: var(--border); border-radius: 2px;
+      overflow: hidden; margin-top: 8px; display: none;
+    }
+    .progress-bar {
+      height: 100%; background: var(--accent2);
+      animation: progress 1.5s ease-in-out infinite;
+    }
+    @keyframes progress { 0%{width:0} 50%{width:60%} 100%{width:100%} }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Open When Letters</h1>
+  <p>A private collection of letters, just for you 💕</p>
+  <div class="enc-badge">🔐 AES-256-GCM Encrypted</div>
+</header>
+
+<main>
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('read')">💌 Read Letters</button>
+    <button class="tab-btn" onclick="switchTab('write')">✍️ Write Letters</button>
+    <button class="tab-btn" onclick="switchTab('about')">🔐 Security</button>
+  </div>
+
+  <!-- ═══ READ TAB ═══ -->
+  <div id="tab-read" class="tab-panel active">
+    <div id="read-gate" class="card">
+      <div class="passphrase-gate">
+        <span class="lock-icon">🔒</span>
+        <h2>Enter Passphrase</h2>
+        <p>Upload your letters file and enter the secret passphrase to unlock your letters.</p>
+        <div style="max-width:380px;margin:0 auto;text-align:left">
+          <label>Letters File (letters.json)</label>
+          <input type="file" id="read-file" accept=".json" style="margin-bottom:16px;padding:8px;" />
+          <label>Passphrase</label>
+          <input type="password" id="read-pass" placeholder="Enter your secret passphrase…" />
+          <div id="read-status" class="status"></div>
+          <div class="progress" id="read-progress"><div class="progress-bar"></div></div>
+          <button class="btn btn-primary" onclick="unlockLetters()" style="width:100%;margin-top:4px">🔓 Unlock Letters</button>
+        </div>
+      </div>
+    </div>
+    <div id="read-letters" style="display:none">
+      <div class="card" style="padding:16px 24px">
+        <div class="flex-row">
+          <div><strong id="read-greeting">Your Letters</strong></div>
+          <span class="badge encrypted">🔐 Decrypted</span>
+          <button class="btn btn-secondary" style="margin-left:auto;padding:7px 16px;font-size:.85rem" onclick="lockLetters()">🔒 Lock</button>
+        </div>
+      </div>
+      <div id="letters-grid" class="letters-grid"></div>
+    </div>
+  </div>
+
+  <!-- ═══ WRITE TAB ═══ -->
+  <div id="tab-write" class="tab-panel">
+    <div id="write-gate" class="card">
+      <div class="passphrase-gate">
+        <span class="lock-icon">✍️</span>
+        <h2>Set Passphrase</h2>
+        <p>Set a passphrase to encrypt your letters. Share this passphrase with your friend privately.</p>
+        <div style="max-width:380px;margin:0 auto;text-align:left">
+          <label>Passphrase</label>
+          <input type="password" id="write-pass" placeholder="Choose a strong passphrase…" />
+          <label>Confirm Passphrase</label>
+          <input type="password" id="write-pass2" placeholder="Confirm passphrase…" />
+          <div id="write-status" class="status"></div>
+          <button class="btn btn-primary" onclick="initWriter()" style="width:100%;margin-top:4px">🚀 Start Writing</button>
+        </div>
+      </div>
+    </div>
+    <div id="write-panel" style="display:none">
+      <!-- Add Letter Form -->
+      <div class="card">
+        <h2>✍️ Write a New Letter</h2>
+        <div class="flex-row" style="margin-bottom:16px">
+          <div style="flex:1">
+            <label>Occasion (Open When…)</label>
+            <select id="w-occasion">
+              <option value="">-- Choose or type custom --</option>
+              <option value="you're sad">😢 You're sad</option>
+              <option value="you're happy">😊 You're happy</option>
+              <option value="you miss me">🥺 You miss me</option>
+              <option value="you can't sleep">🌙 You can't sleep</option>
+              <option value="you need motivation">💪 You need motivation</option>
+              <option value="you're angry">😤 You're angry</option>
+              <option value="you're celebrating">🎉 You're celebrating</option>
+              <option value="you need a hug">🤗 You need a hug</option>
+              <option value="you're overthinking">🤯 You're overthinking</option>
+              <option value="you're bored">😴 You're bored</option>
+              <option value="it's your birthday">🎂 It's your birthday</option>
+              <option value="you're missing home">🏠 You're missing home</option>
+              <option value="you need to smile">😄 You need to smile</option>
+              <option value="it's a rainy day">🌧️ It's a rainy day</option>
+            </select>
+          </div>
+        </div>
+        <label>Custom Occasion (if not in list)</label>
+        <input type="text" id="w-custom" placeholder="e.g. you get the job…" />
+        <label>Emoji for this letter</label>
+        <input type="text" id="w-emoji" placeholder="💌" maxlength="2" style="max-width:80px" />
+        <label>Your Letter</label>
+        <textarea id="w-body" placeholder="Dear friend, open this when…"></textarea>
+        <div class="flex-row">
+          <button class="btn btn-primary" onclick="addLetter()">➕ Add Letter</button>
+          <button class="btn btn-secondary" onclick="previewLetter()">👁️ Preview</button>
+        </div>
+        <div id="add-status" class="status" style="margin-top:12px"></div>
+      </div>
+      <!-- Letters List -->
+      <div class="card">
+        <div class="flex-row" style="margin-bottom:16px">
+          <h2 style="margin:0">📬 Letters (<span id="letter-count">0</span>)</h2>
+          <button class="btn btn-primary" onclick="exportLetters()" style="margin-left:auto">📥 Export Encrypted File</button>
+        </div>
+        <div id="letter-list-write" class="letter-list-write">
+          <p style="color:var(--muted);font-size:.9rem">No letters yet. Write your first one above!</p>
+        </div>
+        <div id="export-status" class="status" style="margin-top:12px"></div>
+        <div class="progress" id="export-progress"><div class="progress-bar"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ABOUT TAB ═══ -->
+  <div id="tab-about" class="tab-panel">
+    <div class="card">
+      <h2>🔐 Encryption Details</h2>
+      <p style="color:var(--muted);margin-bottom:20px;font-size:.95rem">This app uses mathematically proven, industry-standard encryption. Here's exactly what happens:</p>
+      <div style="display:grid;gap:16px">
+        <div style="padding:16px;background:#f8f9fa;border-radius:12px;border-left:4px solid var(--accent)">
+          <strong>1. Key Derivation — PBKDF2-SHA256</strong>
+          <p style="font-size:.9rem;color:var(--muted);margin-top:6px">Your passphrase is never used directly. It's fed into PBKDF2 (Password-Based Key Derivation Function 2) with <strong>310,000 iterations</strong>, a <strong>random 16-byte salt</strong>, using SHA-256. This makes brute-force attacks astronomically expensive. The output is a 256-bit cryptographic key.</p>
+        </div>
+        <div style="padding:16px;background:#f8f9fa;border-radius:12px;border-left:4px solid #27ae60">
+          <strong>2. Encryption — AES-256-GCM</strong>
+          <p style="font-size:.9rem;color:var(--muted);margin-top:6px">Each letter is encrypted independently using <strong>AES-256 in GCM mode</strong> (Galois/Counter Mode). GCM is an authenticated encryption scheme — it provides both confidentiality AND integrity. Any tampering with the ciphertext is detected. Each letter gets a unique <strong>random 12-byte IV</strong>.</p>
+        </div>
+        <div style="padding:16px;background:#f8f9fa;border-radius:12px;border-left:4px solid #2980b9">
+          <strong>3. Web Crypto API</strong>
+          <p style="font-size:.9rem;color:var(--muted);margin-top:6px">All cryptographic operations use the browser's built-in <strong>SubtleCrypto API</strong> — the same API used by banks and governments. No third-party crypto libraries. No JavaScript shims. Cryptographically secure random numbers from <code>crypto.getRandomValues()</code>.</p>
+        </div>
+        <div style="padding:16px;background:#f8f9fa;border-radius:12px;border-left:4px solid #8e44ad">
+          <strong>4. Zero Server, Zero Tracking</strong>
+          <p style="font-size:.9rem;color:var(--muted);margin-top:6px">Everything runs 100% in the browser. Your passphrase and decrypted letters <strong>never leave your device</strong>. There are no cookies, no analytics, no network requests. The encrypted file is a plain JSON you control entirely.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>📋 Encrypted File Format</h2>
+      <pre style="background:#f8f9fa;padding:16px;border-radius:10px;font-size:.82rem;overflow-x:auto;color:#2c3e50">{{
+  "v": 1,
+  "salt": "<base64 random 16 bytes>",
+  "greeting": "<optional name>",
+  "letters": [
+    {{
+      "iv": "<base64 random 12 bytes>",
+      "ct": "<base64 AES-256-GCM ciphertext + tag>",
+      "emoji": "💌"
+    }}
+  ]
+}}</pre>
+      <p style="font-size:.85rem;color:var(--muted);margin-top:12px">The salt is shared (not secret) — it's needed to re-derive the key. The IV is unique per letter. Without the passphrase, the ciphertext is indistinguishable from random noise.</p>
+    </div>
+  </div>
+</main>
+
+<!-- MODAL -->
+<div id="modal" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    <span class="modal-emoji" id="modal-emoji">💌</span>
+    <h2 class="modal-title" id="modal-title">Open When…</h2>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<footer>
+  Made with 💕 · End-to-end encrypted · AES-256-GCM · PBKDF2-SHA256
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════
+//  CRYPTO ENGINE  —  AES-256-GCM + PBKDF2-SHA256
+// ═══════════════════════════════════════════════
+
+const enc = new TextEncoder();
+const dec = new TextDecoder();
+
+function b64(buf) {
+  return btoa(String.fromCharCode(...new Uint8Array(buf)));
+}
+function unb64(str) {
+  return Uint8Array.from(atob(str), c => c.charCodeAt(0));
+}
+
+async function deriveKey(passphrase, salt) {
+  const keyMaterial = await crypto.subtle.importKey(
+    'raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']
+  );
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: 310000, hash: 'SHA-256' },
+    keyMaterial,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+
+async function encryptLetter(text, key) {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const ct = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv },
+    key,
+    enc.encode(text)
+  );
+  return { iv: b64(iv), ct: b64(ct) };
+}
+
+async function decryptLetter(iv64, ct64, key) {
+  const pt = await crypto.subtle.decrypt(
+    { name: 'AES-GCM', iv: unb64(iv64) },
+    key,
+    unb64(ct64)
+  );
+  return dec.decode(pt);
+}
+
+// ═══════════════════════════════════════════════
+//  APP STATE
+// ═══════════════════════════════════════════════
+
+let writeLetters = [];   // [{occasion, emoji, body}]
+let writeKey = null;
+let readLetters = [];    // [{occasion, emoji, body}] after decrypt
+let readGreeting = '';
+
+// ═══════════════════════════════════════════════
+//  TABS
+// ═══════════════════════════════════════════════
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['read','write','about'][i] === name);
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ═══════════════════════════════════════════════
+//  WRITE FLOW
+// ═══════════════════════════════════════════════
+
+async function initWriter() {
+  const p1 = document.getElementById('write-pass').value;
+  const p2 = document.getElementById('write-pass2').value;
+  const st = document.getElementById('write-status');
+  if (!p1) { showStatus(st, 'error', 'Please enter a passphrase.'); return; }
+  if (p1 !== p2) { showStatus(st, 'error', 'Passphrases do not match.'); return; }
+  if (p1.length < 8) { showStatus(st, 'error', 'Passphrase must be at least 8 characters.'); return; }
+  showStatus(st, 'info', 'Generating cryptographic key…');
+  try {
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    writeKey = { key: await deriveKey(p1, salt), salt: b64(salt) };
+    document.getElementById('write-gate').style.display = 'none';
+    document.getElementById('write-panel').style.display = 'block';
+  } catch(e) { showStatus(st, 'error', 'Key generation failed: ' + e.message); }
+}
+
+async function addLetter() {
+  const occ = document.getElementById('w-occasion').value;
+  const custom = document.getElementById('w-custom').value.trim();
+  const emoji = document.getElementById('w-emoji').value.trim() || '💌';
+  const body = document.getElementById('w-body').value.trim();
+  const st = document.getElementById('add-status');
+  const occasion = custom || occ;
+  if (!occasion) { showStatus(st, 'error', 'Please choose or type an occasion.'); return; }
+  if (!body) { showStatus(st, 'error', 'Please write the letter content.'); return; }
+  writeLetters.push({ occasion, emoji, body });
+  renderWriteList();
+  document.getElementById('w-occasion').value = '';
+  document.getElementById('w-custom').value = '';
+  document.getElementById('w-emoji').value = '';
+  document.getElementById('w-body').value = '';
+  showStatus(st, 'success', `Letter "Open When ${occasion}" added! (${writeLetters.length} total)`);
+}
+
+function renderWriteList() {
+  const el = document.getElementById('letter-list-write');
+  document.getElementById('letter-count').textContent = writeLetters.length;
+  if (!writeLetters.length) {
+    el.innerHTML = '<p style="color:var(--muted);font-size:.9rem">No letters yet.</p>';
+    return;
+  }
+  el.innerHTML = writeLetters.map((l, i) => `
+    <div class="letter-item-write">
+      <span class="emoji">${l.emoji}</span>
+      <div class="info">
+        <div class="name">Open when ${l.occasion}</div>
+        <div class="preview">${l.body.substring(0,60)}${l.body.length>60?'…':''}</div>
+      </div>
+      <button class="btn btn-danger" style="padding:5px 12px;font-size:.8rem" onclick="deleteLetter(${i})">🗑️</button>
+    </div>
+  `).join('');
+}
+
+function deleteLetter(i) {
+  writeLetters.splice(i, 1);
+  renderWriteList();
+}
+
+function previewLetter() {
+  const occ = document.getElementById('w-custom').value.trim() ||
+               document.getElementById('w-occasion').value;
+  const emoji = document.getElementById('w-emoji').value.trim() || '💌';
+  const body = document.getElementById('w-body').value.trim();
+  if (!occ || !body) { showStatus(document.getElementById('add-status'), 'error', 'Fill in the occasion and letter to preview.'); return; }
+  openModal({ occasion: occ, emoji, body });
+}
+
+async function exportLetters() {
+  const st = document.getElementById('export-status');
+  const prog = document.getElementById('export-progress');
+  if (!writeLetters.length) { showStatus(st, 'error', 'No letters to export.'); return; }
+  prog.style.display = 'block';
+  showStatus(st, 'info', 'Encrypting letters…');
+  try {
+    const encrypted = [];
+    for (const l of writeLetters) {
+      const payload = JSON.stringify({ occasion: l.occasion, body: l.body });
+      const { iv, ct } = await encryptLetter(payload, writeKey.key);
+      encrypted.push({ iv, ct, emoji: l.emoji });
+    }
+    const out = JSON.stringify({ v: 1, salt: writeKey.salt, letters: encrypted }, null, 2);
+    const blob = new Blob([out], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'letters.json'; a.click();
+    URL.revokeObjectURL(url);
+    prog.style.display = 'none';
+    showStatus(st, 'success', `✅ Exported ${writeLetters.length} encrypted letter(s)! Share letters.json + index.html with your friend.`);
+  } catch(e) {
+    prog.style.display = 'none';
+    showStatus(st, 'error', 'Export failed: ' + e.message);
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  READ FLOW
+// ═══════════════════════════════════════════════
+
+async function unlockLetters() {
+  const fileInput = document.getElementById('read-file');
+  const pass = document.getElementById('read-pass').value;
+  const st = document.getElementById('read-status');
+  const prog = document.getElementById('read-progress');
+  if (!fileInput.files.length) { showStatus(st, 'error', 'Please upload your letters.json file.'); return; }
+  if (!pass) { showStatus(st, 'error', 'Please enter the passphrase.'); return; }
+  prog.style.display = 'block';
+  showStatus(st, 'info', 'Deriving key and decrypting… (this may take a moment)');
+  try {
+    const text = await fileInput.files[0].text();
+    const data = JSON.parse(text);
+    if (data.v !== 1) throw new Error('Unknown file format.');
+    const salt = unb64(data.salt);
+    const key = await deriveKey(pass, salt);
+    const decrypted = [];
+    for (const l of data.letters) {
+      const pt = await decryptLetter(l.iv, l.ct, key);
+      const parsed = JSON.parse(pt);
+      decrypted.push({ ...parsed, emoji: l.emoji });
+    }
+    readLetters = decrypted;
+    readGreeting = data.greeting || '';
+    prog.style.display = 'none';
+    renderReadLetters();
+  } catch(e) {
+    prog.style.display = 'none';
+    if (e.message.includes('OperationError') || e.name === 'OperationError') {
+      showStatus(st, 'error', '❌ Wrong passphrase or corrupted file.');
+    } else {
+      showStatus(st, 'error', 'Decryption failed: ' + (e.message || 'unknown error'));
+    }
+  }
+}
+
+function renderReadLetters() {
+  document.getElementById('read-gate').style.display = 'none';
+  document.getElementById('read-letters').style.display = 'block';
+  if (readGreeting) document.getElementById('read-greeting').textContent = `Letters for ${readGreeting}`;
+  const grid = document.getElementById('letters-grid');
+  grid.innerHTML = readLetters.map((l, i) => `
+    <div class="letter-card" onclick="openLetter(${i})">
+      <span class="emoji">${l.emoji}</span>
+      <div class="title">Open When…</div>
+      <div class="desc">${l.occasion}</div>
+    </div>
+  `).join('');
+}
+
+function lockLetters() {
+  readLetters = [];
+  document.getElementById('read-gate').style.display = 'block';
+  document.getElementById('read-letters').style.display = 'none';
+  document.getElementById('read-pass').value = '';
+  document.getElementById('read-file').value = '';
+  document.getElementById('read-status').className = 'status';
+}
+
+function openLetter(i) {
+  const l = readLetters[i];
+  openModal(l);
+}
+
+// ═══════════════════════════════════════════════
+//  MODAL
+// ═══════════════════════════════════════════════
+
+function openModal(l) {
+  document.getElementById('modal-emoji').textContent = l.emoji;
+  document.getElementById('modal-title').textContent = `Open When ${l.occasion}`;
+  document.getElementById('modal-body').textContent = l.body;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(e) {
+  if (e.target === document.getElementById('modal')) closeModalBtn();
+}
+function closeModalBtn() {
+  document.getElementById('modal').classList.remove('open');
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModalBtn();
+});
+
+// ═══════════════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════════════
+
+function showStatus(el, type, msg) {
+  el.className = 'status ' + type;
+  el.textContent = msg;
+}
+</script>
+</body>
+</html>
