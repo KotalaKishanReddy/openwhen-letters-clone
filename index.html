@@ -1,1182 +1,1095 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scrapbook Letter Studio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-/* ═══════════════════════════════════════════
-   TOKENS
-═══════════════════════════════════════════ */
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Open When · Scrapbook Letter Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
 :root,[data-theme="light"]{
-  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);
-  --text-sm:clamp(.875rem,.8rem + .35vw,1rem);
-  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);
-  --text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
-  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
-  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
-  --s1:.25rem;--s2:.5rem;--s3:.75rem;--s4:1rem;
-  --s5:1.25rem;--s6:1.5rem;--s8:2rem;--s10:2.5rem;
-  --s12:3rem;--s16:4rem;
-  --bg:#f6efe7;--surf:#fff9f2;--surf2:#fffdf9;
-  --surf-off:#efe4d7;--surf-dyn:#e3d3c1;
-  --bdr:rgba(68,45,30,.14);--div:rgba(68,45,30,.1);
-  --tx:#3a2418;--tx-m:#7b5d4d;--tx-f:#b39a8b;
-  --pri:#b85c72;--pri-h:#9d4359;
-  --sec:#d9a441;--acc:#8d6ab8;
-  --pline:rgba(136,90,72,.09);--tape:rgba(244,224,190,.8);
-  --shc:20,8,0;
-  --r-sm:.5rem;--r-md:.9rem;--r-lg:1.4rem;--r-xl:2rem;--r-f:999px;
-  --sh-sm:0 8px 18px rgba(var(--shc),.06);
-  --sh-md:0 18px 40px rgba(var(--shc),.1);
-  --sh-lg:0 30px 80px rgba(var(--shc),.14);
-  --fd:'Cormorant Garamond',Georgia,serif;
-  --fb:'DM Sans',system-ui,sans-serif;
-  --fs:'Caveat',cursive;
-  --tr:180ms cubic-bezier(.16,1,.3,1);
+  --bg:#f5ede2;--surface:#fff9f2;--surface2:#fffdf9;--off:#ede0d0;--dynamic:#dfd0bd;
+  --border:rgba(68,40,20,.13);--div:rgba(68,40,20,.09);
+  --text:#36200f;--muted:#7a5740;--faint:#b8987f;
+  --p:#c05470;--ph:#a33856;--pa:#7d2540;
+  --sec:#d49a30;--acc:#8a60b5;
+  --line:rgba(130,80,55,.08);--tape:rgba(244,220,180,.82);
+  --shd:22,10,2;
+  --r1:.45rem;--r2:.85rem;--r3:1.35rem;--r4:1.9rem;--rf:999px;
+  --s1:.25rem;--s2:.5rem;--s3:.75rem;--s4:1rem;--s5:1.25rem;--s6:1.5rem;--s8:2rem;--s10:2.5rem;--s12:3rem;--s16:4rem;
+  --tx:.875rem;--tb:1rem;--tl:1.2rem;--txl:1.6rem;--t2xl:2.2rem;--t3xl:3.2rem;--thero:clamp(3rem,.5rem + 7vw,7rem);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --trans:180ms var(--ease);
+  --sh1:0 6px 16px rgba(var(--shd),.06);
+  --sh2:0 16px 40px rgba(var(--shd),.1);
+  --sh3:0 32px 80px rgba(var(--shd),.15);
+  --font-d:'Cormorant Garamond',Georgia,serif;
+  --font-b:'DM Sans',system-ui,sans-serif;
+  --font-s:'Caveat',cursive;
 }
 [data-theme="dark"]{
-  --bg:#1d1715;--surf:#2a201d;--surf2:#332724;
-  --surf-off:#251d1a;--surf-dyn:#3a2f2b;
-  --bdr:rgba(255,234,218,.12);--div:rgba(255,234,218,.08);
-  --tx:#f2e6d9;--tx-m:#cfb7a5;--tx-f:#8e766a;
-  --pri:#ec8da2;--pri-h:#ffadc0;--sec:#f5c467;--acc:#bea3ec;
-  --pline:rgba(255,231,209,.07);--tape:rgba(218,179,125,.24);
-  --shc:0,0,0;
-  --sh-sm:0 8px 18px rgba(0,0,0,.22);
-  --sh-md:0 18px 40px rgba(0,0,0,.28);
-  --sh-lg:0 30px 80px rgba(0,0,0,.4);
-}
-*{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{
-  margin:0;min-height:100vh;font-family:var(--fb);
-  font-size:var(--text-base);color:var(--tx);
-  background:
-    radial-gradient(circle at top left,rgba(255,255,255,.65),transparent 28%),
-    radial-gradient(circle at right 20%,rgba(255,226,194,.28),transparent 22%),
-    linear-gradient(180deg,rgba(255,255,255,.08),transparent 30%),var(--bg);
-  overflow-x:hidden;
-}
-body::before{
-  content:"";position:fixed;inset:0;pointer-events:none;
-  background-image:
-    radial-gradient(rgba(255,255,255,.18) .7px,transparent .7px),
-    radial-gradient(rgba(95,57,35,.04) .7px,transparent .7px);
-  background-position:0 0,14px 14px;background-size:28px 28px;
-  opacity:.55;mix-blend-mode:soft-light;
-}
-img{display:block;max-width:100%;} a{color:inherit;text-decoration:none;} button{font:inherit;}
-
-/* ── shell ── */
-.app-shell{width:min(1200px,calc(100% - 2rem));margin:0 auto;padding:var(--s8) 0 var(--s16);position:relative;z-index:1;}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);margin-bottom:var(--s8);padding:var(--s4) var(--s5);border:1px solid var(--bdr);border-radius:var(--r-xl);background:color-mix(in srgb,var(--surf) 82%,white 18%);box-shadow:var(--sh-sm);backdrop-filter:blur(18px);}
-.brand{display:flex;align-items:center;gap:var(--s4);}
-.brand-mark{width:3.25rem;aspect-ratio:1;border-radius:1rem 1.25rem .8rem 1.25rem;background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(255,236,223,.7)),var(--surf);border:1px solid var(--bdr);box-shadow:var(--sh-sm);display:grid;place-items:center;font-family:var(--fs);font-size:1.45rem;color:var(--pri);transform:rotate(-6deg);}
-.brand h1{margin:0;font-family:var(--fd);font-size:var(--text-xl);line-height:.95;letter-spacing:-.03em;}
-.brand p{margin:.35rem 0 0;color:var(--tx-m);font-size:var(--text-sm);}
-.topbar-actions{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;justify-content:flex-end;}
-.chip,.ghost-btn,.theme-btn,.primary-btn{border-radius:var(--r-f);border:1px solid var(--bdr);background:var(--surf2);color:var(--tx);padding:.8rem 1.1rem;transition:transform var(--tr),background var(--tr),border-color var(--tr);cursor:pointer;}
-.chip{font-size:var(--text-sm);cursor:default;}
-.primary-btn{background:var(--pri);color:#fff8f5;border-color:transparent;box-shadow:var(--sh-sm);}
-.primary-btn:hover{background:var(--pri-h);transform:translateY(-1px);}
-.ghost-btn:hover,.theme-btn:hover{background:var(--surf-off);}
-.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);gap:var(--s8);align-items:center;margin-bottom:var(--s8);}
-.hero-card,.preview-card,.panel,.timeline-card,.sticker-card{border:1px solid var(--bdr);background:color-mix(in srgb,var(--surf) 90%,white 10%);border-radius:var(--r-xl);box-shadow:var(--sh-md);position:relative;overflow:hidden;}
-.hero-card{padding:clamp(1.5rem,4vw,3rem);isolation:isolate;background:linear-gradient(180deg,rgba(255,255,255,.45),transparent),linear-gradient(145deg,rgba(255,228,218,.55),rgba(255,247,240,.92) 32%,rgba(244,233,224,.95));}
-.paper-tape{position:absolute;width:96px;height:26px;background:var(--tape);border:1px solid rgba(166,132,88,.12);top:1rem;left:2rem;transform:rotate(-7deg);border-radius:3px;}
-.eyebrow{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .9rem;border-radius:var(--r-f);background:rgba(255,255,255,.72);border:1px solid rgba(112,73,43,.1);font-size:var(--text-sm);color:var(--tx-m);margin-bottom:var(--s5);}
-.hero h2{margin:0;font-family:var(--fd);font-size:clamp(3rem,6vw,5.6rem);line-height:.88;letter-spacing:-.045em;max-width:9ch;}
-.hero-copy{margin:var(--s5) 0 var(--s6);color:var(--tx-m);max-width:58ch;line-height:1.7;}
-.hero-actions{display:flex;flex-wrap:wrap;gap:var(--s3);margin-bottom:var(--s6);}
-.scrap-notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);}
-.mini-note{padding:var(--s4);border-radius:1.2rem;background:repeating-linear-gradient(to bottom,transparent,transparent 27px,var(--pline) 27px,var(--pline) 28px),var(--surf2);border:1px dashed rgba(122,88,69,.18);min-height:120px;}
-.mini-note strong{display:block;margin-bottom:.6rem;font-family:var(--fs);font-size:1.4rem;color:var(--pri);}
-.preview-card{padding:var(--s6);background:radial-gradient(circle at top right,rgba(255,216,183,.34),transparent 30%),linear-gradient(160deg,rgba(255,255,255,.85),rgba(247,236,226,.96));}
-.polaroid-stack{position:relative;min-height:470px;}
-.polaroid,.sticky,.ticket{position:absolute;border:1px solid var(--bdr);box-shadow:var(--sh-md);}
-.polaroid{width:230px;padding:14px 14px 54px;background:#fffdf9;border-radius:1rem;}
-.polaroid-img{display:block;aspect-ratio:1/1;border-radius:.8rem;background:linear-gradient(135deg,rgba(214,176,164,.25),rgba(255,227,196,.52));margin-bottom:14px;width:100%;}
-.polaroid h3,.polaroid p{margin:0;}
-.polaroid h3{font-family:var(--fs);font-size:1.6rem;margin-bottom:.25rem;color:var(--pri);}
-.polaroid p{color:var(--tx-m);font-size:var(--text-sm);}
-.polaroid.one{top:10px;left:10px;transform:rotate(-8deg);}
-.polaroid.two{top:128px;right:10px;transform:rotate(7deg);}
-.sticky{top:28px;right:30px;width:140px;min-height:140px;padding:1rem;border-radius:.6rem;background:#ffe89c;transform:rotate(5deg);font-family:var(--fs);font-size:1.35rem;color:#714806;}
-.ticket{left:50px;bottom:24px;width:270px;padding:1rem 1.2rem;border-radius:1.25rem;background:linear-gradient(135deg,#f4d5d8,#fff2ec);transform:rotate(-4deg);}
-.ticket small{display:block;color:var(--tx-m);margin-bottom:.3rem;}
-.ticket strong{font-size:var(--text-lg);font-family:var(--fd);}
-.content-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s8);}
-.panel{padding:var(--s6);background:repeating-linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0) 31px,var(--pline) 31px,var(--pline) 32px),var(--surf2);}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:var(--s4);margin-bottom:var(--s5);}
-.section-head h3,.section-head h4{margin:0;font-family:var(--fd);font-size:var(--text-xl);letter-spacing:-.03em;}
-.section-head p{margin:.45rem 0 0;color:var(--tx-m);font-size:var(--text-sm);}
-.editor-area{display:grid;gap:var(--s4);}
-.toolbar{display:flex;flex-wrap:wrap;gap:var(--s2);padding-bottom:var(--s4);border-bottom:1px dashed var(--div);}
-.tool{padding:.7rem .95rem;border-radius:1rem;border:1px solid var(--bdr);background:rgba(255,255,255,.66);font-size:var(--text-sm);cursor:pointer;transition:background var(--tr);}
-.tool:hover{background:var(--surf-off);}
-.letter-canvas{min-height:360px;border-radius:1.4rem;padding:var(--s6);background:linear-gradient(180deg,rgba(255,255,255,.58),transparent 16%),repeating-linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0) 31px,var(--pline) 31px,var(--pline) 32px),#fffdf8;border:1px solid rgba(101,70,50,.14);position:relative;overflow:hidden;}
-.letter-canvas::after{content:"";position:absolute;inset:18px;border:1px dashed rgba(150,109,74,.12);border-radius:1rem;pointer-events:none;}
-.canvas-title{font-family:var(--fs);font-size:2rem;color:var(--pri);margin-bottom:var(--s3);}
-.canvas-lines{color:var(--tx-m);max-width:55ch;line-height:1.9;}
-.sticker-row,.theme-swatches,.material-row{display:flex;flex-wrap:wrap;gap:var(--s3);}
-.sticker-pill,.swatch,.material-chip{border-radius:var(--r-f);border:1px solid var(--bdr);background:rgba(255,255,255,.72);padding:.75rem 1rem;box-shadow:var(--sh-sm);}
-.swatch{width:54px;height:54px;padding:0;cursor:pointer;border-radius:50%;}
-.swatch.rose{background:linear-gradient(135deg,#ffd5dd,#fff0f2);}
-.swatch.sun{background:linear-gradient(135deg,#ffd98d,#fff5d8);}
-.swatch.lilac{background:linear-gradient(135deg,#d6cbff,#f6f0ff);}
-.swatch.mint{background:linear-gradient(135deg,#bdebd6,#f0fff8);}
-.swatch.night{background:linear-gradient(135deg,#2b2035,#51406a);}
-.timeline-card,.sticker-card{padding:var(--s6);background:color-mix(in srgb,var(--surf) 88%,white 12%);}
-.timeline-list{display:grid;gap:var(--s4);}
-.timeline-item{display:grid;grid-template-columns:auto 1fr;gap:var(--s3);align-items:start;}
-.timeline-dot{width:14px;height:14px;border-radius:999px;margin-top:.45rem;background:linear-gradient(135deg,var(--pri),var(--sec));box-shadow:0 0 0 6px rgba(184,92,114,.12);}
-.timeline-item h5,.timeline-item p{margin:0;}
-.timeline-item h5{font-size:1rem;}
-.timeline-item p{color:var(--tx-m);font-size:var(--text-sm);margin-top:.2rem;}
-.sticker-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);margin-top:var(--s4);}
-.sticker-tile{min-height:92px;border-radius:1.25rem;border:1px solid var(--bdr);background:linear-gradient(160deg,rgba(255,255,255,.9),rgba(245,233,223,.75));display:grid;place-items:center;font-size:2rem;cursor:pointer;transition:transform var(--tr);}
-.sticker-tile:hover{transform:scale(1.08) rotate(3deg);}
-.footer-strip{margin-top:var(--s8);padding:var(--s5);border-radius:var(--r-xl);border:1px solid var(--bdr);background:linear-gradient(135deg,rgba(255,242,232,.85),rgba(255,249,243,.7));display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s4);align-items:center;}
-.footer-strip strong{display:block;font-family:var(--fd);font-size:var(--text-lg);}
-.floating-deco{position:absolute;pointer-events:none;opacity:.75;filter:drop-shadow(0 18px 30px rgba(58,27,9,.08));}
-.floating-deco.one{top:130px;right:-18px;transform:rotate(12deg);font-size:4.5rem;}
-.floating-deco.two{left:-14px;bottom:140px;transform:rotate(-16deg);font-size:4rem;}
-@supports (animation-timeline:view()){
-  .fade-in{opacity:0;animation:reveal-fade linear both;animation-timeline:view();animation-range:entry 0% entry 70%;}
-}
-@keyframes reveal-fade{to{opacity:1;}}
-
-/* ═══════════════════════════════════════════
-   BOOK MODAL
-═══════════════════════════════════════════ */
-.book-backdrop{
-  display:none;position:fixed;inset:0;z-index:1000;
-  background:rgba(18,8,4,.78);backdrop-filter:blur(14px);
-  align-items:center;justify-content:center;
-  flex-direction:column;gap:1.5rem;padding:1rem;
-}
-.book-backdrop.open{display:flex;}
-
-/* ── setup panel (occasion + theme) ── */
-.setup-panel{
-  width:min(780px,100%);background:var(--surf);
-  border:1px solid var(--bdr);border-radius:var(--r-xl);
-  box-shadow:var(--sh-lg);padding:1.8rem;
-  display:flex;flex-direction:column;gap:1.2rem;
-  animation:modal-in .28s cubic-bezier(.16,1,.3,1) both;
-}
-.setup-panel.hidden{display:none;}
-@keyframes modal-in{from{opacity:0;transform:translateY(20px) scale(.97);}to{opacity:1;transform:none;}}
-.setup-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
-.setup-row h2{margin:0;font-family:var(--fd);font-size:var(--text-xl);letter-spacing:-.03em;}
-.modal-close{width:36px;height:36px;border-radius:50%;border:1px solid var(--bdr);background:transparent;display:grid;place-items:center;font-size:1.25rem;cursor:pointer;color:var(--tx-m);transition:background var(--tr);}
-.modal-close:hover{background:var(--surf-off);}
-.field-label{font-family:var(--fd);font-size:1.15rem;font-weight:600;color:var(--tx);margin-bottom:.4rem;}
-.occ-row{display:flex;flex-wrap:wrap;gap:.6rem;}
-.occ-btn{padding:.6rem 1rem;border-radius:var(--r-f);border:1px solid var(--bdr);background:var(--surf2);color:var(--tx-m);font-size:var(--text-sm);cursor:pointer;transition:background var(--tr),color var(--tr),border-color var(--tr);}
-.occ-btn.active,.occ-btn:hover{background:var(--pri);color:#fff8f5;border-color:transparent;}
-.theme-row{display:flex;flex-wrap:wrap;gap:.6rem;}
-.theme-opt{display:flex;align-items:center;gap:.45rem;padding:.55rem .9rem;border-radius:var(--r-f);border:1px solid var(--bdr);background:var(--surf2);font-size:var(--text-sm);cursor:pointer;transition:border-color var(--tr),background var(--tr);}
-.theme-opt .dot{width:13px;height:13px;border-radius:50%;}
-.theme-opt.active,.theme-opt:hover{border-color:var(--pri);background:rgba(184,92,114,.08);}
-.setup-footer{display:flex;justify-content:flex-end;gap:.75rem;padding-top:.4rem;border-top:1px solid var(--div);}
-.field-group{display:grid;gap:.6rem;}
-.field-group label{font-size:var(--text-sm);color:var(--tx-m);font-weight:500;}
-.field-group input{width:100%;padding:.7rem 1rem;border-radius:var(--r-md);border:1px solid var(--bdr);background:var(--surf2);color:var(--tx);font-family:var(--fb);font-size:var(--text-base);outline:none;transition:border-color var(--tr);}
-.field-group input:focus{border-color:var(--pri);}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-
-/* ── book wrapper ── */
-.book-wrap{
-  display:none;flex-direction:column;align-items:center;gap:1.25rem;
-  width:100%;max-width:1100px;
-}
-.book-wrap.visible{display:flex;}
-
-/* top bar inside book view */
-.book-topbar{
-  display:flex;align-items:center;justify-content:space-between;
-  width:100%;max-width:1100px;
-  padding:.5rem .75rem;
-  background:rgba(255,255,255,.08);backdrop-filter:blur(12px);
-  border-radius:var(--r-xl);border:1px solid rgba(255,255,255,.12);
-}
-.book-meta{color:rgba(255,255,255,.7);font-size:var(--text-sm);font-family:var(--fd);font-style:italic;}
-.book-top-actions{display:flex;gap:.6rem;}
-.book-btn{
-  padding:.6rem 1.1rem;border-radius:var(--r-f);
-  border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);
-  color:rgba(255,255,255,.85);font-size:var(--text-sm);cursor:pointer;
-  transition:background var(--tr);
-}
-.book-btn:hover{background:rgba(255,255,255,.2);}
-.book-btn.accent{background:var(--pri);border-color:transparent;color:#fff8f5;}
-.book-btn.accent:hover{background:var(--pri-h);}
-
-/* ── the open book ── */
-.book{
-  display:flex;width:100%;max-width:1100px;
-  border-radius:1.2rem 1.2rem 1.4rem 1.4rem;
-  box-shadow:
-    0 2px 0 rgba(80,40,20,.22),
-    0 40px 120px rgba(0,0,0,.55),
-    inset 0 1px 0 rgba(255,255,255,.06);
-  position:relative;overflow:visible;
-  perspective:2000px;
+  --bg:#1b1410;--surface:#261e1a;--surface2:#2e2520;--off:#201810;--dynamic:#382e28;
+  --border:rgba(255,230,210,.11);--div:rgba(255,230,210,.07);
+  --text:#f0e0d0;--muted:#c8a890;--faint:#8a6e5e;
+  --p:#f08aa4;--ph:#ffa8be;--pa:#ffcad5;
+  --sec:#f5c060;--acc:#c8a8f8;
+  --line:rgba(255,220,190,.06);--tape:rgba(220,175,120,.22);
+  --shd:0,0,0;
+  --sh1:0 6px 16px rgba(0,0,0,.22);--sh2:0 16px 40px rgba(0,0,0,.3);--sh3:0 32px 80px rgba(0,0,0,.42);
 }
 
-/* spine shadow */
-.book::after{
-  content:"";
-  position:absolute;top:0;bottom:0;
-  left:50%;transform:translateX(-50%);
-  width:6px;
-  background:linear-gradient(to right,rgba(0,0,0,.28),rgba(0,0,0,.06) 40%,rgba(0,0,0,.06) 60%,rgba(0,0,0,.28));
-  z-index:10;pointer-events:none;
-  border-radius:2px;
+/* ── RESET ── */
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:none;}
+body{min-height:100dvh;font-family:var(--font-b);font-size:var(--tb);color:var(--text);background:var(--bg);overflow-x:hidden;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{font:inherit;cursor:pointer;border:none;background:none;}
+textarea,input,select{font:inherit;color:inherit;}
+h1,h2,h3,h4,h5{text-wrap:balance;line-height:1.15;}
+p,li{text-wrap:pretty;max-width:72ch;}
+:focus-visible{outline:2px solid var(--p);outline-offset:3px;border-radius:var(--r1);}
+::selection{background:rgba(192,84,112,.18);}
+
+/* ── GRAIN OVERLAY ── */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  opacity:.55;mix-blend-mode:soft-light;}
+
+/* ── APP SHELL ── */
+#app{position:relative;z-index:1;min-height:100dvh;display:flex;flex-direction:column;}
+
+/* ── TOPBAR ── */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
+  padding:var(--s3) var(--s6);
+  background:color-mix(in srgb,var(--surface) 88%,transparent);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  position:sticky;top:0;z-index:100;
+}
+.brand{display:flex;align-items:center;gap:var(--s3);cursor:pointer;}
+.brand-mark{
+  width:2.6rem;height:2.6rem;border-radius:.85rem 1.1rem .7rem 1.1rem;
+  background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(255,230,210,.7));
+  border:1px solid var(--border);box-shadow:var(--sh1);
+  display:grid;place-items:center;font-family:var(--font-s);font-size:1.3rem;
+  color:var(--p);transform:rotate(-5deg);transition:transform var(--trans);
+}
+.brand:hover .brand-mark{transform:rotate(0deg);}
+.brand-name{font-family:var(--font-d);font-size:var(--tl);font-weight:700;letter-spacing:-.02em;}
+.brand-sub{font-size:.78rem;color:var(--muted);margin-top:1px;}
+.nav-pills{display:flex;gap:var(--s2);}
+.nav-pill{
+  padding:.55rem 1rem;border-radius:var(--rf);font-size:var(--tx);
+  border:1px solid transparent;color:var(--muted);
+  transition:background var(--trans),color var(--trans),border-color var(--trans);
+}
+.nav-pill:hover{background:var(--off);color:var(--text);}
+.nav-pill.active{background:var(--p);color:#fff5f7;border-color:transparent;}
+.topbar-right{display:flex;align-items:center;gap:var(--s2);}
+.icon-btn{
+  width:2.2rem;height:2.2rem;border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--border);background:var(--surface2);color:var(--muted);
+  transition:background var(--trans),color var(--trans);font-size:1rem;
+}
+.icon-btn:hover{background:var(--off);color:var(--text);}
+.pill-btn{
+  padding:.6rem 1.2rem;border-radius:var(--rf);font-size:var(--tx);font-weight:500;
+  border:1px solid var(--border);background:var(--surface2);color:var(--text);
+  transition:background var(--trans),transform var(--trans),box-shadow var(--trans);
+}
+.pill-btn:hover{background:var(--off);}
+.pill-btn.primary{background:var(--p);color:#fff5f7;border-color:transparent;box-shadow:var(--sh1);}
+.pill-btn.primary:hover{background:var(--ph);transform:translateY(-1px);box-shadow:var(--sh2);}
+
+/* ── VIEWS ── */
+.view{display:none;flex:1;}
+.view.active{display:block;}
+
+/* ════════════════════ HOME VIEW ════════════════════ */
+.home-wrap{width:min(1120px,100% - 2rem);margin:0 auto;padding:var(--s10) 0 var(--s16);}
+
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s8);align-items:start;margin-bottom:var(--s10);}
+.hero-left{
+  padding:clamp(1.6rem,4vw,3rem);
+  background:linear-gradient(150deg,rgba(255,245,235,.95) 0%,rgba(248,234,220,.92) 100%);
+  border:1px solid var(--border);border-radius:var(--r4);box-shadow:var(--sh2);
+  position:relative;overflow:hidden;
+}
+.hero-left::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 80% 20%,rgba(255,200,180,.18),transparent 50%);pointer-events:none;}
+.tape-h{position:absolute;top:.85rem;left:1.8rem;width:88px;height:22px;
+  background:var(--tape);border:1px solid rgba(160,120,70,.12);border-radius:3px;transform:rotate(-6deg);}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.4rem .85rem;border-radius:var(--rf);
+  background:rgba(255,255,255,.7);border:1px solid rgba(110,70,40,.1);
+  font-size:.82rem;color:var(--muted);margin-bottom:var(--s5);
+}
+.hero-h{font-family:var(--font-d);font-size:var(--thero);line-height:.88;letter-spacing:-.045em;max-width:9ch;margin-bottom:var(--s5);}
+.hero-copy{color:var(--muted);line-height:1.75;margin-bottom:var(--s6);max-width:52ch;}
+.hero-cta{display:flex;flex-wrap:wrap;gap:var(--s3);margin-bottom:var(--s6);}
+.feature-pills{display:flex;flex-wrap:wrap;gap:var(--s2);}
+.fpill{padding:.5rem .9rem;border-radius:var(--rf);background:rgba(255,255,255,.65);border:1px solid rgba(110,70,40,.1);font-size:.8rem;color:var(--muted);}
+
+.hero-right{
+  background:linear-gradient(150deg,rgba(255,248,240,.94),rgba(245,232,218,.96));
+  border:1px solid var(--border);border-radius:var(--r4);box-shadow:var(--sh2);
+  padding:var(--s6);
+}
+.preview-label{font-family:var(--font-d);font-size:var(--txl);margin-bottom:var(--s4);letter-spacing:-.02em;}
+.pstack{position:relative;height:480px;}
+.ppol{
+  position:absolute;padding:12px 12px 48px;background:#fffef9;
+  border:1px solid var(--border);border-radius:.9rem;box-shadow:var(--sh2);
+}
+.ppol-img{aspect-ratio:1;width:190px;border-radius:.7rem;
+  background:linear-gradient(135deg,rgba(210,170,155,.3),rgba(255,220,190,.5));margin-bottom:10px;}
+.ppol h4{font-family:var(--font-s);font-size:1.55rem;color:var(--p);margin-bottom:.2rem;}
+.ppol p{font-size:.8rem;color:var(--muted);}
+.ppol.a{top:0;left:0;transform:rotate(-7deg);}
+.ppol.b{top:120px;right:0;transform:rotate(6deg);}
+.psticky{position:absolute;top:18px;right:22px;width:130px;min-height:130px;
+  padding:.9rem;border-radius:.5rem;background:#ffe88a;transform:rotate(5deg);
+  border:1px solid rgba(180,140,20,.15);box-shadow:var(--sh1);
+  font-family:var(--font-s);font-size:1.3rem;color:#6e4500;}
+.pticket{position:absolute;bottom:16px;left:30px;width:260px;padding:.9rem 1.1rem;
+  border-radius:1.2rem;background:linear-gradient(135deg,#f5d0d4,#fff0ec);
+  border:1px solid var(--border);box-shadow:var(--sh1);transform:rotate(-3deg);}
+.pticket small{display:block;font-size:.75rem;color:var(--muted);margin-bottom:.2rem;}
+.pticket strong{font-family:var(--font-d);font-size:1.15rem;}
+
+/* feature strip */
+.feature-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s6);margin-bottom:var(--s10);}
+.fcard{
+  padding:var(--s6);border-radius:var(--r4);
+  border:1px solid var(--border);box-shadow:var(--sh1);
+  background:color-mix(in srgb,var(--surface) 90%,white 10%);
+}
+.fcard-icon{font-size:2rem;margin-bottom:var(--s4);}
+.fcard h3{font-family:var(--font-d);font-size:var(--txl);margin-bottom:var(--s2);letter-spacing:-.02em;}
+.fcard p{color:var(--muted);font-size:.9rem;line-height:1.7;}
+
+/* vault preview strip */
+.vault-strip-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--s5);}
+.vault-strip-head h2{font-family:var(--font-d);font-size:var(--t2xl);letter-spacing:-.03em;}
+.letter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:var(--s5);}
+
+/* ════════════════════ LETTER CARD ════════════════════ */
+.letter-card{
+  border:1px solid var(--border);border-radius:var(--r4);overflow:hidden;
+  box-shadow:var(--sh1);background:var(--surface);
+  cursor:pointer;transition:transform var(--trans),box-shadow var(--trans);
+  display:flex;flex-direction:column;
+}
+.letter-card:hover{transform:translateY(-4px) rotate(.4deg);box-shadow:var(--sh2);}
+.lc-paper{
+  height:140px;padding:1.1rem 1.2rem;position:relative;
+  font-family:var(--font-s);font-size:1.3rem;overflow:hidden;
+}
+.lc-tape{position:absolute;top:-6px;left:50%;transform:translateX(-50%) rotate(-2deg);
+  width:80px;height:18px;background:var(--tape);border-radius:2px;opacity:.8;}
+.lc-greeting{font-size:1.5rem;font-weight:700;line-height:1.2;margin-bottom:.4rem;}
+.lc-preview{font-size:1.1rem;opacity:.7;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.lc-stickers{position:absolute;bottom:.5rem;right:.8rem;font-size:1.3rem;letter-spacing:.05rem;}
+.lc-meta{padding:.8rem 1.1rem;border-top:1px solid var(--div);display:flex;align-items:center;justify-content:space-between;gap:.5rem;}
+.lc-occ{font-size:.78rem;color:var(--muted);background:var(--off);padding:.3rem .7rem;border-radius:var(--rf);}
+.lc-when{font-size:.78rem;color:var(--faint);font-style:italic;}
+.lc-actions{display:flex;gap:.4rem;}
+.lc-btn{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  font-size:.85rem;border:1px solid var(--border);background:var(--surface2);
+  color:var(--muted);transition:background var(--trans),color var(--trans);}
+.lc-btn:hover{background:var(--p);color:#fff;}
+
+/* paper themes on cards */
+.paper-rose   {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(210,100,120,.07) 29px,rgba(210,100,120,.07) 30px),linear-gradient(150deg,#fff0f3,#ffe4e9);color:#5a1f2c;}
+.paper-sun    {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(180,135,30,.08) 29px,rgba(180,135,30,.08) 30px),linear-gradient(150deg,#fff8de,#ffefb8);color:#4d3200;}
+.paper-lilac  {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(120,80,200,.07) 29px,rgba(120,80,200,.07) 30px),linear-gradient(150deg,#f5efff,#ebe0ff);color:#36186a;}
+.paper-mint   {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(30,155,100,.07) 29px,rgba(30,155,100,.07) 30px),linear-gradient(150deg,#edfff6,#d4f7e6);color:#153d28;}
+.paper-night  {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(200,180,255,.07) 29px,rgba(200,180,255,.07) 30px),linear-gradient(150deg,#252030,#1a1428);color:#e4d8ff;}
+.paper-kraft  {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(100,65,20,.1) 29px,rgba(100,65,20,.1) 30px),linear-gradient(150deg,#d8ad6a,#c8913a);color:#2a1600;}
+.paper-cream  {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(110,80,50,.07) 29px,rgba(110,80,50,.07) 30px),linear-gradient(150deg,#fffef4,#fdf6de);color:#352010;}
+
+/* ════════════════════ COMPOSER VIEW ════════════════════ */
+.composer-wrap{
+  width:min(1000px,100% - 2rem);margin:0 auto;
+  padding:var(--s8) 0 var(--s16);
+  display:grid;grid-template-columns:1fr 340px;gap:var(--s8);align-items:start;
+}
+.composer-main{display:flex;flex-direction:column;gap:var(--s6);}
+.composer-side{display:flex;flex-direction:column;gap:var(--s5);position:sticky;top:80px;}
+
+/* sections */
+.csec{
+  border:1px solid var(--border);border-radius:var(--r4);
+  background:var(--surface);box-shadow:var(--sh1);overflow:hidden;
+}
+.csec-head{
+  padding:var(--s4) var(--s5);border-bottom:1px solid var(--div);
+  display:flex;align-items:center;gap:var(--s3);
+}
+.csec-head h3{font-family:var(--font-d);font-size:var(--txl);letter-spacing:-.02em;}
+.step-badge{
+  width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  background:var(--p);color:#fff;font-size:.75rem;font-weight:600;flex-shrink:0;
+}
+.csec-body{padding:var(--s5);}
+
+/* occasion grid */
+.occ-grid{display:flex;flex-wrap:wrap;gap:.55rem;}
+.occ-tag{
+  padding:.55rem 1rem;border-radius:var(--rf);font-size:.85rem;
+  border:1px solid var(--border);background:var(--surface2);color:var(--muted);
+  transition:background var(--trans),color var(--trans),border-color var(--trans);
+}
+.occ-tag:hover{background:var(--off);color:var(--text);}
+.occ-tag.sel{background:var(--p);color:#fff;border-color:transparent;}
+
+/* theme grid */
+.theme-grid{display:flex;flex-wrap:wrap;gap:.6rem;}
+.theme-swatch{
+  display:flex;align-items:center;gap:.45rem;
+  padding:.5rem .9rem;border-radius:var(--rf);font-size:.84rem;
+  border:2px solid transparent;background:var(--surface2);
+  transition:border-color var(--trans),box-shadow var(--trans);cursor:pointer;
+}
+.theme-swatch .dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;}
+.theme-swatch.sel{border-color:var(--p);box-shadow:0 0 0 3px rgba(192,84,112,.15);}
+
+/* live canvas */
+.canvas-wrap{position:relative;border-radius:var(--r3);overflow:hidden;}
+.canvas-tape{position:absolute;top:-9px;left:50%;transform:translateX(-50%) rotate(-1.5deg);
+  width:110px;height:20px;background:var(--tape);border-radius:3px;z-index:2;pointer-events:none;}
+.live-canvas{
+  min-height:300px;padding:2rem 2rem 2.5rem;
+  font-family:var(--font-s);
+  border:1px solid rgba(100,65,35,.13);
+  transition:background .4s ease,color .4s ease;
+}
+.canvas-greet{
+  width:100%;background:transparent;border:none;border-bottom:1px dashed rgba(0,0,0,.12);
+  font-family:var(--font-s);font-size:2rem;font-weight:700;color:inherit;
+  padding:.2rem 0 .4rem;margin-bottom:.8rem;outline:none;
+  transition:border-color var(--trans);
+}
+.canvas-greet:focus{border-bottom-color:currentColor;}
+.canvas-body{
+  width:100%;min-height:160px;background:transparent;border:none;resize:none;
+  font-family:var(--font-s);font-size:1.35rem;line-height:2;color:inherit;outline:none;
+}
+.canvas-stickers-placed{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem;}
+.ps{font-size:1.8rem;cursor:pointer;transition:transform .15s;display:inline-block;}
+.ps:hover{transform:scale(1.3) rotate(10deg);}
+
+/* sticker tray */
+.stray{display:flex;flex-wrap:wrap;gap:.5rem;}
+.stray-btn{
+  width:44px;height:44px;border-radius:.85rem;font-size:1.45rem;
+  border:1px solid var(--border);background:rgba(255,255,255,.7);
+  display:grid;place-items:center;
+  transition:transform var(--trans),box-shadow var(--trans);
+}
+.stray-btn:hover{transform:scale(1.18) rotate(5deg);box-shadow:var(--sh1);}
+
+/* fields */
+.field{display:flex;flex-direction:column;gap:.4rem;}
+.field label{font-size:.83rem;font-weight:500;color:var(--muted);}
+.field input,.field select,.field textarea{
+  padding:.7rem .9rem;border-radius:var(--r2);
+  border:1px solid var(--border);background:var(--surface2);
+  font-size:var(--tb);color:var(--text);outline:none;
+  transition:border-color var(--trans);
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--p);}
+.fields-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);}
+
+/* side card */
+.scard{
+  border:1px solid var(--border);border-radius:var(--r3);
+  background:var(--surface);box-shadow:var(--sh1);padding:var(--s5);
+}
+.scard h4{font-family:var(--font-d);font-size:var(--txl);margin-bottom:var(--s3);letter-spacing:-.02em;}
+.action-stack{display:flex;flex-direction:column;gap:.6rem;}
+.arow{display:flex;align-items:center;gap:.5rem;padding:.65rem .9rem;border-radius:var(--r2);
+  border:1px solid var(--border);background:var(--surface2);font-size:.88rem;
+  transition:background var(--trans);cursor:pointer;color:var(--text);}
+.arow:hover{background:var(--off);}
+.arow span.em{font-size:1.1rem;}
+
+/* ════════════════════ VAULT VIEW ════════════════════ */
+.vault-wrap{width:min(1120px,100% - 2rem);margin:0 auto;padding:var(--s8) 0 var(--s16);}
+.vault-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--s4);margin-bottom:var(--s8);}
+.vault-head h1{font-family:var(--font-d);font-size:var(--t2xl);letter-spacing:-.03em;}
+.vault-empty{
+  text-align:center;padding:var(--s16) var(--s8);
+  border:1px dashed var(--border);border-radius:var(--r4);
+  background:var(--surface);
+}
+.vault-empty .emo{font-size:3.5rem;margin-bottom:var(--s5);}
+.vault-empty h3{font-family:var(--font-d);font-size:var(--txl);margin-bottom:var(--s3);}
+.vault-empty p{color:var(--muted);margin-bottom:var(--s6);}
+
+/* ════════════════════ PREVIEW / ENVELOPE VIEW ════════════════════ */
+.preview-wrap{
+  display:flex;align-items:center;justify-content:center;
+  min-height:calc(100dvh - 60px);padding:var(--s8) var(--s4);
 }
 
-/* ── individual page ── */
-.page{
-  flex:1;
-  min-height:clamp(380px,60vh,680px);
-  padding:clamp(1.4rem,3vw,2.5rem);
-  position:relative;
-  overflow:hidden;
-  font-family:var(--fs);
-  transition:background .45s ease, color .45s ease;
+/* envelope 3D flip */
+.envelope-scene{perspective:1200px;width:min(460px,100%);}
+.envelope{
+  width:100%;position:relative;
+  transform-style:preserve-3d;
+  transition:transform .9s cubic-bezier(.4,0,.2,1);
 }
-.page-left{
-  border-radius:1.2rem 0 0 1.4rem;
-  border-right:none;
+.envelope.open{transform:rotateX(-20deg);}
+.env-body{
+  width:100%;padding-bottom:66%;position:relative;border-radius:1.2rem 1.2rem .8rem .8rem;
+  overflow:hidden;box-shadow:var(--sh3);
 }
-.page-right{
-  border-radius:0 1.2rem 1.4rem 0;
-  border-left:none;
+.env-back{
+  position:absolute;inset:0;border-radius:inherit;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding-bottom:1.5rem;
 }
+.env-flap{
+  position:absolute;top:0;left:0;right:0;
+  height:55%;clip-path:polygon(0 0,50% 100%,100% 0);
+  transform-origin:top center;
+  transition:transform .6s cubic-bezier(.4,0,.2,1);
+}
+.envelope:not(.open) .env-flap{transform:rotateX(0);}
+.envelope.open .env-flap{transform:rotateX(180deg);}
+.env-seal{
+  width:52px;height:52px;border-radius:50%;
+  display:grid;place-items:center;font-size:1.6rem;
+  box-shadow:0 4px 16px rgba(0,0,0,.18);
+  border:3px solid rgba(255,255,255,.5);
+  background:var(--p);color:#fff;
+  transition:opacity .3s,transform .3s;
+}
+.envelope.open .env-seal{opacity:0;transform:scale(.6);}
 
-/* paper textures per theme */
-.page[data-paper="rose"]{
-  background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(200,100,120,.08) 31px,rgba(200,100,120,.08) 32px),linear-gradient(175deg,#fff5f7,#ffe8ec 60%,#ffd8e0);
-  color:#5a1f2c;
-}
-.page[data-paper="sun"]{
-  background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(180,130,30,.09) 31px,rgba(180,130,30,.09) 32px),linear-gradient(175deg,#fffcef,#fff4cc 60%,#ffeaa0);
-  color:#5a3c00;
-}
-.page[data-paper="lilac"]{
-  background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(120,80,200,.08) 31px,rgba(120,80,200,.08) 32px),linear-gradient(175deg,#f9f5ff,#ede4ff 60%,#ddd0ff);
-  color:#3d1f6e;
-}
-.page[data-paper="mint"]{
-  background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(40,160,100,.08) 31px,rgba(40,160,100,.08) 32px),linear-gradient(175deg,#f4fff9,#d9f7ea 60%,#bbe8d0);
-  color:#1a4d36;
-}
-.page[data-paper="night"]{
-  background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(200,180,255,.08) 31px,rgba(200,180,255,.08) 32px),linear-gradient(175deg,#2e2340,#1f1530 60%,#140f22);
-  color:#e8dcff;
-}
-.page[data-paper="kraft"]{
-  background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(120,80,30,.1) 31px,rgba(120,80,30,.1) 32px),linear-gradient(175deg,#e0b87a,#c89040 60%,#b07828);
-  color:#2e1a02;
-}
-.page[data-paper="cream"]{
-  background:repeating-linear-gradient(to bottom,transparent,transparent 31px,rgba(120,90,60,.08) 31px,rgba(120,90,60,.08) 32px),linear-gradient(175deg,#fffef8,#fdf6e3 60%,#f7eccb);
-  color:#3a2418;
-}
-
-/* edge grain effect */
-.page::before{
-  content:"";
-  position:absolute;inset:0;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  opacity:.4;mix-blend-mode:multiply;
-  border-radius:inherit;
-}
-
-/* left margin line */
-.page-left::after{
-  content:"";
-  position:absolute;top:0;bottom:0;left:3.2rem;
-  width:1px;background:rgba(180,100,110,.18);
+/* letter reveal */
+.letter-reveal{
+  margin-top:var(--s6);
+  transform:translateY(40px);opacity:0;
+  transition:transform .7s .4s var(--ease),opacity .7s .4s var(--ease);
   pointer-events:none;
 }
-.page[data-paper="night"]::after,.page[data-paper="night"] ~ .page-left::after{
-  background:rgba(200,180,255,.12);
+.letter-reveal.shown{transform:none;opacity:1;pointer-events:auto;}
+.letter-sheet{
+  padding:2.4rem 2.4rem 3rem;border-radius:var(--r4);
+  border:1px solid rgba(0,0,0,.07);box-shadow:var(--sh2);
+  font-family:var(--font-s);
+  position:relative;overflow:hidden;
+  max-width:min(560px,100%);margin:0 auto;
 }
+.letter-sheet .ltape{
+  position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-2deg);
+  width:105px;height:20px;background:rgba(244,224,180,.72);border-radius:3px;
+}
+.letter-occ{font-family:var(--font-d);font-size:.9rem;letter-spacing:.06em;opacity:.6;margin-bottom:.8rem;}
+.letter-when{font-family:var(--font-d);font-style:italic;opacity:.65;margin-bottom:.3rem;font-size:.95rem;}
+.letter-greeting{font-size:2.1rem;font-weight:700;margin-bottom:.7rem;}
+.letter-body{font-size:1.3rem;line-height:2;white-space:pre-wrap;margin-bottom:1rem;}
+.letter-stickers{font-size:1.8rem;letter-spacing:.1rem;margin-top:.5rem;}
+.letter-sig{font-family:var(--font-d);font-style:italic;opacity:.55;margin-top:1.4rem;font-size:.95rem;}
+.preview-actions{display:flex;gap:var(--s3);flex-wrap:wrap;justify-content:center;margin-top:var(--s6);}
+.open-prompt{
+  text-align:center;margin-bottom:var(--s6);
+}
+.open-prompt h2{font-family:var(--font-d);font-size:var(--t2xl);letter-spacing:-.03em;margin-bottom:var(--s2);}
+.open-prompt p{color:var(--muted);}
+.tap-hint{
+  text-align:center;font-size:.82rem;color:var(--faint);
+  margin-top:var(--s4);
+  animation:pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:.5;}50%{opacity:1;}}
 
-/* washi tape strip top center */
-.tape-strip{
-  position:absolute;top:-6px;left:50%;transform:translateX(-50%) rotate(-1.5deg);
-  width:90px;height:20px;background:rgba(244,224,180,.72);
-  border-radius:3px;border:1px solid rgba(166,132,88,.14);
-  pointer-events:none;
+/* ════════════════════ MODAL (delete confirm) ════════════════════ */
+.modal-bg{display:none;position:fixed;inset:0;z-index:500;background:rgba(20,8,2,.55);
+  backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1rem;}
+.modal-bg.open{display:flex;}
+.modal-box{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r4);box-shadow:var(--sh3);
+  padding:var(--s8);max-width:360px;width:100%;
+  animation:pop-in .25s var(--ease) both;
 }
+@keyframes pop-in{from{opacity:0;transform:scale(.93);}to{opacity:1;transform:none;}}
+.modal-box h3{font-family:var(--font-d);font-size:var(--txl);margin-bottom:var(--s3);}
+.modal-box p{color:var(--muted);margin-bottom:var(--s6);line-height:1.65;}
+.modal-btns{display:flex;gap:var(--s3);justify-content:flex-end;}
 
-/* page number */
-.pg-num{
-  position:absolute;bottom:1rem;
-  font-family:var(--fd);font-style:italic;font-size:.85rem;opacity:.4;
-}
-.page-left .pg-num{left:1.4rem;}
-.page-right .pg-num{right:1.4rem;}
-
-/* ── page content ── */
-.pg-occasion{
-  font-family:var(--fd);font-style:italic;font-size:.9rem;
-  opacity:.5;letter-spacing:.06em;margin-bottom:.7rem;
-}
-.pg-open-when{
-  font-family:var(--fd);font-style:italic;font-size:1rem;
-  opacity:.6;margin-bottom:.25rem;
-}
-.pg-greeting{
-  font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;
-  margin-bottom:.6rem;line-height:1.1;
-  outline:none;border:none;background:transparent;
-  width:100%;color:inherit;font-family:var(--fs);
-  caret-color:currentColor;
-}
-.pg-greeting:focus{border-bottom:1px dashed currentColor;}
-.pg-body{
-  width:100%;border:none;background:transparent;
-  resize:none;font-family:var(--fs);font-size:1.3rem;
-  line-height:2;color:inherit;outline:none;
-  caret-color:currentColor;
-}
-.pg-sig{
-  font-family:var(--fd);font-style:italic;
-  font-size:1.05rem;opacity:.55;margin-top:.75rem;
-}
-.pg-stickers{
-  display:flex;flex-wrap:wrap;gap:.45rem;
-  margin-top:.75rem;
-}
-.placed-sticker{
-  font-size:1.7rem;cursor:pointer;display:inline-block;
-  transition:transform .14s;
-}
-.placed-sticker:hover{transform:scale(1.3) rotate(8deg);}
-
-/* decorative polaroid on cover page */
-.cover-polaroid{
-  position:absolute;bottom:2rem;right:1.5rem;
-  width:110px;padding:8px 8px 32px;
-  background:#fffdf9;border-radius:.75rem;
-  border:1px solid rgba(100,70,40,.12);
-  box-shadow:0 12px 28px rgba(0,0,0,.12);
-  transform:rotate(6deg);
-  pointer-events:none;
-}
-.cover-polaroid-img{
-  aspect-ratio:1/1;border-radius:.5rem;
-  background:linear-gradient(135deg,rgba(214,176,164,.3),rgba(255,227,196,.5));
-  margin-bottom:8px;
-}
-.cover-polaroid span{
-  font-family:var(--fs);font-size:1rem;color:var(--pri);opacity:.8;
-}
-
-/* ── page-turn animation ── */
-@keyframes turn-left{
-  0%  {clip-path:inset(0 0 0 0);opacity:1;transform:rotateY(0) scaleX(1);}
-  50% {clip-path:inset(0 50% 0 0);opacity:.5;transform:rotateY(-10deg) scaleX(.96);}
-  100%{clip-path:inset(0 100% 0 0);opacity:0;transform:rotateY(-18deg) scaleX(.9);}
-}
-@keyframes turn-right{
-  0%  {clip-path:inset(0 0 0 100%);opacity:0;transform:rotateY(18deg) scaleX(.9);}
-  50% {clip-path:inset(0 0 0 50%);opacity:.5;transform:rotateY(10deg) scaleX(.96);}
-  100%{clip-path:inset(0 0 0 0);opacity:1;transform:rotateY(0) scaleX(1);}
-}
-.page.anim-out-left{animation:turn-left .42s cubic-bezier(.4,0,.2,1) both;}
-.page.anim-in-right{animation:turn-right .42s cubic-bezier(.4,0,.2,1) both;}
-@keyframes turn-right-out{
-  0%  {clip-path:inset(0 0 0 0);opacity:1;transform:rotateY(0);}
-  100%{clip-path:inset(0 0 0 100%);opacity:0;transform:rotateY(18deg);}
-}
-@keyframes turn-left-in{
-  0%  {clip-path:inset(0 100% 0 0);opacity:0;transform:rotateY(-18deg);}
-  100%{clip-path:inset(0 0 0 0);opacity:1;transform:rotateY(0);}
-}
-.page.anim-out-right{animation:turn-right-out .42s cubic-bezier(.4,0,.2,1) both;}
-.page.anim-in-left{animation:turn-left-in .42s cubic-bezier(.4,0,.2,1) both;}
-
-/* ── page nav ── */
-.book-nav{
-  display:flex;align-items:center;gap:1rem;
-}
-.nav-btn{
-  width:48px;height:48px;border-radius:50%;
-  border:1px solid rgba(255,255,255,.22);
-  background:rgba(255,255,255,.12);backdrop-filter:blur(8px);
-  color:rgba(255,255,255,.85);font-size:1.3rem;
-  cursor:pointer;display:grid;place-items:center;
-  transition:background var(--tr),transform var(--tr);
-}
-.nav-btn:hover{background:rgba(255,255,255,.26);transform:scale(1.08);}
-.nav-btn:disabled{opacity:.25;cursor:default;transform:none;}
-.pg-indicator{
-  display:flex;gap:.5rem;align-items:center;
-}
-.pg-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:rgba(255,255,255,.28);
-  transition:background var(--tr),transform var(--tr);
-  cursor:pointer;
-}
-.pg-dot.active{background:var(--pri);transform:scale(1.25);}
-
-/* ── sticker panel (floating) ── */
-.sticker-panel{
-  position:absolute;
-  bottom:calc(100% + .75rem);
-  right:0;
-  width:320px;
-  background:var(--surf);
-  border:1px solid var(--bdr);
-  border-radius:var(--r-xl);
-  box-shadow:var(--sh-lg);
-  padding:1rem 1.1rem 1.1rem;
-  display:none;
-  flex-direction:column;
-  gap:.7rem;
-  z-index:20;
-  animation:modal-in .22s both;
-}
-.sticker-panel.open{display:flex;}
-.sticker-panel-title{
-  font-family:var(--fd);font-size:1.1rem;font-weight:600;color:var(--tx);
-}
-.sticker-tray{display:flex;flex-wrap:wrap;gap:.5rem;}
-.tray-sticker{
-  font-size:1.5rem;width:44px;height:44px;border-radius:.9rem;
-  border:1px solid var(--bdr);background:rgba(255,255,255,.7);
-  display:grid;place-items:center;cursor:pointer;
-  transition:transform var(--tr),box-shadow var(--tr);
-}
-.tray-sticker:hover{transform:scale(1.18) rotate(5deg);box-shadow:var(--sh-sm);}
-.sticker-hint{font-size:var(--text-xs);color:var(--tx-m);}
-
-/* ── toast ── */
+/* ════════════════════ TOAST ════════════════════ */
 .toast{
-  position:fixed;bottom:2rem;right:2rem;z-index:2000;
-  padding:1rem 1.5rem;border-radius:var(--r-lg);
-  background:var(--pri);color:#fff8f5;
-  box-shadow:var(--sh-lg);font-size:var(--text-sm);
-  transform:translateY(100px);opacity:0;
-  transition:transform .35s cubic-bezier(.16,1,.3,1),opacity .35s;
-  pointer-events:none;max-width:320px;
+  position:fixed;bottom:2rem;right:2rem;z-index:600;
+  padding:.9rem 1.4rem;border-radius:var(--r3);
+  background:var(--text);color:var(--bg);
+  font-size:.88rem;box-shadow:var(--sh3);
+  transform:translateY(120%);opacity:0;
+  transition:transform .35s var(--ease),opacity .35s;
+  pointer-events:none;max-width:300px;
 }
-.toast.show{transform:translateY(0);opacity:1;}
+.toast.show{transform:none;opacity:1;}
 
-/* ── responsive ── */
-@media(max-width:980px){.hero,.content-grid{grid-template-columns:1fr;}.preview-card{order:-1;}.scrap-notes,.sticker-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
-@media(max-width:700px){
-  .book{flex-direction:column;}
-  .page-left{border-radius:1.2rem 1.2rem 0 0;border-bottom:2px solid rgba(0,0,0,.1);}
-  .page-right{border-radius:0 0 1.2rem 1.2rem;}
-  .book::after{top:auto;left:0;right:0;bottom:50%;transform:none;width:auto;height:4px;}
-  .sticker-panel{right:auto;left:0;width:calc(100vw - 2rem);}
-  .two-col{grid-template-columns:1fr;}
+/* ════════════════════ RESPONSIVE ════════════════════ */
+@media(max-width:920px){
+  .hero-grid{grid-template-columns:1fr;}
+  .pstack{height:400px;}
+  .feature-strip{grid-template-columns:1fr 1fr;}
+  .composer-wrap{grid-template-columns:1fr;}
+  .composer-side{position:static;}
 }
-@media(max-width:640px){.app-shell{width:min(100% - 1rem,100%);padding-top:1rem;}.topbar,.hero-card,.preview-card,.panel,.timeline-card,.sticker-card,.footer-strip{border-radius:1.4rem;}.topbar{flex-direction:column;align-items:flex-start;}.topbar-actions{width:100%;justify-content:flex-start;}.hero h2{font-size:clamp(2.6rem,14vw,4rem);}.scrap-notes,.sticker-grid{grid-template-columns:1fr;}.polaroid-stack{min-height:420px;}.polaroid{width:190px;}.polaroid.two{top:160px;}.sticky{right:4px;width:128px;min-height:124px;}.ticket{left:14px;width:220px;}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}}
-  </style>
+@media(max-width:620px){
+  .feature-strip{grid-template-columns:1fr;}
+  .fields-row{grid-template-columns:1fr;}
+  .nav-pills{display:none;}
+  .hero-h{font-size:clamp(2.8rem,14vw,4rem);}
+  .ppol.b{top:140px;}
+  .ppol-img{width:150px;}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+</style>
 </head>
 <body>
-<div class="app-shell">
-  <span class="floating-deco one">🎞️</span>
-  <span class="floating-deco two">💌</span>
+<div id="app">
 
-  <header class="topbar fade-in">
-    <div class="brand">
-      <div class="brand-mark">S</div>
+  <!-- ═══════════════════════════════ TOPBAR ═══════════════════════════════ -->
+  <header class="topbar">
+    <div class="brand" onclick="showView('home')">
+      <div class="brand-mark">✉</div>
       <div>
-        <h1>Scrapbook<br>Letter Studio</h1>
-        <p>Romantic paper layers, dreamy stickers, and keepsake storytelling.</p>
+        <div class="brand-name">Open When</div>
+        <div class="brand-sub">Scrapbook Letter Studio</div>
       </div>
     </div>
-    <div class="topbar-actions">
-      <span class="chip">Paper mode</span>
-      <button class="ghost-btn" id="stickerTrayBtn">Sticker tray</button>
-      <button class="theme-btn" data-theme-toggle aria-label="Switch theme">Dark mode</button>
-      <button class="primary-btn" id="openSpread">✦ Create spread</button>
+    <nav class="nav-pills" role="navigation" aria-label="Main">
+      <button class="nav-pill active" data-view="home">Home</button>
+      <button class="nav-pill" data-view="composer">Compose</button>
+      <button class="nav-pill" data-view="vault">My Letters</button>
+    </nav>
+    <div class="topbar-right">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+      <button class="pill-btn primary" onclick="showView('composer')">✦ Create spread</button>
     </div>
   </header>
 
-  <section class="hero">
-    <article class="hero-card fade-in">
-      <div class="paper-tape"></div>
-      <div class="eyebrow">✿ Scrapbook editor · layered memories</div>
-      <h2>Build letters that feel handmade.</h2>
-      <p class="hero-copy">Write page by page in an open book — two pages side by side, real paper textures, and a gentle page-turn between each spread.</p>
-      <div class="hero-actions">
-        <button class="primary-btn" id="openSpread2">Open composer</button>
-        <button class="ghost-btn" id="openThemes">Preview themes</button>
-      </div>
-      <div class="scrap-notes">
-        <div class="mini-note"><strong>Photos</strong>Drag polaroids, film strips, framed memories, and mood images.</div>
-        <div class="mini-note"><strong>Paper</strong>Mix stationery textures, torn notes, tags, and layered cards.</div>
-        <div class="mini-note"><strong>Decor</strong>Add bows, stamps, pressed flowers, doodles, and date labels.</div>
-      </div>
-    </article>
-    <aside class="preview-card fade-in">
-      <div class="section-head">
-        <div><h3>Spread preview</h3><p>Base layout for a dreamy keepsake board.</p></div>
-        <span class="chip">v1 theme</span>
-      </div>
-      <div class="polaroid-stack">
-        <article class="polaroid one"><div class="polaroid-img"></div><h3>Golden hour</h3><p>Photo memory block with handwritten caption.</p></article>
-        <article class="polaroid two"><div class="polaroid-img"></div><h3>Little things</h3><p>Layer more cards, stickers, and ribbon accents.</p></article>
-        <div class="sticky">remember this feeling ♡</div>
-        <div class="ticket"><small>Ephemera slot</small><strong>Tickets, tags, dates, little notes</strong></div>
-      </div>
-    </aside>
-  </section>
+  <!-- ═══════════════════════════════ HOME VIEW ═══════════════════════════════ -->
+  <div class="view active" id="view-home">
+    <div class="home-wrap">
 
-  <section class="content-grid">
-    <article class="panel fade-in">
-      <div class="section-head"><div><h4>Editor shell</h4><p>A strong base for your full scrapbook composer.</p></div><span class="chip">Canvas</span></div>
-      <div class="editor-area">
-        <div class="toolbar">
-          <button class="tool" onclick="openBook()">Aa Fonts</button>
-          <button class="tool" onclick="openBook()">Paper styles</button>
-          <button class="tool" onclick="openBook()">Frames</button>
-          <button class="tool" onclick="openBook()">Stickers</button>
-          <button class="tool" onclick="openBook()">Tape</button>
-          <button class="tool" onclick="openBook()">Textures</button>
-          <button class="tool" onclick="openBook()">Photos</button>
-          <button class="tool" onclick="openBook()">Layers</button>
+      <div class="hero-grid">
+        <article class="hero-left">
+          <div class="tape-h"></div>
+          <div class="eyebrow">✿ Scrapbook editor · layered memories</div>
+          <h1 class="hero-h">Write letters that feel handmade.</h1>
+          <p class="hero-copy">Pick an occasion, choose a paper theme, scatter stickers, and write your heart out. Then save a beautiful keepsake spread — or deliver it at just the right moment.</p>
+          <div class="hero-cta">
+            <button class="pill-btn primary" onclick="showView('composer')">✦ Create a spread</button>
+            <button class="pill-btn" onclick="showView('vault')">View my letters</button>
+          </div>
+          <div class="feature-pills">
+            <span class="fpill">📮 7 paper themes</span>
+            <span class="fpill">🎀 20+ stickers</span>
+            <span class="fpill">💌 Envelope reveal</span>
+            <span class="fpill">💾 Download keepsake</span>
+          </div>
+        </article>
+        <aside class="hero-right">
+          <div class="preview-label">Preview spread</div>
+          <div class="pstack">
+            <div class="ppol a"><div class="ppol-img"></div><h4>Golden hour</h4><p>Photo memory block</p></div>
+            <div class="ppol b"><div class="ppol-img"></div><h4>Little things</h4><p>Layer &amp; decorate</p></div>
+            <div class="psticky">remember this feeling ♡</div>
+            <div class="pticket"><small>Open when…</small><strong>you miss me tonight</strong></div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="feature-strip">
+        <div class="fcard">
+          <div class="fcard-icon">📝</div>
+          <h3>Rich composer</h3>
+          <p>Write your letter on lined paper with a live preview. Switch themes, add a greeting, and place stickers — all before you save.</p>
         </div>
-        <div class="letter-canvas">
-          <div class="canvas-title">Dear you,</div>
-          <div class="canvas-lines">Click <strong>Create spread</strong> above to open the full book composer — two pages open at once, write page by page, and scatter stickers.</div>
+        <div class="fcard">
+          <div class="fcard-icon">🎁</div>
+          <h3>Envelope reveal</h3>
+          <p>Every saved letter lives inside a 3D envelope. The recipient taps to break the seal and watch the letter unfurl.</p>
         </div>
-        <div>
-          <div class="section-head" style="margin:0 0 1rem 0;"><div><h4 style="font-size:1.5rem;">Sticker suite</h4><p>Use these as the starting visual language.</p></div></div>
-          <div class="sticker-row">
-            <span class="sticker-pill">🌷 Soft florals</span><span class="sticker-pill">🎀 Satin bows</span>
-            <span class="sticker-pill">🕊️ Delicate icons</span><span class="sticker-pill">📮 Vintage mail</span>
-            <span class="sticker-pill">✨ Sparkle doodles</span><span class="sticker-pill">🫶 Memory icons</span>
+        <div class="fcard">
+          <div class="fcard-icon">💾</div>
+          <h3>Download &amp; share</h3>
+          <p>Export your spread as a self-contained HTML keepsake — opens beautifully offline, no app needed.</p>
+        </div>
+      </div>
+
+      <div class="vault-strip-head">
+        <h2>Recent letters</h2>
+        <button class="pill-btn" onclick="showView('vault')">See all →</button>
+      </div>
+      <div class="letter-grid" id="homeLetterGrid"></div>
+      <div id="homeEmpty" style="display:none;text-align:center;padding:var(--s8);color:var(--muted);">No letters yet — <button class="pill-btn primary" style="display:inline-flex;" onclick="showView('composer')">create your first</button></div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ COMPOSER VIEW ═══════════════════════════════ -->
+  <div class="view" id="view-composer">
+    <div class="composer-wrap">
+
+      <div class="composer-main">
+
+        <!-- STEP 1: Occasion -->
+        <div class="csec">
+          <div class="csec-head"><span class="step-badge">1</span><h3>Occasion</h3></div>
+          <div class="csec-body">
+            <div class="occ-grid" id="occGrid">
+              <button class="occ-tag sel" data-occ="💌 Love letter">💌 Love letter</button>
+              <button class="occ-tag" data-occ="🎂 Birthday">🎂 Birthday</button>
+              <button class="occ-tag" data-occ="💐 Anniversary">💐 Anniversary</button>
+              <button class="occ-tag" data-occ="🙏 Thank you">🙏 Thank you</button>
+              <button class="occ-tag" data-occ="✨ Just because">✨ Just because</button>
+              <button class="occ-tag" data-occ="🌟 Encouragement">🌟 Encouragement</button>
+              <button class="occ-tag" data-occ="🎄 Holiday">🎄 Holiday</button>
+              <button class="occ-tag" data-occ="🌙 Good night">🌙 Good night</button>
+              <button class="occ-tag" data-occ="☀️ Good morning">☀️ Good morning</button>
+              <button class="occ-tag" data-occ="🫂 Miss you">🫂 Miss you</button>
+            </div>
           </div>
         </div>
-        <div>
-          <div class="section-head" style="margin:0 0 1rem 0;"><div><h4 style="font-size:1.5rem;">Paper palettes</h4><p>Soft tones for layered stationery moods.</p></div></div>
-          <div class="theme-swatches">
-            <button class="swatch rose" aria-label="Rose" onclick="openBook('rose')"></button>
-            <button class="swatch sun"  aria-label="Sun"  onclick="openBook('sun')"></button>
-            <button class="swatch lilac" aria-label="Lilac" onclick="openBook('lilac')"></button>
-            <button class="swatch mint" aria-label="Mint" onclick="openBook('mint')"></button>
-            <button class="swatch night" aria-label="Night" onclick="openBook('night')"></button>
+
+        <!-- STEP 2: Paper theme -->
+        <div class="csec">
+          <div class="csec-head"><span class="step-badge">2</span><h3>Paper theme</h3></div>
+          <div class="csec-body">
+            <div class="theme-grid" id="themeGrid">
+              <button class="theme-swatch sel" data-paper="rose"><span class="dot" style="background:linear-gradient(135deg,#ffd5dd,#ffb0c0)"></span>Rose</button>
+              <button class="theme-swatch" data-paper="sun"><span class="dot" style="background:linear-gradient(135deg,#ffd98d,#ffcc55)"></span>Sun</button>
+              <button class="theme-swatch" data-paper="lilac"><span class="dot" style="background:linear-gradient(135deg,#d6cbff,#bfadff)"></span>Lilac</button>
+              <button class="theme-swatch" data-paper="mint"><span class="dot" style="background:linear-gradient(135deg,#bdebd6,#8de0be)"></span>Mint</button>
+              <button class="theme-swatch" data-paper="night"><span class="dot" style="background:linear-gradient(135deg,#2b2035,#51406a)"></span>Night</button>
+              <button class="theme-swatch" data-paper="kraft"><span class="dot" style="background:linear-gradient(135deg,#d4a96a,#c89040)"></span>Kraft</button>
+              <button class="theme-swatch" data-paper="cream"><span class="dot" style="background:linear-gradient(135deg,#fffdf5,#f5e8c8)"></span>Cream</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: Write -->
+        <div class="csec">
+          <div class="csec-head"><span class="step-badge">3</span><h3>Write your letter</h3></div>
+          <div class="csec-body" style="padding-top:1.5rem;">
+            <div class="canvas-wrap">
+              <div class="canvas-tape"></div>
+              <div class="live-canvas paper-rose" id="liveCanvas">
+                <input class="canvas-greet" id="greetInput" value="Dear you," maxlength="60" aria-label="Greeting"/>
+                <textarea class="canvas-body" id="bodyInput" rows="6" placeholder="Write your heart out here…" aria-label="Letter body"></textarea>
+                <div class="canvas-stickers-placed" id="placedStickers"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4: Stickers -->
+        <div class="csec">
+          <div class="csec-head"><span class="step-badge">4</span><h3>Stickers</h3></div>
+          <div class="csec-body">
+            <div class="stray" id="stickerTray">
+              <button class="stray-btn" data-s="🌸" aria-label="Cherry blossom">🌸</button>
+              <button class="stray-btn" data-s="🌷" aria-label="Tulip">🌷</button>
+              <button class="stray-btn" data-s="🌹" aria-label="Rose">🌹</button>
+              <button class="stray-btn" data-s="🌼" aria-label="Daisy">🌼</button>
+              <button class="stray-btn" data-s="🎀" aria-label="Bow">🎀</button>
+              <button class="stray-btn" data-s="💌" aria-label="Love letter">💌</button>
+              <button class="stray-btn" data-s="💐" aria-label="Bouquet">💐</button>
+              <button class="stray-btn" data-s="✨" aria-label="Sparkles">✨</button>
+              <button class="stray-btn" data-s="🕯️" aria-label="Candle">🕯️</button>
+              <button class="stray-btn" data-s="🫶" aria-label="Heart hands">🫶</button>
+              <button class="stray-btn" data-s="🦋" aria-label="Butterfly">🦋</button>
+              <button class="stray-btn" data-s="🌙" aria-label="Moon">🌙</button>
+              <button class="stray-btn" data-s="⭐" aria-label="Star">⭐</button>
+              <button class="stray-btn" data-s="🌿" aria-label="Herb">🌿</button>
+              <button class="stray-btn" data-s="📷" aria-label="Camera">📷</button>
+              <button class="stray-btn" data-s="📮" aria-label="Postbox">📮</button>
+              <button class="stray-btn" data-s="🎵" aria-label="Music">🎵</button>
+              <button class="stray-btn" data-s="☁️" aria-label="Cloud">☁️</button>
+              <button class="stray-btn" data-s="🍓" aria-label="Strawberry">🍓</button>
+              <button class="stray-btn" data-s="🧁" aria-label="Cupcake">🧁</button>
+            </div>
+            <p style="margin-top:.6rem;font-size:.8rem;color:var(--faint);">Tap to place · tap placed sticker to remove</p>
+          </div>
+        </div>
+
+        <!-- STEP 5: Details -->
+        <div class="csec">
+          <div class="csec-head"><span class="step-badge">5</span><h3>Details</h3></div>
+          <div class="csec-body">
+            <div class="fields-row" style="margin-bottom:var(--s4);">
+              <div class="field">
+                <label for="recipientInput">Recipient name</label>
+                <input type="text" id="recipientInput" placeholder="e.g. Alex"/>
+              </div>
+              <div class="field">
+                <label for="whenInput">Open when…</label>
+                <input type="text" id="whenInput" placeholder="e.g. you miss me"/>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /composer-main -->
+
+      <!-- SIDEBAR -->
+      <aside class="composer-side">
+        <div class="scard">
+          <h4>Save &amp; share</h4>
+          <div class="action-stack">
+            <button class="arow" id="saveDraftBtn"><span class="em">💾</span> Save to vault</button>
+            <button class="arow" id="downloadBtn"><span class="em">📥</span> Download keepsake</button>
+            <button class="arow" id="copyTextBtn"><span class="em">📋</span> Copy letter text</button>
+            <button class="arow" id="previewBtn"><span class="em">💌</span> Preview envelope</button>
+          </div>
+        </div>
+        <div class="scard">
+          <h4>Canvas preview</h4>
+          <div id="sidePreview" style="border-radius:var(--r2);overflow:hidden;border:1px solid var(--border);margin-top:var(--s2);padding:1rem 1.2rem;font-family:var(--font-s);font-size:1.1rem;min-height:80px;transition:background .4s,color .4s;" class="paper-rose">
+            <div id="spGreet" style="font-size:1.35rem;font-weight:700;margin-bottom:.3rem;">Dear you,</div>
+            <div id="spBody" style="opacity:.7;font-size:1rem;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;"></div>
+            <div id="spStickers" style="margin-top:.4rem;font-size:1.2rem;"></div>
+          </div>
+        </div>
+        <div class="scard">
+          <h4>Tips</h4>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.55rem;font-size:.83rem;color:var(--muted);line-height:1.6;">
+            <li>💡 Tap stickers to remove them</li>
+            <li>💡 Greeting line is editable</li>
+            <li>💡 Download saves a standalone HTML file</li>
+            <li>💡 Vault stores letters in this session</li>
+          </ul>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ VAULT VIEW ═══════════════════════════════ -->
+  <div class="view" id="view-vault">
+    <div class="vault-wrap">
+      <div class="vault-head">
+        <h1>My Letters</h1>
+        <button class="pill-btn primary" onclick="showView('composer')">✦ New letter</button>
+      </div>
+      <div class="letter-grid" id="vaultGrid"></div>
+      <div class="vault-empty" id="vaultEmpty" style="display:none;">
+        <div class="emo">💌</div>
+        <h3>No letters yet</h3>
+        <p>Create your first spread and it will appear here.</p>
+        <button class="pill-btn primary" onclick="showView('composer')">✦ Create a spread</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ PREVIEW / ENVELOPE VIEW ═══════════════════════════════ -->
+  <div class="view" id="view-preview">
+    <div class="preview-wrap">
+      <div style="width:min(560px,100%);">
+        <div class="open-prompt">
+          <h2 id="envTitle">A letter for you</h2>
+          <p id="envSubtitle" style="color:var(--muted);">Open when you're ready</p>
+        </div>
+
+        <div class="envelope-scene">
+          <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Open envelope" onclick="openEnvelope()">
+            <div class="env-body" id="envBody">
+              <div class="env-back" id="envBack"></div>
+              <div class="env-flap" id="envFlap"></div>
+              <div class="env-seal" id="envSeal">💌</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="tap-hint" id="tapHint">Tap the envelope to open ↑</p>
+
+        <div class="letter-reveal" id="letterReveal">
+          <div class="letter-sheet" id="letterSheet">
+            <div class="ltape"></div>
+            <div class="letter-occ" id="lOcc"></div>
+            <div class="letter-when" id="lWhen"></div>
+            <div class="letter-greeting" id="lGreeting"></div>
+            <div class="letter-body" id="lBody"></div>
+            <div class="letter-stickers" id="lStickers"></div>
+            <div class="letter-sig" id="lSig"></div>
+          </div>
+          <div class="preview-actions">
+            <button class="pill-btn" onclick="showView('vault')">← Back to vault</button>
+            <button class="pill-btn primary" id="previewDownloadBtn">📥 Download</button>
           </div>
         </div>
       </div>
-    </article>
-    <div style="display:grid;gap:2rem;">
-      <aside class="timeline-card fade-in">
-        <div class="section-head"><div><h4>Scrapbook layers</h4><p>Suggested feature buckets for the full build.</p></div></div>
-        <div class="timeline-list">
-          <div class="timeline-item"><span class="timeline-dot"></span><div><h5>Photo collage system</h5><p>Polaroids, film strips, taped corners, shadows, overlap presets, and caption tags.</p></div></div>
-          <div class="timeline-item"><span class="timeline-dot"></span><div><h5>Paper ephemera pack</h5><p>Journal scraps, torn edges, tags, postage marks, receipt strips, notes, and labels.</p></div></div>
-          <div class="timeline-item"><span class="timeline-dot"></span><div><h5>Romantic motion</h5><p>Gentle fades, layered reveals, paper-lift hover, modal zoom, and floating ambience.</p></div></div>
-          <div class="timeline-item"><span class="timeline-dot"></span><div><h5>Customization controls</h5><p>Font library, colors, sticker recolors, page templates, and scene-based arrangements.</p></div></div>
-        </div>
-      </aside>
-      <aside class="sticker-card fade-in">
-        <div class="section-head"><div><h4>Visual language</h4><p>Starter aesthetic elements for your theme.</p></div></div>
-        <div class="material-row">
-          <span class="material-chip">Torn paper</span><span class="material-chip">Washi tape</span>
-          <span class="material-chip">Wax seals</span><span class="material-chip">Pressed flowers</span>
-          <span class="material-chip">Ribbon loops</span><span class="material-chip">Vintage stamps</span>
-        </div>
-        <div class="sticker-grid">
-          <div class="sticker-tile" onclick="openBook()">🌸</div>
-          <div class="sticker-tile" onclick="openBook()">🎀</div>
-          <div class="sticker-tile" onclick="openBook()">🕯️</div>
-          <div class="sticker-tile" onclick="openBook()">💐</div>
-          <div class="sticker-tile" onclick="openBook()">📷</div>
-          <div class="sticker-tile" onclick="openBook()">💌</div>
-        </div>
-      </aside>
     </div>
-  </section>
+  </div>
 
-  <div class="footer-strip fade-in">
-    <div>
-      <strong>Ready to write your story</strong>
-      <span style="color:var(--tx-m);">Two pages, real paper, page by page — open the book and start.</span>
-    </div>
-    <div class="topbar-actions">
-      <button class="ghost-btn" onclick="openBook()">Add gallery rail</button>
-      <button class="primary-btn" onclick="openBook()">✦ Create spread</button>
+</div><!-- /#app -->
+
+<!-- DELETE CONFIRM MODAL -->
+<div class="modal-bg" id="deleteModal">
+  <div class="modal-box">
+    <h3>Delete this letter?</h3>
+    <p>This will permanently remove the letter from your vault. This cannot be undone.</p>
+    <div class="modal-btns">
+      <button class="pill-btn" onclick="closeDeleteModal()">Cancel</button>
+      <button class="pill-btn primary" id="confirmDeleteBtn">Delete</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════
-     BOOK BACKDROP
-═══════════════════════════════════════════ -->
-<div class="book-backdrop" id="bookBackdrop">
-
-  <!-- STEP 1: setup panel -->
-  <div class="setup-panel" id="setupPanel">
-    <div class="setup-row">
-      <h2>✦ Create your spread</h2>
-      <button class="modal-close" id="closeBook" aria-label="Close">×</button>
-    </div>
-
-    <div>
-      <div class="field-label">Occasion</div>
-      <div class="occ-row" id="occRow">
-        <button class="occ-btn active" data-occ="💌 Love letter">💌 Love letter</button>
-        <button class="occ-btn" data-occ="🎂 Birthday">🎂 Birthday</button>
-        <button class="occ-btn" data-occ="💐 Anniversary">💐 Anniversary</button>
-        <button class="occ-btn" data-occ="🙏 Thank you">🙏 Thank you</button>
-        <button class="occ-btn" data-occ="✨ Just because">✨ Just because</button>
-        <button class="occ-btn" data-occ="🌟 Encouragement">🌟 Encouragement</button>
-        <button class="occ-btn" data-occ="🎄 Holiday">🎄 Holiday</button>
-      </div>
-    </div>
-
-    <div>
-      <div class="field-label">Paper theme</div>
-      <div class="theme-row" id="themeRow">
-        <button class="theme-opt active" data-paper="rose"><span class="dot" style="background:linear-gradient(135deg,#ffd5dd,#ffb5c2)"></span>Rose</button>
-        <button class="theme-opt" data-paper="sun"><span class="dot" style="background:linear-gradient(135deg,#ffd98d,#ffcc55)"></span>Sun</button>
-        <button class="theme-opt" data-paper="lilac"><span class="dot" style="background:linear-gradient(135deg,#d6cbff,#bfadff)"></span>Lilac</button>
-        <button class="theme-opt" data-paper="mint"><span class="dot" style="background:linear-gradient(135deg,#bdebd6,#8de0be)"></span>Mint</button>
-        <button class="theme-opt" data-paper="night"><span class="dot" style="background:linear-gradient(135deg,#2b2035,#51406a)"></span>Night</button>
-        <button class="theme-opt" data-paper="kraft"><span class="dot" style="background:linear-gradient(135deg,#d4a96a,#c89040)"></span>Kraft</button>
-        <button class="theme-opt" data-paper="cream"><span class="dot" style="background:linear-gradient(135deg,#fffdf5,#fdf6e3)"></span>Cream</button>
-      </div>
-    </div>
-
-    <div class="two-col">
-      <div class="field-group">
-        <label for="recipientName">Recipient name</label>
-        <input type="text" id="recipientName" placeholder="e.g. Alex" />
-      </div>
-      <div class="field-group">
-        <label for="openWhen">Open when…</label>
-        <input type="text" id="openWhen" placeholder="e.g. you miss me" />
-      </div>
-    </div>
-
-    <div class="setup-footer">
-      <button class="ghost-btn" id="cancelSetup">Cancel</button>
-      <button class="primary-btn" id="startBook">Open the book →</button>
-    </div>
-  </div>
-
-  <!-- STEP 2: book view -->
-  <div class="book-wrap" id="bookWrap">
-
-    <!-- top bar -->
-    <div class="book-topbar">
-      <span class="book-meta" id="bookMeta">💌 Love letter · rose paper</span>
-      <div class="book-top-actions" style="position:relative;">
-        <button class="book-btn" id="stickerToggle">🌸 Stickers</button>
-        <button class="book-btn" id="copyBook">📋 Copy</button>
-        <button class="book-btn accent" id="saveBook">💾 Save</button>
-        <button class="book-btn" id="backToSetup">← Settings</button>
-        <button class="book-btn" id="closeBook2">✕ Close</button>
-        <!-- floating sticker panel -->
-        <div class="sticker-panel" id="stickerPanel">
-          <div class="sticker-panel-title">Add stickers to current page</div>
-          <div class="sticker-tray" id="stickerTray">
-            <button class="tray-sticker" data-s="🌸">🌸</button>
-            <button class="tray-sticker" data-s="🎀">🎀</button>
-            <button class="tray-sticker" data-s="💌">💌</button>
-            <button class="tray-sticker" data-s="🌷">🌷</button>
-            <button class="tray-sticker" data-s="✨">✨</button>
-            <button class="tray-sticker" data-s="🕯️">🕯️</button>
-            <button class="tray-sticker" data-s="🫶">🫶</button>
-            <button class="tray-sticker" data-s="💐">💐</button>
-            <button class="tray-sticker" data-s="🦋">🦋</button>
-            <button class="tray-sticker" data-s="🌙">🌙</button>
-            <button class="tray-sticker" data-s="⭐">⭐</button>
-            <button class="tray-sticker" data-s="🍃">🍃</button>
-            <button class="tray-sticker" data-s="📷">📷</button>
-            <button class="tray-sticker" data-s="📮">📮</button>
-            <button class="tray-sticker" data-s="🎵">🎵</button>
-            <button class="tray-sticker" data-s="☁️">☁️</button>
-          </div>
-          <span class="sticker-hint">Tap to place on right page · tap placed sticker to remove</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- the open book -->
-    <div class="book" id="theBook">
-      <!-- left page -->
-      <div class="page page-left" id="pageLeft" data-paper="rose">
-        <div class="tape-strip"></div>
-        <!-- cover decoration -->
-        <div class="cover-polaroid" id="coverPolaroid">
-          <div class="cover-polaroid-img"></div>
-          <span>for you ♡</span>
-        </div>
-        <div class="pg-occasion" id="pgOccasion">💌 Love letter</div>
-        <div class="pg-open-when" id="pgOpenWhen" style="display:none;"></div>
-        <input class="pg-greeting" id="pgGreeting" value="Dear you," maxlength="60" aria-label="Greeting" />
-        <textarea class="pg-body" id="pgBodyLeft" rows="6" placeholder="Start writing here…" aria-label="Letter opening"></textarea>
-        <div class="pg-stickers" id="stickersLeft"></div>
-        <span class="pg-num" id="pgNumLeft">1</span>
-      </div>
-
-      <!-- right page -->
-      <div class="page page-right" id="pageRight" data-paper="rose">
-        <textarea class="pg-body" id="pgBodyRight" rows="10" placeholder="Continue your story here…" aria-label="Letter body" style="margin-top:2.5rem;"></textarea>
-        <div class="pg-stickers" id="stickersRight"></div>
-        <div class="pg-sig" id="pgSig">With all my love,</div>
-        <span class="pg-num" id="pgNumRight">2</span>
-      </div>
-    </div>
-
-    <!-- navigation -->
-    <div class="book-nav">
-      <button class="nav-btn" id="prevBtn" disabled aria-label="Previous spread">‹</button>
-      <div class="pg-indicator" id="pgIndicator"></div>
-      <button class="nav-btn" id="nextBtn" aria-label="Next spread">›</button>
-    </div>
-
-  </div><!-- /book-wrap -->
-</div><!-- /book-backdrop -->
-
+<!-- TOAST -->
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
-(() => {
-/* ── theme toggle ── */
-const root = document.documentElement;
-const toggle = document.querySelector('[data-theme-toggle]');
-let appTheme = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
-root.setAttribute('data-theme', appTheme);
-const syncThemeLabel = () => { if(toggle){toggle.textContent = appTheme==='dark'?'Light mode':'Dark mode';} };
-syncThemeLabel();
-toggle?.addEventListener('click', () => { appTheme = appTheme==='dark'?'light':'dark'; root.setAttribute('data-theme',appTheme); syncThemeLabel(); });
+(function(){
+'use strict';
 
-/* ══════════════════════════
-   STATE
-══════════════════════════ */
-const MAX_SPREADS = 5; // left+right pairs
-const STICKERS_ALL = ['🌸','🎀','💌','🌷','✨','🕯️','🫶','💐','🦋','🌙','⭐','🍃','📷','📮','🎵','☁️'];
+/* ── STATE ── */
+let letters = [];        // in-memory vault
+let currentLetter = null; // letter being previewed
+let deleteId = null;
+let toastTimer;
 
-let paper  = 'rose';
-let occ    = '💌 Love letter';
-let recipient = '';
-let openWhenText = '';
-let currentSpread = 0; // 0-based index
-
-// spreads[i] = { left: { greeting, body, stickers[] }, right: { body, stickers[] } }
-let spreads = [];
-
-function initSpreads() {
-  spreads = [];
-  for (let i = 0; i < MAX_SPREADS; i++) {
-    spreads.push({
-      left:  { greeting: i===0 ? 'Dear you,' : '', body: '', stickers: [] },
-      right: { body: '', stickers: [] }
-    });
-  }
-}
-initSpreads();
-
-/* ══════════════════════════
-   DOM REFS
-══════════════════════════ */
-const backdrop   = document.getElementById('bookBackdrop');
-const setupPanel = document.getElementById('setupPanel');
-const bookWrap   = document.getElementById('bookWrap');
-const occRow     = document.getElementById('occRow');
-const themeRow   = document.getElementById('themeRow');
-const pageLeft   = document.getElementById('pageLeft');
-const pageRight  = document.getElementById('pageRight');
-const pgGreeting = document.getElementById('pgGreeting');
-const pgBodyLeft = document.getElementById('pgBodyLeft');
-const pgBodyRight= document.getElementById('pgBodyRight');
-const stickersLeft = document.getElementById('stickersLeft');
-const stickersRight= document.getElementById('stickersRight');
-const pgOccasion = document.getElementById('pgOccasion');
-const pgOpenWhen = document.getElementById('pgOpenWhen');
-const pgNumLeft  = document.getElementById('pgNumLeft');
-const pgNumRight = document.getElementById('pgNumRight');
-const pgSig      = document.getElementById('pgSig');
-const bookMeta   = document.getElementById('bookMeta');
-const prevBtn    = document.getElementById('prevBtn');
-const nextBtn    = document.getElementById('nextBtn');
-const pgIndicator= document.getElementById('pgIndicator');
-const stickerPanel = document.getElementById('stickerPanel');
-const coverPolaroid = document.getElementById('coverPolaroid');
-
-/* ══════════════════════════
-   OPEN / CLOSE
-══════════════════════════ */
-window.openBook = function(p) {
-  if (p) {
-    paper = p;
-    syncThemeOpts();
-  }
-  backdrop.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  setupPanel.classList.remove('hidden');
-  bookWrap.classList.remove('visible');
+const PAPER_COLORS = {
+  rose:  {bg:'#fff0f3', line:'rgba(210,100,120,.07)', text:'#5a1f2c', env:'#f9c5cf', flap:'#f5a8b5'},
+  sun:   {bg:'#fff8de', line:'rgba(180,135,30,.08)',  text:'#4d3200', env:'#fce5a0', flap:'#f8d676'},
+  lilac: {bg:'#f5efff', line:'rgba(120,80,200,.07)',  text:'#36186a', env:'#d5c8f8', flap:'#bfadee'},
+  mint:  {bg:'#edfff6', line:'rgba(30,155,100,.07)',  text:'#153d28', env:'#b8f0d8', flap:'#8ddcbb'},
+  night: {bg:'#252030', line:'rgba(200,180,255,.07)', text:'#e4d8ff', env:'#3a3050', flap:'#2a2240'},
+  kraft: {bg:'#d8ad6a', line:'rgba(100,65,20,.1)',    text:'#2a1600', env:'#c09040', flap:'#a87830'},
+  cream: {bg:'#fffef4', line:'rgba(110,80,50,.07)',   text:'#352010', env:'#f5edcc', flap:'#eadf9a'},
 };
 
-function closeBook() {
-  backdrop.classList.remove('open');
-  document.body.style.overflow = '';
-  stickerPanel.classList.remove('open');
-}
-
-function syncThemeOpts() {
-  document.querySelectorAll('.theme-opt').forEach(b => b.classList.toggle('active', b.dataset.paper===paper));
-}
-
-document.getElementById('openSpread').addEventListener('click', () => openBook());
-document.getElementById('openSpread2').addEventListener('click', () => openBook());
-document.getElementById('openThemes').addEventListener('click', () => openBook());
-document.getElementById('stickerTrayBtn').addEventListener('click', () => openBook());
-document.getElementById('closeBook').addEventListener('click', closeBook);
-document.getElementById('closeBook2').addEventListener('click', closeBook);
-document.getElementById('cancelSetup').addEventListener('click', closeBook);
-backdrop.addEventListener('click', e => { if(e.target===backdrop) closeBook(); });
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeBook(); });
-
-/* ── back to setup ── */
-document.getElementById('backToSetup').addEventListener('click', () => {
-  saveCurrentSpread();
-  setupPanel.classList.remove('hidden');
-  bookWrap.classList.remove('visible');
-});
-
-/* ── occasion ── */
-occRow.addEventListener('click', e => {
-  const btn = e.target.closest('.occ-btn');
-  if(!btn) return;
-  occRow.querySelectorAll('.occ-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  occ = btn.dataset.occ;
-});
-
-/* ── theme ── */
-themeRow.addEventListener('click', e => {
-  const btn = e.target.closest('.theme-opt');
-  if(!btn) return;
-  themeRow.querySelectorAll('.theme-opt').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  paper = btn.dataset.paper;
-});
-
-/* ── start book ── */
-document.getElementById('startBook').addEventListener('click', () => {
-  recipient    = document.getElementById('recipientName').value.trim() || 'you';
-  openWhenText = document.getElementById('openWhen').value.trim();
-  initSpreads();
-  currentSpread = 0;
-  setupPanel.classList.add('hidden');
-  bookWrap.classList.add('visible');
-  renderSpread(currentSpread, null);
-  buildDots();
-  updateNav();
-});
-
-/* ══════════════════════════
-   RENDER SPREAD
-══════════════════════════ */
-function renderSpread(idx, direction) {
-  const sp = spreads[idx];
-  const leftPageNum  = idx * 2 + 1;
-  const rightPageNum = idx * 2 + 2;
-
-  // page numbers
-  pgNumLeft.textContent  = leftPageNum;
-  pgNumRight.textContent = rightPageNum;
-
-  // paper theme
-  pageLeft.setAttribute('data-paper', paper);
-  pageRight.setAttribute('data-paper', paper);
-
-  // meta bar
-  bookMeta.textContent = `${occ} · ${paper} paper`;
-
-  // cover polaroid only on spread 0
-  coverPolaroid.style.display = idx===0 ? '' : 'none';
-
-  // occasion / open-when (only spread 0 left page)
-  pgOccasion.style.display = idx===0 ? '' : 'none';
-  pgOccasion.textContent = occ;
-  if (idx===0 && openWhenText) {
-    pgOpenWhen.style.display = '';
-    pgOpenWhen.textContent = `✉ Open when ${openWhenText}`;
-  } else {
-    pgOpenWhen.style.display = 'none';
-  }
-
-  // greeting (only spread 0)
-  pgGreeting.style.display = idx===0 ? '' : 'none';
-  if (idx===0) pgGreeting.value = sp.left.greeting;
-
-  // bodies
-  pgBodyLeft.value  = sp.left.body;
-  pgBodyRight.value = sp.right.body;
-
-  // signature on last spread right page
-  pgSig.style.display = idx===MAX_SPREADS-1 ? '' : 'none';
-  if (idx===MAX_SPREADS-1) pgSig.textContent = `With all my love, ${recipient} ♡`;
-
-  // stickers
-  renderStickers(stickersLeft,  sp.left.stickers,  'left');
-  renderStickers(stickersRight, sp.right.stickers, 'right');
-
-  // dot
-  document.querySelectorAll('.pg-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
-
-  // page-turn animation
-  if (direction==='forward') {
-    pageLeft.classList.add('anim-out-left'); pageRight.classList.add('anim-in-right');
-    setTimeout(() => { pageLeft.classList.remove('anim-out-left'); pageRight.classList.remove('anim-in-right'); }, 460);
-  } else if (direction==='back') {
-    pageLeft.classList.add('anim-in-left'); pageRight.classList.add('anim-out-right');
-    setTimeout(() => { pageLeft.classList.remove('anim-in-left'); pageRight.classList.remove('anim-out-right'); }, 460);
-  }
-}
-
-function renderStickers(container, arr, side) {
-  container.innerHTML = '';
-  arr.forEach((s, i) => {
-    const el = document.createElement('span');
-    el.className = 'placed-sticker';
-    el.textContent = s;
-    el.title = 'Tap to remove';
-    el.addEventListener('click', () => {
-      arr.splice(i, 1);
-      renderStickers(container, arr, side);
-    });
-    container.appendChild(el);
+/* ── VIEW ROUTING ── */
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.view === name);
   });
+  const el = document.getElementById('view-' + name);
+  if (el) el.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  if (name === 'vault') renderVault();
+  if (name === 'home')  renderHomeStrip();
 }
+window.showView = showView;
 
-/* ══════════════════════════
-   SAVE CURRENT SPREAD DATA
-══════════════════════════ */
-function saveCurrentSpread() {
-  const sp = spreads[currentSpread];
-  if (currentSpread===0) sp.left.greeting = pgGreeting.value;
-  sp.left.body  = pgBodyLeft.value;
-  sp.right.body = pgBodyRight.value;
-  // stickers already live in spreads array via splice/push
-}
-
-/* ══════════════════════════
-   NAVIGATION
-══════════════════════════ */
-function buildDots() {
-  pgIndicator.innerHTML = '';
-  for (let i=0; i<MAX_SPREADS; i++) {
-    const d = document.createElement('span');
-    d.className = 'pg-dot' + (i===0?' active':'');
-    d.setAttribute('aria-label', `Spread ${i+1}`);
-    d.addEventListener('click', () => goToSpread(i));
-    pgIndicator.appendChild(d);
-  }
-}
-
-function updateNav() {
-  prevBtn.disabled = currentSpread===0;
-  nextBtn.disabled = currentSpread===MAX_SPREADS-1;
-}
-
-nextBtn.addEventListener('click', () => {
-  if (currentSpread >= MAX_SPREADS-1) return;
-  saveCurrentSpread();
-  currentSpread++;
-  renderSpread(currentSpread, 'forward');
-  updateNav();
+document.querySelectorAll('.nav-pill').forEach(p => {
+  p.addEventListener('click', () => showView(p.dataset.view));
 });
 
-prevBtn.addEventListener('click', () => {
-  if (currentSpread <= 0) return;
-  saveCurrentSpread();
-  currentSpread--;
-  renderSpread(currentSpread, 'back');
-  updateNav();
-});
-
-function goToSpread(idx) {
-  if (idx===currentSpread) return;
-  saveCurrentSpread();
-  const dir = idx > currentSpread ? 'forward' : 'back';
-  currentSpread = idx;
-  renderSpread(currentSpread, dir);
-  updateNav();
+/* ── DARK MODE ── */
+const root = document.documentElement;
+let darkMode = window.matchMedia('(prefers-color-scheme:dark)').matches;
+function applyTheme() {
+  root.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+  document.getElementById('themeToggle').textContent = darkMode ? '☀️' : '🌙';
 }
+applyTheme();
+document.getElementById('themeToggle').addEventListener('click', () => { darkMode = !darkMode; applyTheme(); });
 
-/* ══════════════════════════
-   STICKER PANEL
-══════════════════════════ */
-document.getElementById('stickerToggle').addEventListener('click', e => {
-  e.stopPropagation();
-  stickerPanel.classList.toggle('open');
-});
-document.addEventListener('click', e => {
-  if (!stickerPanel.contains(e.target) && e.target.id!=='stickerToggle') {
-    stickerPanel.classList.remove('open');
-  }
-});
-document.getElementById('stickerTray').addEventListener('click', e => {
-  const btn = e.target.closest('.tray-sticker');
+/* ── COMPOSER ── */
+let selOcc   = '💌 Love letter';
+let selPaper = 'rose';
+let placedStickersList = [];
+
+// Occasion
+document.getElementById('occGrid').addEventListener('click', e => {
+  const btn = e.target.closest('.occ-tag');
   if (!btn) return;
-  saveCurrentSpread();
-  spreads[currentSpread].right.stickers.push(btn.dataset.s);
-  renderStickers(stickersRight, spreads[currentSpread].right.stickers, 'right');
+  document.querySelectorAll('.occ-tag').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  selOcc = btn.dataset.occ;
 });
 
-/* ══════════════════════════
-   COPY
-══════════════════════════ */
-document.getElementById('copyBook').addEventListener('click', () => {
-  saveCurrentSpread();
-  let text = `${occ}\n`;
-  if (openWhenText) text += `Open when: ${openWhenText}\n`;
-  text += `\n`;
-  spreads.forEach((sp, i) => {
-    if (i===0) text += `${sp.left.greeting}\n\n`;
-    if (sp.left.body)  text += sp.left.body  + '\n';
-    if (sp.right.body) text += sp.right.body + '\n';
-    const s = [...sp.left.stickers, ...sp.right.stickers].join(' ');
-    if (s) text += s + '\n';
+// Theme
+document.getElementById('themeGrid').addEventListener('click', e => {
+  const btn = e.target.closest('.theme-swatch');
+  if (!btn) return;
+  document.querySelectorAll('.theme-swatch').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  selPaper = btn.dataset.paper;
+  applyPaperTheme(selPaper);
+});
+
+function applyPaperTheme(p) {
+  const canvas = document.getElementById('liveCanvas');
+  const side   = document.getElementById('sidePreview');
+  canvas.className = 'live-canvas paper-' + p;
+  side.className   = 'paper-' + p;
+}
+
+// Live sync
+function syncPreview() {
+  document.getElementById('spGreet').textContent = document.getElementById('greetInput').value || 'Dear you,';
+  document.getElementById('spBody').textContent  = document.getElementById('bodyInput').value;
+  document.getElementById('spStickers').textContent = placedStickersList.join('');
+}
+document.getElementById('greetInput').addEventListener('input', syncPreview);
+document.getElementById('bodyInput').addEventListener('input', syncPreview);
+
+// Sticker tray
+document.getElementById('stickerTray').addEventListener('click', e => {
+  const btn = e.target.closest('.stray-btn');
+  if (!btn) return;
+  const s = btn.dataset.s;
+  placedStickersList.push(s);
+  const el = document.createElement('span');
+  el.className = 'ps';
+  el.textContent = s;
+  el.title = 'Tap to remove';
+  el.setAttribute('role','img');
+  el.addEventListener('click', () => {
+    const idx = placedStickersList.indexOf(s);
+    if (idx > -1) placedStickersList.splice(idx, 1);
+    el.remove();
+    syncPreview();
   });
-  text += `\nWith all my love, ${recipient} ♡`;
-  navigator.clipboard.writeText(text)
+  document.getElementById('placedStickers').appendChild(el);
+  syncPreview();
+});
+
+/* ── BUILD LETTER OBJECT ── */
+function buildLetter() {
+  return {
+    id: Date.now() + '-' + Math.random().toString(36).slice(2),
+    occ:      selOcc,
+    paper:    selPaper,
+    greeting: document.getElementById('greetInput').value || 'Dear you,',
+    body:     document.getElementById('bodyInput').value || '',
+    stickers: [...placedStickersList],
+    recipient:document.getElementById('recipientInput').value || '',
+    when:     document.getElementById('whenInput').value || '',
+    created:  new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),
+  };
+}
+
+/* ── SAVE TO VAULT ── */
+document.getElementById('saveDraftBtn').addEventListener('click', () => {
+  const l = buildLetter();
+  letters.unshift(l);
+  showToast('Saved to vault 💾');
+  renderVault();
+  renderHomeStrip();
+});
+
+/* ── DOWNLOAD ── */
+document.getElementById('downloadBtn').addEventListener('click', () => downloadLetter(buildLetter()));
+document.getElementById('previewDownloadBtn').addEventListener('click', () => {
+  if (currentLetter) downloadLetter(currentLetter);
+});
+
+function downloadLetter(l) {
+  const pc = PAPER_COLORS[l.paper] || PAPER_COLORS.rose;
+  const escaped = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const html = `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>${escaped(l.occ)} for ${escaped(l.recipient||'you')}</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{min-height:100vh;display:grid;place-items:center;
+  background:${pc.bg};font-family:'Caveat',cursive;padding:2rem;}
+.card{max-width:560px;width:100%;padding:2.5rem 2.5rem 3rem;border-radius:2rem;position:relative;
+  background:repeating-linear-gradient(to bottom,transparent,transparent 31px,${pc.line} 31px,${pc.line} 32px),${pc.bg};
+  box-shadow:0 30px 80px rgba(0,0,0,.15);border:1px solid rgba(0,0,0,.07);color:${pc.text};}
+.tape{position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-2deg);
+  width:105px;height:20px;background:rgba(244,220,170,.75);border-radius:3px;}
+.occ{font-family:'Cormorant Garamond',serif;font-size:.9rem;letter-spacing:.06em;opacity:.6;margin-bottom:.8rem;}
+.when{font-family:'Cormorant Garamond',serif;font-style:italic;opacity:.65;margin-bottom:.3rem;}
+.greet{font-size:2.1rem;font-weight:700;margin-bottom:.7rem;}
+.body{font-size:1.3rem;line-height:2;white-space:pre-wrap;margin-bottom:1rem;}
+.stickers{font-size:1.8rem;letter-spacing:.1rem;}
+.sig{font-family:'Cormorant Garamond',serif;font-style:italic;opacity:.55;margin-top:1.4rem;font-size:.95rem;}
+</style></head><body>
+<div class="card">
+  <div class="tape"></div>
+  <div class="occ">${escaped(l.occ)}</div>
+  ${l.when ? `<div class="when">Open when: ${escaped(l.when)}</div>` : ''}
+  <div class="greet">${escaped(l.greeting)}</div>
+  <div class="body">${escaped(l.body).replace(/\n/g,'<br>')}</div>
+  ${l.stickers.length ? `<div class="stickers">${l.stickers.join('')}</div>` : ''}
+  ${l.recipient ? `<div class="sig">With love, for ${escaped(l.recipient)}</div>` : ''}
+</div>
+</body></html>`;
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `letter-${(l.recipient||'you').replace(/\s+/g,'-').toLowerCase()}.html`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast('Downloaded 📥 Check your files');
+}
+
+/* ── COPY TEXT ── */
+document.getElementById('copyTextBtn').addEventListener('click', () => {
+  const l = buildLetter();
+  let t = '';
+  if (l.recipient) t += `To: ${l.recipient}\n`;
+  if (l.when) t += `Open when: ${l.when}\n\n`;
+  t += `${l.greeting}\n\n${l.body}`;
+  if (l.stickers.length) t += `\n\n${l.stickers.join(' ')}`;
+  navigator.clipboard.writeText(t)
     .then(() => showToast('Copied to clipboard 📋'))
     .catch(() => showToast('Copy failed — try manually'));
 });
 
-/* ══════════════════════════
-   SAVE AS HTML
-══════════════════════════ */
-document.getElementById('saveBook').addEventListener('click', () => {
-  saveCurrentSpread();
-  const paperColors = {
-    rose: {bg1:'#fff5f7',bg2:'#ffd8e0',line:'rgba(200,100,120,.09)',tx:'#5a1f2c',spine:'#f4bcc8'},
-    sun:  {bg1:'#fffcef',bg2:'#ffeaa0',line:'rgba(180,130,30,.09)',tx:'#5a3c00',spine:'#f5dea0'},
-    lilac:{bg1:'#f9f5ff',bg2:'#ddd0ff',line:'rgba(120,80,200,.08)',tx:'#3d1f6e',spine:'#c8b4f0'},
-    mint: {bg1:'#f4fff9',bg2:'#bbe8d0',line:'rgba(40,160,100,.08)',tx:'#1a4d36',spine:'#90d8b0'},
-    night:{bg1:'#2e2340',bg2:'#140f22',line:'rgba(200,180,255,.08)',tx:'#e8dcff',spine:'#3a2d55'},
-    kraft:{bg1:'#e0b87a',bg2:'#b07828',line:'rgba(120,80,30,.1)',tx:'#2e1a02',spine:'#c09040'},
-    cream:{bg1:'#fffef8',bg2:'#f7eccb',line:'rgba(120,90,60,.08)',tx:'#3a2418',spine:'#e8d8b0'},
-  };
-  const pc = paperColors[paper] || paperColors.rose;
-
-  let spreadPages = '';
-  spreads.forEach((sp, i) => {
-    const lStickers = sp.left.stickers.join(' ');
-    const rStickers = sp.right.stickers.join(' ');
-    const lNum = i*2+1, rNum = i*2+2;
-    const isFirst = i===0;
-    const isLast  = i===MAX_SPREADS-1;
-
-    spreadPages += `
-<div class="spread" id="spread${i}" style="display:${i===0?'flex':'none'}">
-  <div class="page page-l">
-    ${isFirst && openWhenText ? `<div class="open-when">✉ Open when ${openWhenText}</div>` : ''}
-    ${isFirst ? `<div class="occ-label">${occ}</div>` : ''}
-    ${isFirst ? `<div class="greeting">${(sp.left.greeting||'Dear you,').replace(/</g,'&lt;')}</div>` : ''}
-    <div class="body">${(sp.left.body||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>
-    ${lStickers ? `<div class="stickers">${lStickers}</div>` : ''}
-    <span class="pg-n">${lNum}</span>
-  </div>
-  <div class="spine"></div>
-  <div class="page page-r">
-    <div class="body">${(sp.right.body||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')}</div>
-    ${rStickers ? `<div class="stickers">${rStickers}</div>` : ''}
-    ${isLast ? `<div class="sig">With all my love, ${recipient} ♡</div>` : ''}
-    <span class="pg-n pg-n-r">${rNum}</span>
-  </div>
-</div>`;
-  });
-
-  const html = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>${occ} · for ${recipient}</title>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;padding:2rem;background:radial-gradient(circle at 30% 20%,${pc.bg1},${pc.bg2});font-family:'Caveat',cursive;}
-.title-bar{font-family:'Cormorant Garamond',serif;font-style:italic;color:${pc.tx};opacity:.7;font-size:1.05rem;text-align:center;}
-.book{display:flex;width:min(900px,100%);border-radius:1rem 1rem 1.2rem 1.2rem;box-shadow:0 40px 120px rgba(0,0,0,.45);overflow:hidden;}
-.spread{display:none;width:100%;}
-.page{flex:1;padding:clamp(1.4rem,3vw,2.5rem);min-height:clamp(420px,55vh,640px);position:relative;color:${pc.tx};background:repeating-linear-gradient(to bottom,transparent,transparent 31px,${pc.line} 31px,${pc.line} 32px),linear-gradient(175deg,${pc.bg1},${pc.bg2});}
-.page-l{border-right:none;}
-.page-r{border-left:none;}
-.spine{width:8px;background:linear-gradient(to right,rgba(0,0,0,.22),rgba(0,0,0,.06) 40%,rgba(0,0,0,.06) 60%,rgba(0,0,0,.22));flex-shrink:0;}
-.occ-label{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;opacity:.5;letter-spacing:.06em;margin-bottom:.6rem;}
-.open-when{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;opacity:.6;margin-bottom:.25rem;}
-.greeting{font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;margin-bottom:.6rem;line-height:1.1;}
-.body{font-size:1.3rem;line-height:2;white-space:pre-wrap;}
-.stickers{font-size:1.7rem;letter-spacing:.1rem;margin-top:.6rem;}
-.sig{margin-top:1.5rem;font-family:'Cormorant Garamond',serif;font-style:italic;opacity:.6;font-size:1.05rem;}
-.pg-n{position:absolute;bottom:1rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.85rem;opacity:.4;left:1.4rem;}
-.pg-n-r{left:auto;right:1.4rem;}
-.nav{display:flex;align-items:center;gap:1rem;}
-.nav-b{width:48px;height:48px;border-radius:50%;border:1px solid ${pc.tx}33;background:${pc.tx}11;color:${pc.tx};font-size:1.3rem;cursor:pointer;display:grid;place-items:center;transition:background .18s;}
-.nav-b:hover{background:${pc.tx}22;}
-.nav-b:disabled{opacity:.25;cursor:default;}
-.pg-dots{display:flex;gap:.5rem;}
-.dot{width:8px;height:8px;border-radius:50%;background:${pc.tx}33;cursor:pointer;transition:background .18s,transform .18s;}
-.dot.on{background:${pc.tx}bb;transform:scale(1.3);}
-@keyframes turn-f{from{opacity:0;transform:translateX(30px);}to{opacity:1;transform:none;}}
-@keyframes turn-b{from{opacity:0;transform:translateX(-30px);}to{opacity:1;transform:none;}}
-.turn-f{animation:turn-f .35s ease both;}
-.turn-b{animation:turn-b .35s ease both;}
-</style></head><body>
-<div class="title-bar">${occ} · for ${recipient}</div>
-<div class="book" id="book">${spreadPages}</div>
-<div class="nav">
-  <button class="nav-b" id="prev" disabled>‹</button>
-  <div class="pg-dots" id="dots"></div>
-  <button class="nav-b" id="next">›</button>
-</div>
-<script>
-(function(){
-  const N=${MAX_SPREADS};
-  let cur=0;
-  const dots=document.getElementById('dots');
-  for(let i=0;i<N;i++){const d=document.createElement('span');d.className='dot'+(i===0?' on':'');d.addEventListener('click',()=>go(i));dots.appendChild(d);}
-  function show(i,dir){
-    document.querySelectorAll('.spread').forEach((s,si)=>s.style.display='none');
-    const el=document.getElementById('spread'+i);
-    el.style.display='flex';
-    el.classList.remove('turn-f','turn-b');
-    void el.offsetWidth;
-    el.classList.add(dir==='f'?'turn-f':'turn-b');
-    document.querySelectorAll('.dot').forEach((d,di)=>d.classList.toggle('on',di===i));
-    document.getElementById('prev').disabled=i===0;
-    document.getElementById('next').disabled=i===N-1;
-    cur=i;
-  }
-  function go(i){if(i===cur)return;show(i,i>cur?'f':'b');}
-  document.getElementById('next').addEventListener('click',()=>{if(cur<N-1)go(cur+1);});
-  document.getElementById('prev').addEventListener('click',()=>{if(cur>0)go(cur-1);});
-})();
-<\/script></body></html>`;
-
-  const blob = new Blob([html], {type:'text/html'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `letter-${(recipient||'you').replace(/\s+/g,'-').toLowerCase()}.html`;
-  a.click();
-  URL.revokeObjectURL(a.href);
-  showToast('Book saved — check your downloads 💾');
+/* ── PREVIEW ENVELOPE ── */
+document.getElementById('previewBtn').addEventListener('click', () => {
+  const l = buildLetter();
+  currentLetter = l;
+  openPreview(l);
 });
 
-/* ══════════════════════════
-   TOAST
-══════════════════════════ */
-let toastTimer;
+function openPreview(l) {
+  const pc = PAPER_COLORS[l.paper] || PAPER_COLORS.rose;
+
+  // envelope colours
+  document.getElementById('envBody').style.background = pc.env;
+  document.getElementById('envFlap').style.background = pc.flap;
+  document.getElementById('envBack').style.background = pc.env;
+
+  // title
+  document.getElementById('envTitle').textContent =
+    l.recipient ? `A letter for ${l.recipient}` : 'A letter for you';
+  document.getElementById('envSubtitle').textContent =
+    l.when ? `Open when ${l.when}` : 'Open when you\'re ready';
+
+  // reset envelope state
+  const env = document.getElementById('envelope');
+  env.classList.remove('open');
+  document.getElementById('letterReveal').classList.remove('shown');
+  document.getElementById('tapHint').style.display = '';
+
+  // fill letter content
+  document.getElementById('lOcc').textContent    = l.occ;
+  document.getElementById('lWhen').textContent   = l.when ? `Open when: ${l.when}` : '';
+  document.getElementById('lGreeting').textContent = l.greeting;
+  document.getElementById('lBody').textContent   = l.body;
+  document.getElementById('lStickers').textContent = l.stickers.join('');
+  document.getElementById('lSig').textContent    = l.recipient ? `With love, for ${l.recipient}` : '';
+
+  // apply paper
+  const sheet = document.getElementById('letterSheet');
+  sheet.className = 'letter-sheet paper-' + l.paper;
+
+  showView('preview');
+}
+window.openPreview = openPreview;
+
+window.openEnvelope = function() {
+  const env = document.getElementById('envelope');
+  if (env.classList.contains('open')) return;
+  env.classList.add('open');
+  document.getElementById('tapHint').style.display = 'none';
+  setTimeout(() => {
+    document.getElementById('letterReveal').classList.add('shown');
+  }, 500);
+};
+
+document.getElementById('envelope').addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); }
+});
+
+/* ── RENDER LETTER CARD ── */
+function renderCard(l, container) {
+  const card = document.createElement('div');
+  card.className = 'letter-card';
+  card.innerHTML = `
+    <div class="lc-paper paper-${l.paper}">
+      <div class="lc-tape"></div>
+      <div class="lc-greeting">${esc(l.greeting)}</div>
+      <div class="lc-preview">${esc(l.body)}</div>
+      <div class="lc-stickers">${l.stickers.slice(0,4).join('')}</div>
+    </div>
+    <div class="lc-meta">
+      <span class="lc-occ">${esc(l.occ)}</span>
+      <span class="lc-when">${l.when ? 'when '+esc(l.when) : esc(l.created)}</span>
+      <div class="lc-actions">
+        <button class="lc-btn" data-action="preview" data-id="${l.id}" title="Preview">💌</button>
+        <button class="lc-btn" data-action="download" data-id="${l.id}" title="Download">📥</button>
+        <button class="lc-btn" data-action="delete" data-id="${l.id}" title="Delete">🗑️</button>
+      </div>
+    </div>`;
+  card.querySelector('.lc-paper').addEventListener('click', () => { currentLetter = l; openPreview(l); });
+  card.querySelectorAll('[data-action]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const id = btn.dataset.id;
+      if (btn.dataset.action === 'preview') {
+        const found = letters.find(x => x.id === id);
+        if (found) { currentLetter = found; openPreview(found); }
+      }
+      if (btn.dataset.action === 'download') {
+        const found = letters.find(x => x.id === id);
+        if (found) downloadLetter(found);
+      }
+      if (btn.dataset.action === 'delete') {
+        deleteId = id;
+        document.getElementById('deleteModal').classList.add('open');
+      }
+    });
+  });
+  container.appendChild(card);
+}
+
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ── RENDER VAULT ── */
+function renderVault() {
+  const grid = document.getElementById('vaultGrid');
+  const empty = document.getElementById('vaultEmpty');
+  grid.innerHTML = '';
+  if (!letters.length) { empty.style.display = ''; return; }
+  empty.style.display = 'none';
+  letters.forEach(l => renderCard(l, grid));
+}
+
+function renderHomeStrip() {
+  const grid  = document.getElementById('homeLetterGrid');
+  const empty = document.getElementById('homeEmpty');
+  grid.innerHTML = '';
+  const recent = letters.slice(0, 3);
+  if (!recent.length) { empty.style.display = ''; return; }
+  empty.style.display = 'none';
+  recent.forEach(l => renderCard(l, grid));
+}
+
+/* ── DELETE ── */
+document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+  if (deleteId) {
+    letters = letters.filter(l => l.id !== deleteId);
+    deleteId = null;
+    renderVault();
+    renderHomeStrip();
+    showToast('Letter deleted');
+  }
+  document.getElementById('deleteModal').classList.remove('open');
+});
+window.closeDeleteModal = function() {
+  document.getElementById('deleteModal').classList.remove('open');
+  deleteId = null;
+};
+document.getElementById('deleteModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('deleteModal')) closeDeleteModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeDeleteModal();
+});
+
+/* ── TOAST ── */
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -1184,6 +1097,18 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
 }
+
+/* ── SEED sample letter so vault isn't empty on first visit ── */
+letters.push({
+  id:'seed-1',
+  occ:'💌 Love letter',paper:'rose',
+  greeting:'Dear you,',
+  body:'This is a sample letter — your first keepsake in the vault. Open the composer to write your own.',
+  stickers:['🌸','🎀','✨'],
+  recipient:'My person',when:'you need a smile',
+  created:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),
+});
+renderHomeStrip();
 
 })();
 </script>
