@@ -3,13 +3,12 @@ import './globals.css'
 import { Toaster } from 'react-hot-toast'
 
 export const metadata: Metadata = {
-  title: 'openwhen — personal letters',
-  description: 'Private digital open when letters, just for you two.',
+  title: 'Scrapbook — make something beautiful',
+  description: 'A Canva-style scrapbook maker. Cut, paste, and craft personal scrapbook pages for every moment.',
 }
 
-// Bug fix: themeColor moved to viewport export — deprecated in Next.js 14.2+ inside metadata
 export const viewport: Viewport = {
-  themeColor: '#3d2c1e',
+  themeColor: '#d4a96a',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -20,7 +19,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Toaster
           position="top-right"
           toastOptions={{
-            style: { background: '#fdf8f3', color: '#3d2c1e', border: '1px solid rgba(61,44,30,.1)' }
+            style: {
+              background: '#f0d9b5',
+              color: '#2c1a0e',
+              border: '1.5px solid #d4a96a',
+              fontFamily: "'Caveat', cursive",
+              fontSize: '16px',
+              boxShadow: '2px 3px 0 rgba(160,112,64,.35)',
+            },
           }}
         />
       </body>
