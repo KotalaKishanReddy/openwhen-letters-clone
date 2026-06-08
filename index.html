@@ -204,14 +204,14 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   color:var(--muted);transition:background var(--trans),color var(--trans);}
 .lc-btn:hover{background:var(--p);color:#fff;}
 
-/* paper themes on cards */
-.paper-rose   {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(210,100,120,.07) 29px,rgba(210,100,120,.07) 30px),linear-gradient(150deg,#fff0f3,#ffe4e9);color:#5a1f2c;}
-.paper-sun    {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(180,135,30,.08) 29px,rgba(180,135,30,.08) 30px),linear-gradient(150deg,#fff8de,#ffefb8);color:#4d3200;}
-.paper-lilac  {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(120,80,200,.07) 29px,rgba(120,80,200,.07) 30px),linear-gradient(150deg,#f5efff,#ebe0ff);color:#36186a;}
-.paper-mint   {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(30,155,100,.07) 29px,rgba(30,155,100,.07) 30px),linear-gradient(150deg,#edfff6,#d4f7e6);color:#153d28;}
-.paper-night  {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(200,180,255,.07) 29px,rgba(200,180,255,.07) 30px),linear-gradient(150deg,#252030,#1a1428);color:#e4d8ff;}
-.paper-kraft  {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(100,65,20,.1) 29px,rgba(100,65,20,.1) 30px),linear-gradient(150deg,#d8ad6a,#c8913a);color:#2a1600;}
-.paper-cream  {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(110,80,50,.07) 29px,rgba(110,80,50,.07) 30px),linear-gradient(150deg,#fffef4,#fdf6de);color:#352010;}
+/* paper themes */
+.paper-rose  {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(210,100,120,.07) 29px,rgba(210,100,120,.07) 30px),linear-gradient(150deg,#fff0f3,#ffe4e9);color:#5a1f2c;}
+.paper-sun   {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(180,135,30,.08) 29px,rgba(180,135,30,.08) 30px),linear-gradient(150deg,#fff8de,#ffefb8);color:#4d3200;}
+.paper-lilac {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(120,80,200,.07) 29px,rgba(120,80,200,.07) 30px),linear-gradient(150deg,#f5efff,#ebe0ff);color:#36186a;}
+.paper-mint  {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(30,155,100,.07) 29px,rgba(30,155,100,.07) 30px),linear-gradient(150deg,#edfff6,#d4f7e6);color:#153d28;}
+.paper-night {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(200,180,255,.07) 29px,rgba(200,180,255,.07) 30px),linear-gradient(150deg,#252030,#1a1428);color:#e4d8ff;}
+.paper-kraft {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(100,65,20,.1) 29px,rgba(100,65,20,.1) 30px),linear-gradient(150deg,#d8ad6a,#c8913a);color:#2a1600;}
+.paper-cream {background:repeating-linear-gradient(to bottom,transparent,transparent 29px,rgba(110,80,50,.07) 29px,rgba(110,80,50,.07) 30px),linear-gradient(150deg,#fffef4,#fdf6de);color:#352010;}
 
 /* ════════════════════ COMPOSER VIEW ════════════════════ */
 .composer-wrap{
@@ -222,220 +222,154 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
 .composer-main{display:flex;flex-direction:column;gap:var(--s6);}
 .composer-side{display:flex;flex-direction:column;gap:var(--s5);position:sticky;top:80px;}
 
-/* sections */
-.csec{
-  border:1px solid var(--border);border-radius:var(--r4);
-  background:var(--surface);box-shadow:var(--sh1);overflow:hidden;
-}
-.csec-head{
-  padding:var(--s4) var(--s5);border-bottom:1px solid var(--div);
-  display:flex;align-items:center;gap:var(--s3);
-}
+.csec{border:1px solid var(--border);border-radius:var(--r4);background:var(--surface);box-shadow:var(--sh1);overflow:hidden;}
+.csec-head{padding:var(--s4) var(--s5);border-bottom:1px solid var(--div);display:flex;align-items:center;gap:var(--s3);}
 .csec-head h3{font-family:var(--font-d);font-size:var(--txl);letter-spacing:-.02em;}
-.step-badge{
-  width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
-  background:var(--p);color:#fff;font-size:.75rem;font-weight:600;flex-shrink:0;
-}
+.step-badge{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--p);color:#fff;font-size:.75rem;font-weight:600;flex-shrink:0;}
 .csec-body{padding:var(--s5);}
 
-/* occasion grid */
+/* occasion */
 .occ-grid{display:flex;flex-wrap:wrap;gap:.55rem;}
-.occ-tag{
-  padding:.55rem 1rem;border-radius:var(--rf);font-size:.85rem;
-  border:1px solid var(--border);background:var(--surface2);color:var(--muted);
-  transition:background var(--trans),color var(--trans),border-color var(--trans);
-}
+.occ-tag{padding:.55rem 1rem;border-radius:var(--rf);font-size:.85rem;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:background var(--trans),color var(--trans),border-color var(--trans);}
 .occ-tag:hover{background:var(--off);color:var(--text);}
 .occ-tag.sel{background:var(--p);color:#fff;border-color:transparent;}
 
-/* theme grid */
+/* theme */
 .theme-grid{display:flex;flex-wrap:wrap;gap:.6rem;}
-.theme-swatch{
-  display:flex;align-items:center;gap:.45rem;
-  padding:.5rem .9rem;border-radius:var(--rf);font-size:.84rem;
-  border:2px solid transparent;background:var(--surface2);
-  transition:border-color var(--trans),box-shadow var(--trans);cursor:pointer;
-}
+.theme-swatch{display:flex;align-items:center;gap:.45rem;padding:.5rem .9rem;border-radius:var(--rf);font-size:.84rem;border:2px solid transparent;background:var(--surface2);transition:border-color var(--trans),box-shadow var(--trans);cursor:pointer;}
 .theme-swatch .dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;}
 .theme-swatch.sel{border-color:var(--p);box-shadow:0 0 0 3px rgba(192,84,112,.15);}
 
-/* live canvas */
+/* canvas */
 .canvas-wrap{position:relative;border-radius:var(--r3);overflow:hidden;}
-.canvas-tape{position:absolute;top:-9px;left:50%;transform:translateX(-50%) rotate(-1.5deg);
-  width:110px;height:20px;background:var(--tape);border-radius:3px;z-index:2;pointer-events:none;}
-.live-canvas{
-  min-height:300px;padding:2rem 2rem 2.5rem;
-  font-family:var(--font-s);
-  border:1px solid rgba(100,65,35,.13);
-  transition:background .4s ease,color .4s ease;
-}
-.canvas-greet{
-  width:100%;background:transparent;border:none;border-bottom:1px dashed rgba(0,0,0,.12);
-  font-family:var(--font-s);font-size:2rem;font-weight:700;color:inherit;
-  padding:.2rem 0 .4rem;margin-bottom:.8rem;outline:none;
-  transition:border-color var(--trans);
-}
+.canvas-tape{position:absolute;top:-9px;left:50%;transform:translateX(-50%) rotate(-1.5deg);width:110px;height:20px;background:var(--tape);border-radius:3px;z-index:2;pointer-events:none;}
+.live-canvas{min-height:300px;padding:2rem 2rem 2.5rem;font-family:var(--font-s);border:1px solid rgba(100,65,35,.13);transition:background .4s ease,color .4s ease;}
+.canvas-greet{width:100%;background:transparent;border:none;border-bottom:1px dashed rgba(0,0,0,.12);font-family:var(--font-s);font-size:2rem;font-weight:700;color:inherit;padding:.2rem 0 .4rem;margin-bottom:.8rem;outline:none;transition:border-color var(--trans);}
 .canvas-greet:focus{border-bottom-color:currentColor;}
-.canvas-body{
-  width:100%;min-height:160px;background:transparent;border:none;resize:none;
-  font-family:var(--font-s);font-size:1.35rem;line-height:2;color:inherit;outline:none;
+.canvas-body{width:100%;min-height:160px;background:transparent;border:none;resize:none;font-family:var(--font-s);font-size:1.35rem;line-height:2;color:inherit;outline:none;}
+
+/* photo strip */
+.photo-strip{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:var(--s3);}
+.photo-thumb{
+  width:72px;height:72px;border-radius:var(--r2);object-fit:cover;
+  border:2px solid var(--border);box-shadow:var(--sh1);
+  cursor:pointer;transition:transform var(--trans);
 }
+.photo-thumb:hover{transform:scale(1.08) rotate(2deg);}
+.photo-add{
+  width:72px;height:72px;border-radius:var(--r2);border:2px dashed var(--border);
+  background:var(--surface2);display:grid;place-items:center;
+  font-size:1.5rem;color:var(--faint);cursor:pointer;transition:background var(--trans),color var(--trans);
+}
+.photo-add:hover{background:var(--off);color:var(--muted);}
+
+/* sticker canvas layer */
 .canvas-stickers-placed{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem;}
 .ps{font-size:1.8rem;cursor:pointer;transition:transform .15s;display:inline-block;}
 .ps:hover{transform:scale(1.3) rotate(10deg);}
 
 /* sticker tray */
 .stray{display:flex;flex-wrap:wrap;gap:.5rem;}
-.stray-btn{
-  width:44px;height:44px;border-radius:.85rem;font-size:1.45rem;
-  border:1px solid var(--border);background:rgba(255,255,255,.7);
-  display:grid;place-items:center;
-  transition:transform var(--trans),box-shadow var(--trans);
-}
+.stray-btn{width:44px;height:44px;border-radius:.85rem;font-size:1.45rem;border:1px solid var(--border);background:rgba(255,255,255,.7);display:grid;place-items:center;transition:transform var(--trans),box-shadow var(--trans);}
 .stray-btn:hover{transform:scale(1.18) rotate(5deg);box-shadow:var(--sh1);}
 
 /* fields */
 .field{display:flex;flex-direction:column;gap:.4rem;}
 .field label{font-size:.83rem;font-weight:500;color:var(--muted);}
-.field input,.field select,.field textarea{
-  padding:.7rem .9rem;border-radius:var(--r2);
-  border:1px solid var(--border);background:var(--surface2);
-  font-size:var(--tb);color:var(--text);outline:none;
-  transition:border-color var(--trans);
-}
+.field input,.field select,.field textarea{padding:.7rem .9rem;border-radius:var(--r2);border:1px solid var(--border);background:var(--surface2);font-size:var(--tb);color:var(--text);outline:none;transition:border-color var(--trans);}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--p);}
 .fields-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);}
 
+/* mood selector */
+.mood-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:var(--s4);}
+.mood-btn{padding:.45rem .85rem;border-radius:var(--rf);font-size:.82rem;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:background var(--trans),color var(--trans);}
+.mood-btn:hover{background:var(--off);color:var(--text);}
+.mood-btn.sel{background:var(--acc);color:#fff;border-color:transparent;}
+
 /* side card */
-.scard{
-  border:1px solid var(--border);border-radius:var(--r3);
-  background:var(--surface);box-shadow:var(--sh1);padding:var(--s5);
-}
+.scard{border:1px solid var(--border);border-radius:var(--r3);background:var(--surface);box-shadow:var(--sh1);padding:var(--s5);}
 .scard h4{font-family:var(--font-d);font-size:var(--txl);margin-bottom:var(--s3);letter-spacing:-.02em;}
 .action-stack{display:flex;flex-direction:column;gap:.6rem;}
-.arow{display:flex;align-items:center;gap:.5rem;padding:.65rem .9rem;border-radius:var(--r2);
-  border:1px solid var(--border);background:var(--surface2);font-size:.88rem;
-  transition:background var(--trans);cursor:pointer;color:var(--text);}
+.arow{display:flex;align-items:center;gap:.5rem;padding:.65rem .9rem;border-radius:var(--r2);border:1px solid var(--border);background:var(--surface2);font-size:.88rem;transition:background var(--trans);cursor:pointer;color:var(--text);}
 .arow:hover{background:var(--off);}
 .arow span.em{font-size:1.1rem;}
+
+/* char counter */
+.char-counter{font-size:.75rem;color:var(--faint);text-align:right;margin-top:.3rem;}
 
 /* ════════════════════ VAULT VIEW ════════════════════ */
 .vault-wrap{width:min(1120px,100% - 2rem);margin:0 auto;padding:var(--s8) 0 var(--s16);}
 .vault-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--s4);margin-bottom:var(--s8);}
 .vault-head h1{font-family:var(--font-d);font-size:var(--t2xl);letter-spacing:-.03em;}
-.vault-empty{
-  text-align:center;padding:var(--s16) var(--s8);
-  border:1px dashed var(--border);border-radius:var(--r4);
-  background:var(--surface);
-}
+.vault-filters{display:flex;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s6);}
+.filter-pill{padding:.45rem .9rem;border-radius:var(--rf);font-size:.8rem;border:1px solid var(--border);background:var(--surface2);color:var(--muted);transition:background var(--trans),color var(--trans);}
+.filter-pill:hover{background:var(--off);}
+.filter-pill.active{background:var(--p);color:#fff;border-color:transparent;}
+.vault-empty{text-align:center;padding:var(--s16) var(--s8);border:1px dashed var(--border);border-radius:var(--r4);background:var(--surface);}
 .vault-empty .emo{font-size:3.5rem;margin-bottom:var(--s5);}
 .vault-empty h3{font-family:var(--font-d);font-size:var(--txl);margin-bottom:var(--s3);}
 .vault-empty p{color:var(--muted);margin-bottom:var(--s6);}
 
 /* ════════════════════ PREVIEW / ENVELOPE VIEW ════════════════════ */
-.preview-wrap{
-  display:flex;align-items:center;justify-content:center;
-  min-height:calc(100dvh - 60px);padding:var(--s8) var(--s4);
-}
+.preview-wrap{display:flex;align-items:center;justify-content:center;min-height:calc(100dvh - 60px);padding:var(--s8) var(--s4);}
 
-/* envelope 3D flip */
+/* envelope */
 .envelope-scene{perspective:1200px;width:min(460px,100%);}
-.envelope{
-  width:100%;position:relative;
-  transform-style:preserve-3d;
-  transition:transform .9s cubic-bezier(.4,0,.2,1);
-}
+.envelope{width:100%;position:relative;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.4,0,.2,1);}
 .envelope.open{transform:rotateX(-20deg);}
-.env-body{
-  width:100%;padding-bottom:66%;position:relative;border-radius:1.2rem 1.2rem .8rem .8rem;
-  overflow:hidden;box-shadow:var(--sh3);
-}
-.env-back{
-  position:absolute;inset:0;border-radius:inherit;
-  display:flex;align-items:flex-end;justify-content:center;
-  padding-bottom:1.5rem;
-}
-.env-flap{
-  position:absolute;top:0;left:0;right:0;
-  height:55%;clip-path:polygon(0 0,50% 100%,100% 0);
-  transform-origin:top center;
-  transition:transform .6s cubic-bezier(.4,0,.2,1);
-}
+.env-body{width:100%;padding-bottom:66%;position:relative;border-radius:1.2rem 1.2rem .8rem .8rem;overflow:hidden;box-shadow:var(--sh3);}
+.env-back{position:absolute;inset:0;border-radius:inherit;display:flex;align-items:flex-end;justify-content:center;padding-bottom:1.5rem;}
+.env-flap{position:absolute;top:0;left:0;right:0;height:55%;clip-path:polygon(0 0,50% 100%,100% 0);transform-origin:top center;transition:transform .6s cubic-bezier(.4,0,.2,1);}
 .envelope:not(.open) .env-flap{transform:rotateX(0);}
 .envelope.open .env-flap{transform:rotateX(180deg);}
-.env-seal{
-  width:52px;height:52px;border-radius:50%;
-  display:grid;place-items:center;font-size:1.6rem;
-  box-shadow:0 4px 16px rgba(0,0,0,.18);
-  border:3px solid rgba(255,255,255,.5);
-  background:var(--p);color:#fff;
-  transition:opacity .3s,transform .3s;
-}
+.env-seal{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;font-size:1.6rem;box-shadow:0 4px 16px rgba(0,0,0,.18);border:3px solid rgba(255,255,255,.5);background:var(--p);color:#fff;transition:opacity .3s,transform .3s;}
 .envelope.open .env-seal{opacity:0;transform:scale(.6);}
 
+/* wax seal decoration */
+.env-wax{
+  position:absolute;bottom:12px;right:18px;
+  width:40px;height:40px;border-radius:50%;
+  background:radial-gradient(circle at 38% 35%,rgba(255,255,255,.25),transparent 55%),var(--p);
+  box-shadow:0 3px 10px rgba(0,0,0,.25);
+  display:grid;place-items:center;font-size:1.1rem;
+  border:2px solid rgba(255,255,255,.3);
+}
+
 /* letter reveal */
-.letter-reveal{
-  margin-top:var(--s6);
-  transform:translateY(40px);opacity:0;
-  transition:transform .7s .4s var(--ease),opacity .7s .4s var(--ease);
-  pointer-events:none;
-}
+.letter-reveal{margin-top:var(--s6);transform:translateY(40px);opacity:0;transition:transform .7s .4s var(--ease),opacity .7s .4s var(--ease);pointer-events:none;}
 .letter-reveal.shown{transform:none;opacity:1;pointer-events:auto;}
-.letter-sheet{
-  padding:2.4rem 2.4rem 3rem;border-radius:var(--r4);
-  border:1px solid rgba(0,0,0,.07);box-shadow:var(--sh2);
-  font-family:var(--font-s);
-  position:relative;overflow:hidden;
-  max-width:min(560px,100%);margin:0 auto;
-}
-.letter-sheet .ltape{
-  position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-2deg);
-  width:105px;height:20px;background:rgba(244,224,180,.72);border-radius:3px;
-}
+.letter-sheet{padding:2.4rem 2.4rem 3rem;border-radius:var(--r4);border:1px solid rgba(0,0,0,.07);box-shadow:var(--sh2);font-family:var(--font-s);position:relative;overflow:hidden;max-width:min(560px,100%);margin:0 auto;}
+.letter-sheet .ltape{position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-2deg);width:105px;height:20px;background:rgba(244,224,180,.72);border-radius:3px;}
 .letter-occ{font-family:var(--font-d);font-size:.9rem;letter-spacing:.06em;opacity:.6;margin-bottom:.8rem;}
 .letter-when{font-family:var(--font-d);font-style:italic;opacity:.65;margin-bottom:.3rem;font-size:.95rem;}
 .letter-greeting{font-size:2.1rem;font-weight:700;margin-bottom:.7rem;}
 .letter-body{font-size:1.3rem;line-height:2;white-space:pre-wrap;margin-bottom:1rem;}
+.letter-photos{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:.8rem;}
+.letter-photo{width:100px;height:100px;object-fit:cover;border-radius:var(--r2);border:2px solid rgba(255,255,255,.6);box-shadow:var(--sh1);transform:rotate(calc((var(--ri,0) - 1) * 3deg));}
 .letter-stickers{font-size:1.8rem;letter-spacing:.1rem;margin-top:.5rem;}
 .letter-sig{font-family:var(--font-d);font-style:italic;opacity:.55;margin-top:1.4rem;font-size:.95rem;}
 .preview-actions{display:flex;gap:var(--s3);flex-wrap:wrap;justify-content:center;margin-top:var(--s6);}
-.open-prompt{
-  text-align:center;margin-bottom:var(--s6);
-}
+.open-prompt{text-align:center;margin-bottom:var(--s6);}
 .open-prompt h2{font-family:var(--font-d);font-size:var(--t2xl);letter-spacing:-.03em;margin-bottom:var(--s2);}
 .open-prompt p{color:var(--muted);}
-.tap-hint{
-  text-align:center;font-size:.82rem;color:var(--faint);
-  margin-top:var(--s4);
-  animation:pulse 2.5s ease-in-out infinite;
-}
+.tap-hint{text-align:center;font-size:.82rem;color:var(--faint);margin-top:var(--s4);animation:pulse 2.5s ease-in-out infinite;}
 @keyframes pulse{0%,100%{opacity:.5;}50%{opacity:1;}}
 
-/* ════════════════════ MODAL (delete confirm) ════════════════════ */
-.modal-bg{display:none;position:fixed;inset:0;z-index:500;background:rgba(20,8,2,.55);
-  backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1rem;}
+/* confetti */
+.confetti-piece{position:fixed;pointer-events:none;z-index:9999;border-radius:2px;animation:fall 1.4s ease-in forwards;}
+@keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1;}100%{transform:translateY(100vh) rotate(720deg);opacity:0;}}
+
+/* ════════════════════ MODAL ════════════════════ */
+.modal-bg{display:none;position:fixed;inset:0;z-index:500;background:rgba(20,8,2,.55);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1rem;}
 .modal-bg.open{display:flex;}
-.modal-box{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r4);box-shadow:var(--sh3);
-  padding:var(--s8);max-width:360px;width:100%;
-  animation:pop-in .25s var(--ease) both;
-}
+.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r4);box-shadow:var(--sh3);padding:var(--s8);max-width:360px;width:100%;animation:pop-in .25s var(--ease) both;}
 @keyframes pop-in{from{opacity:0;transform:scale(.93);}to{opacity:1;transform:none;}}
 .modal-box h3{font-family:var(--font-d);font-size:var(--txl);margin-bottom:var(--s3);}
 .modal-box p{color:var(--muted);margin-bottom:var(--s6);line-height:1.65;}
 .modal-btns{display:flex;gap:var(--s3);justify-content:flex-end;}
 
 /* ════════════════════ TOAST ════════════════════ */
-.toast{
-  position:fixed;bottom:2rem;right:2rem;z-index:600;
-  padding:.9rem 1.4rem;border-radius:var(--r3);
-  background:var(--text);color:var(--bg);
-  font-size:.88rem;box-shadow:var(--sh3);
-  transform:translateY(120%);opacity:0;
-  transition:transform .35s var(--ease),opacity .35s;
-  pointer-events:none;max-width:300px;
-}
+.toast{position:fixed;bottom:2rem;right:2rem;z-index:600;padding:.9rem 1.4rem;border-radius:var(--r3);background:var(--text);color:var(--bg);font-size:.88rem;box-shadow:var(--sh3);transform:translateY(120%);opacity:0;transition:transform .35s var(--ease),opacity .35s;pointer-events:none;max-width:300px;}
 .toast.show{transform:none;opacity:1;}
 
 /* ════════════════════ RESPONSIVE ════════════════════ */
@@ -460,7 +394,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
 <body>
 <div id="app">
 
-  <!-- ═══════════════════════════════ TOPBAR ═══════════════════════════════ -->
+  <!-- TOPBAR -->
   <header class="topbar">
     <div class="brand" onclick="showView('home')">
       <div class="brand-mark">✉</div>
@@ -480,16 +414,15 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
     </div>
   </header>
 
-  <!-- ═══════════════════════════════ HOME VIEW ═══════════════════════════════ -->
+  <!-- HOME VIEW -->
   <div class="view active" id="view-home">
     <div class="home-wrap">
-
       <div class="hero-grid">
         <article class="hero-left">
           <div class="tape-h"></div>
           <div class="eyebrow">✿ Scrapbook editor · layered memories</div>
           <h1 class="hero-h">Write letters that feel handmade.</h1>
-          <p class="hero-copy">Pick an occasion, choose a paper theme, scatter stickers, and write your heart out. Then save a beautiful keepsake spread — or deliver it at just the right moment.</p>
+          <p class="hero-copy">Pick an occasion, choose a paper theme, scatter stickers, add photos, and write your heart out. Save a beautiful keepsake spread — or deliver it at just the right moment.</p>
           <div class="hero-cta">
             <button class="pill-btn primary" onclick="showView('composer')">✦ Create a spread</button>
             <button class="pill-btn" onclick="showView('vault')">View my letters</button>
@@ -497,6 +430,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
           <div class="feature-pills">
             <span class="fpill">📮 7 paper themes</span>
             <span class="fpill">🎀 20+ stickers</span>
+            <span class="fpill">📷 Photo upload</span>
             <span class="fpill">💌 Envelope reveal</span>
             <span class="fpill">💾 Download keepsake</span>
           </div>
@@ -516,12 +450,12 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
         <div class="fcard">
           <div class="fcard-icon">📝</div>
           <h3>Rich composer</h3>
-          <p>Write your letter on lined paper with a live preview. Switch themes, add a greeting, and place stickers — all before you save.</p>
+          <p>Write your letter on lined paper with a live preview. Switch themes, add a greeting, attach photos, and place stickers — all before you save.</p>
         </div>
         <div class="fcard">
           <div class="fcard-icon">🎁</div>
           <h3>Envelope reveal</h3>
-          <p>Every saved letter lives inside a 3D envelope. The recipient taps to break the seal and watch the letter unfurl.</p>
+          <p>Every saved letter lives inside a 3D envelope with a wax seal. Tap to break the seal and watch the letter unfurl.</p>
         </div>
         <div class="fcard">
           <div class="fcard-icon">💾</div>
@@ -536,17 +470,15 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
       </div>
       <div class="letter-grid" id="homeLetterGrid"></div>
       <div id="homeEmpty" style="display:none;text-align:center;padding:var(--s8);color:var(--muted);">No letters yet — <button class="pill-btn primary" style="display:inline-flex;" onclick="showView('composer')">create your first</button></div>
-
     </div>
   </div>
 
-  <!-- ═══════════════════════════════ COMPOSER VIEW ═══════════════════════════════ -->
+  <!-- COMPOSER VIEW -->
   <div class="view" id="view-composer">
     <div class="composer-wrap">
-
       <div class="composer-main">
 
-        <!-- STEP 1: Occasion -->
+        <!-- Step 1: Occasion -->
         <div class="csec">
           <div class="csec-head"><span class="step-badge">1</span><h3>Occasion</h3></div>
           <div class="csec-body">
@@ -561,11 +493,13 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
               <button class="occ-tag" data-occ="🌙 Good night">🌙 Good night</button>
               <button class="occ-tag" data-occ="☀️ Good morning">☀️ Good morning</button>
               <button class="occ-tag" data-occ="🫂 Miss you">🫂 Miss you</button>
+              <button class="occ-tag" data-occ="🎓 Graduation">🎓 Graduation</button>
+              <button class="occ-tag" data-occ="💪 You got this">💪 You got this</button>
             </div>
           </div>
         </div>
 
-        <!-- STEP 2: Paper theme -->
+        <!-- Step 2: Paper theme -->
         <div class="csec">
           <div class="csec-head"><span class="step-badge">2</span><h3>Paper theme</h3></div>
           <div class="csec-body">
@@ -581,24 +515,54 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
           </div>
         </div>
 
-        <!-- STEP 3: Write -->
+        <!-- Step 3: Mood -->
         <div class="csec">
-          <div class="csec-head"><span class="step-badge">3</span><h3>Write your letter</h3></div>
+          <div class="csec-head"><span class="step-badge">3</span><h3>Mood &amp; tone</h3></div>
+          <div class="csec-body">
+            <div class="mood-row" id="moodGrid">
+              <button class="mood-btn sel" data-mood="Heartfelt">💛 Heartfelt</button>
+              <button class="mood-btn" data-mood="Playful">🎉 Playful</button>
+              <button class="mood-btn" data-mood="Romantic">🌹 Romantic</button>
+              <button class="mood-btn" data-mood="Nostalgic">🌅 Nostalgic</button>
+              <button class="mood-btn" data-mood="Encouraging">✨ Encouraging</button>
+              <button class="mood-btn" data-mood="Cozy">☕ Cozy</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Write -->
+        <div class="csec">
+          <div class="csec-head"><span class="step-badge">4</span><h3>Write your letter</h3></div>
           <div class="csec-body" style="padding-top:1.5rem;">
             <div class="canvas-wrap">
               <div class="canvas-tape"></div>
               <div class="live-canvas paper-rose" id="liveCanvas">
                 <input class="canvas-greet" id="greetInput" value="Dear you," maxlength="60" aria-label="Greeting"/>
-                <textarea class="canvas-body" id="bodyInput" rows="6" placeholder="Write your heart out here…" aria-label="Letter body"></textarea>
+                <textarea class="canvas-body" id="bodyInput" rows="6" placeholder="Write your heart out here…" aria-label="Letter body" maxlength="1500"></textarea>
                 <div class="canvas-stickers-placed" id="placedStickers"></div>
               </div>
+            </div>
+            <div class="char-counter"><span id="charCount">0</span> / 1500</div>
+          </div>
+        </div>
+
+        <!-- Step 5: Photos -->
+        <div class="csec">
+          <div class="csec-head"><span class="step-badge">5</span><h3>Photos</h3></div>
+          <div class="csec-body">
+            <p style="font-size:.85rem;color:var(--muted);margin-bottom:var(--s3);">Add up to 4 photos to your letter. They'll appear in the spread and keepsake download.</p>
+            <div class="photo-strip" id="photoStrip">
+              <label class="photo-add" title="Add photo" aria-label="Add photo">
+                📷
+                <input type="file" accept="image/*" multiple style="display:none;" id="photoInput"/>
+              </label>
             </div>
           </div>
         </div>
 
-        <!-- STEP 4: Stickers -->
+        <!-- Step 6: Stickers -->
         <div class="csec">
-          <div class="csec-head"><span class="step-badge">4</span><h3>Stickers</h3></div>
+          <div class="csec-head"><span class="step-badge">6</span><h3>Stickers</h3></div>
           <div class="csec-body">
             <div class="stray" id="stickerTray">
               <button class="stray-btn" data-s="🌸" aria-label="Cherry blossom">🌸</button>
@@ -621,24 +585,32 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
               <button class="stray-btn" data-s="☁️" aria-label="Cloud">☁️</button>
               <button class="stray-btn" data-s="🍓" aria-label="Strawberry">🍓</button>
               <button class="stray-btn" data-s="🧁" aria-label="Cupcake">🧁</button>
+              <button class="stray-btn" data-s="🌈" aria-label="Rainbow">🌈</button>
+              <button class="stray-btn" data-s="☕" aria-label="Coffee">☕</button>
+              <button class="stray-btn" data-s="🍀" aria-label="Clover">🍀</button>
+              <button class="stray-btn" data-s="💫" aria-label="Dizzy">💫</button>
             </div>
             <p style="margin-top:.6rem;font-size:.8rem;color:var(--faint);">Tap to place · tap placed sticker to remove</p>
           </div>
         </div>
 
-        <!-- STEP 5: Details -->
+        <!-- Step 7: Details -->
         <div class="csec">
-          <div class="csec-head"><span class="step-badge">5</span><h3>Details</h3></div>
+          <div class="csec-head"><span class="step-badge">7</span><h3>Details</h3></div>
           <div class="csec-body">
             <div class="fields-row" style="margin-bottom:var(--s4);">
               <div class="field">
                 <label for="recipientInput">Recipient name</label>
-                <input type="text" id="recipientInput" placeholder="e.g. Alex"/>
+                <input type="text" id="recipientInput" placeholder="e.g. Alex" maxlength="60"/>
               </div>
               <div class="field">
                 <label for="whenInput">Open when…</label>
-                <input type="text" id="whenInput" placeholder="e.g. you miss me"/>
+                <input type="text" id="whenInput" placeholder="e.g. you miss me" maxlength="80"/>
               </div>
+            </div>
+            <div class="field">
+              <label for="sigInput">Signature (optional)</label>
+              <input type="text" id="sigInput" placeholder="e.g. With all my love, from me" maxlength="100"/>
             </div>
           </div>
         </div>
@@ -654,6 +626,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
             <button class="arow" id="downloadBtn"><span class="em">📥</span> Download keepsake</button>
             <button class="arow" id="copyTextBtn"><span class="em">📋</span> Copy letter text</button>
             <button class="arow" id="previewBtn"><span class="em">💌</span> Preview envelope</button>
+            <button class="arow" id="clearBtn" style="color:var(--faint);"><span class="em">🗑️</span> Clear composer</button>
           </div>
         </div>
         <div class="scard">
@@ -668,7 +641,8 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
           <h4>Tips</h4>
           <ul style="list-style:none;display:flex;flex-direction:column;gap:.55rem;font-size:.83rem;color:var(--muted);line-height:1.6;">
             <li>💡 Tap stickers to remove them</li>
-            <li>💡 Greeting line is editable</li>
+            <li>💡 Greeting line is fully editable</li>
+            <li>💡 Upload up to 4 photos in Step 5</li>
             <li>💡 Download saves a standalone HTML file</li>
             <li>💡 Vault stores letters in this session</li>
           </ul>
@@ -678,12 +652,15 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
     </div>
   </div>
 
-  <!-- ═══════════════════════════════ VAULT VIEW ═══════════════════════════════ -->
+  <!-- VAULT VIEW -->
   <div class="view" id="view-vault">
     <div class="vault-wrap">
       <div class="vault-head">
         <h1>My Letters</h1>
         <button class="pill-btn primary" onclick="showView('composer')">✦ New letter</button>
+      </div>
+      <div class="vault-filters" id="vaultFilters">
+        <button class="filter-pill active" data-filter="all">All</button>
       </div>
       <div class="letter-grid" id="vaultGrid"></div>
       <div class="vault-empty" id="vaultEmpty" style="display:none;">
@@ -695,7 +672,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
     </div>
   </div>
 
-  <!-- ═══════════════════════════════ PREVIEW / ENVELOPE VIEW ═══════════════════════════════ -->
+  <!-- PREVIEW / ENVELOPE VIEW -->
   <div class="view" id="view-preview">
     <div class="preview-wrap">
       <div style="width:min(560px,100%);">
@@ -710,6 +687,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
               <div class="env-back" id="envBack"></div>
               <div class="env-flap" id="envFlap"></div>
               <div class="env-seal" id="envSeal">💌</div>
+              <div class="env-wax" id="envWax">✦</div>
             </div>
           </div>
         </div>
@@ -723,6 +701,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
             <div class="letter-when" id="lWhen"></div>
             <div class="letter-greeting" id="lGreeting"></div>
             <div class="letter-body" id="lBody"></div>
+            <div class="letter-photos" id="lPhotos"></div>
             <div class="letter-stickers" id="lStickers"></div>
             <div class="letter-sig" id="lSig"></div>
           </div>
@@ -757,10 +736,11 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
 'use strict';
 
 /* ── STATE ── */
-let letters = [];        // in-memory vault
-let currentLetter = null; // letter being previewed
+let letters = [];
+let currentLetter = null;
 let deleteId = null;
 let toastTimer;
+let photoDataURLs = [];   // base64 photos for current compose session
 
 const PAPER_COLORS = {
   rose:  {bg:'#fff0f3', line:'rgba(210,100,120,.07)', text:'#5a1f2c', env:'#f9c5cf', flap:'#f5a8b5'},
@@ -775,9 +755,7 @@ const PAPER_COLORS = {
 /* ── VIEW ROUTING ── */
 function showView(name) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.nav-pill').forEach(p => {
-    p.classList.toggle('active', p.dataset.view === name);
-  });
+  document.querySelectorAll('.nav-pill').forEach(p => p.classList.toggle('active', p.dataset.view === name));
   const el = document.getElementById('view-' + name);
   if (el) el.classList.add('active');
   window.scrollTo({top:0, behavior:'smooth'});
@@ -786,9 +764,7 @@ function showView(name) {
 }
 window.showView = showView;
 
-document.querySelectorAll('.nav-pill').forEach(p => {
-  p.addEventListener('click', () => showView(p.dataset.view));
-});
+document.querySelectorAll('.nav-pill').forEach(p => p.addEventListener('click', () => showView(p.dataset.view)));
 
 /* ── DARK MODE ── */
 const root = document.documentElement;
@@ -803,6 +779,7 @@ document.getElementById('themeToggle').addEventListener('click', () => { darkMod
 /* ── COMPOSER ── */
 let selOcc   = '💌 Love letter';
 let selPaper = 'rose';
+let selMood  = 'Heartfelt';
 let placedStickersList = [];
 
 // Occasion
@@ -824,11 +801,18 @@ document.getElementById('themeGrid').addEventListener('click', e => {
   applyPaperTheme(selPaper);
 });
 
+// Mood
+document.getElementById('moodGrid').addEventListener('click', e => {
+  const btn = e.target.closest('.mood-btn');
+  if (!btn) return;
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  selMood = btn.dataset.mood;
+});
+
 function applyPaperTheme(p) {
-  const canvas = document.getElementById('liveCanvas');
-  const side   = document.getElementById('sidePreview');
-  canvas.className = 'live-canvas paper-' + p;
-  side.className   = 'paper-' + p;
+  document.getElementById('liveCanvas').className = 'live-canvas paper-' + p;
+  document.getElementById('sidePreview').className = 'paper-' + p;
 }
 
 // Live sync
@@ -838,7 +822,11 @@ function syncPreview() {
   document.getElementById('spStickers').textContent = placedStickersList.join('');
 }
 document.getElementById('greetInput').addEventListener('input', syncPreview);
-document.getElementById('bodyInput').addEventListener('input', syncPreview);
+document.getElementById('bodyInput').addEventListener('input', () => {
+  const val = document.getElementById('bodyInput').value;
+  document.getElementById('charCount').textContent = val.length;
+  syncPreview();
+});
 
 // Sticker tray
 document.getElementById('stickerTray').addEventListener('click', e => {
@@ -852,7 +840,7 @@ document.getElementById('stickerTray').addEventListener('click', e => {
   el.title = 'Tap to remove';
   el.setAttribute('role','img');
   el.addEventListener('click', () => {
-    const idx = placedStickersList.indexOf(s);
+    const idx = placedStickersList.lastIndexOf(s);
     if (idx > -1) placedStickersList.splice(idx, 1);
     el.remove();
     syncPreview();
@@ -861,17 +849,57 @@ document.getElementById('stickerTray').addEventListener('click', e => {
   syncPreview();
 });
 
+// Photo upload
+document.getElementById('photoInput').addEventListener('change', e => {
+  const files = Array.from(e.target.files);
+  const remaining = 4 - photoDataURLs.length;
+  if (remaining <= 0) { showToast('Max 4 photos allowed'); return; }
+  files.slice(0, remaining).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      photoDataURLs.push(ev.target.result);
+      renderPhotoStrip();
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
+});
+
+function renderPhotoStrip() {
+  const strip = document.getElementById('photoStrip');
+  // remove old thumbs
+  strip.querySelectorAll('.photo-thumb').forEach(t => t.remove());
+  photoDataURLs.forEach((src, i) => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.className = 'photo-thumb';
+    img.alt = 'Photo ' + (i + 1);
+    img.width = 72; img.height = 72;
+    img.title = 'Click to remove';
+    img.addEventListener('click', () => {
+      photoDataURLs.splice(i, 1);
+      renderPhotoStrip();
+    });
+    strip.insertBefore(img, strip.querySelector('.photo-add'));
+  });
+  const addBtn = strip.querySelector('.photo-add');
+  addBtn.style.display = photoDataURLs.length >= 4 ? 'none' : '';
+}
+
 /* ── BUILD LETTER OBJECT ── */
 function buildLetter() {
   return {
     id: Date.now() + '-' + Math.random().toString(36).slice(2),
     occ:      selOcc,
+    mood:     selMood,
     paper:    selPaper,
     greeting: document.getElementById('greetInput').value || 'Dear you,',
     body:     document.getElementById('bodyInput').value || '',
     stickers: [...placedStickersList],
+    photos:   [...photoDataURLs],
     recipient:document.getElementById('recipientInput').value || '',
     when:     document.getElementById('whenInput').value || '',
+    sig:      document.getElementById('sigInput').value || '',
     created:  new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),
   };
 }
@@ -880,9 +908,26 @@ function buildLetter() {
 document.getElementById('saveDraftBtn').addEventListener('click', () => {
   const l = buildLetter();
   letters.unshift(l);
+  updateVaultFilters();
   showToast('Saved to vault 💾');
   renderVault();
   renderHomeStrip();
+});
+
+/* ── CLEAR COMPOSER ── */
+document.getElementById('clearBtn').addEventListener('click', () => {
+  document.getElementById('greetInput').value = 'Dear you,';
+  document.getElementById('bodyInput').value = '';
+  document.getElementById('recipientInput').value = '';
+  document.getElementById('whenInput').value = '';
+  document.getElementById('sigInput').value = '';
+  document.getElementById('charCount').textContent = '0';
+  placedStickersList = [];
+  document.getElementById('placedStickers').innerHTML = '';
+  photoDataURLs = [];
+  renderPhotoStrip();
+  syncPreview();
+  showToast('Composer cleared');
 });
 
 /* ── DOWNLOAD ── */
@@ -893,10 +938,13 @@ document.getElementById('previewDownloadBtn').addEventListener('click', () => {
 
 function downloadLetter(l) {
   const pc = PAPER_COLORS[l.paper] || PAPER_COLORS.rose;
-  const escaped = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const photoHTML = (l.photos||[]).map((src,i) =>
+    `<img src="${src}" class="photo" style="--ri:${i}" alt="Photo ${i+1}" width="100" height="100" loading="lazy"/>`
+  ).join('');
   const html = `<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>${escaped(l.occ)} for ${escaped(l.recipient||'you')}</title>
+<title>${esc(l.occ)} for ${esc(l.recipient||'you')}</title>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -911,17 +959,20 @@ body{min-height:100vh;display:grid;place-items:center;
 .when{font-family:'Cormorant Garamond',serif;font-style:italic;opacity:.65;margin-bottom:.3rem;}
 .greet{font-size:2.1rem;font-weight:700;margin-bottom:.7rem;}
 .body{font-size:1.3rem;line-height:2;white-space:pre-wrap;margin-bottom:1rem;}
+.photos{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:.8rem;}
+.photo{width:100px;height:100px;object-fit:cover;border-radius:12px;border:2px solid rgba(255,255,255,.6);box-shadow:0 4px 12px rgba(0,0,0,.12);transform:rotate(calc((var(--ri,0) - 1) * 3deg));}
 .stickers{font-size:1.8rem;letter-spacing:.1rem;}
 .sig{font-family:'Cormorant Garamond',serif;font-style:italic;opacity:.55;margin-top:1.4rem;font-size:.95rem;}
 </style></head><body>
 <div class="card">
   <div class="tape"></div>
-  <div class="occ">${escaped(l.occ)}</div>
-  ${l.when ? `<div class="when">Open when: ${escaped(l.when)}</div>` : ''}
-  <div class="greet">${escaped(l.greeting)}</div>
-  <div class="body">${escaped(l.body).replace(/\n/g,'<br>')}</div>
+  <div class="occ">${esc(l.occ)}</div>
+  ${l.when ? `<div class="when">Open when: ${esc(l.when)}</div>` : ''}
+  <div class="greet">${esc(l.greeting)}</div>
+  <div class="body">${esc(l.body).replace(/\n/g,'<br>')}</div>
+  ${photoHTML ? `<div class="photos">${photoHTML}</div>` : ''}
   ${l.stickers.length ? `<div class="stickers">${l.stickers.join('')}</div>` : ''}
-  ${l.recipient ? `<div class="sig">With love, for ${escaped(l.recipient)}</div>` : ''}
+  <div class="sig">${l.sig ? esc(l.sig) : (l.recipient ? `With love, for ${esc(l.recipient)}` : '')}</div>
 </div>
 </body></html>`;
   const blob = new Blob([html], {type:'text/html'});
@@ -941,6 +992,7 @@ document.getElementById('copyTextBtn').addEventListener('click', () => {
   if (l.when) t += `Open when: ${l.when}\n\n`;
   t += `${l.greeting}\n\n${l.body}`;
   if (l.stickers.length) t += `\n\n${l.stickers.join(' ')}`;
+  if (l.sig) t += `\n\n${l.sig}`;
   navigator.clipboard.writeText(t)
     .then(() => showToast('Copied to clipboard 📋'))
     .catch(() => showToast('Copy failed — try manually'));
@@ -955,36 +1007,39 @@ document.getElementById('previewBtn').addEventListener('click', () => {
 
 function openPreview(l) {
   const pc = PAPER_COLORS[l.paper] || PAPER_COLORS.rose;
-
-  // envelope colours
   document.getElementById('envBody').style.background = pc.env;
   document.getElementById('envFlap').style.background = pc.flap;
   document.getElementById('envBack').style.background = pc.env;
+  document.getElementById('envTitle').textContent = l.recipient ? `A letter for ${l.recipient}` : 'A letter for you';
+  document.getElementById('envSubtitle').textContent = l.when ? `Open when ${l.when}` : "Open when you're ready";
 
-  // title
-  document.getElementById('envTitle').textContent =
-    l.recipient ? `A letter for ${l.recipient}` : 'A letter for you';
-  document.getElementById('envSubtitle').textContent =
-    l.when ? `Open when ${l.when}` : 'Open when you\'re ready';
-
-  // reset envelope state
   const env = document.getElementById('envelope');
   env.classList.remove('open');
   document.getElementById('letterReveal').classList.remove('shown');
   document.getElementById('tapHint').style.display = '';
 
-  // fill letter content
   document.getElementById('lOcc').textContent    = l.occ;
   document.getElementById('lWhen').textContent   = l.when ? `Open when: ${l.when}` : '';
   document.getElementById('lGreeting').textContent = l.greeting;
   document.getElementById('lBody').textContent   = l.body;
   document.getElementById('lStickers').textContent = l.stickers.join('');
-  document.getElementById('lSig').textContent    = l.recipient ? `With love, for ${l.recipient}` : '';
+  document.getElementById('lSig').textContent    = l.sig || (l.recipient ? `With love, for ${l.recipient}` : '');
 
-  // apply paper
+  // photos
+  const photosEl = document.getElementById('lPhotos');
+  photosEl.innerHTML = '';
+  (l.photos||[]).forEach((src, i) => {
+    const img = document.createElement('img');
+    img.src = src; img.alt = 'Photo ' + (i+1);
+    img.className = 'letter-photo';
+    img.style.setProperty('--ri', i);
+    img.width = 100; img.height = 100;
+    img.loading = 'lazy';
+    photosEl.appendChild(img);
+  });
+
   const sheet = document.getElementById('letterSheet');
   sheet.className = 'letter-sheet paper-' + l.paper;
-
   showView('preview');
 }
 window.openPreview = openPreview;
@@ -994,25 +1049,47 @@ window.openEnvelope = function() {
   if (env.classList.contains('open')) return;
   env.classList.add('open');
   document.getElementById('tapHint').style.display = 'none';
-  setTimeout(() => {
-    document.getElementById('letterReveal').classList.add('shown');
-  }, 500);
+  fireConfetti();
+  setTimeout(() => document.getElementById('letterReveal').classList.add('shown'), 500);
 };
 
 document.getElementById('envelope').addEventListener('keydown', e => {
   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEnvelope(); }
 });
 
+/* ── CONFETTI ── */
+function fireConfetti() {
+  const colors = ['#f08aa4','#ffd700','#b8f0d8','#d5c8f8','#ffcc55','#ff8fa3'];
+  for (let i = 0; i < 38; i++) {
+    const d = document.createElement('div');
+    d.className = 'confetti-piece';
+    d.style.cssText = `
+      left:${Math.random()*100}vw;
+      top:${Math.random()*30 - 10}vh;
+      width:${6 + Math.random()*6}px;
+      height:${6 + Math.random()*6}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-delay:${Math.random()*.6}s;
+      animation-duration:${1.2 + Math.random()*.8}s;
+    `;
+    document.body.appendChild(d);
+    setTimeout(() => d.remove(), 2200);
+  }
+}
+
 /* ── RENDER LETTER CARD ── */
 function renderCard(l, container) {
   const card = document.createElement('div');
   card.className = 'letter-card';
+  const photoPreview = (l.photos||[]).length
+    ? `<img src="${esc(l.photos[0])}" style="position:absolute;bottom:8px;left:10px;width:42px;height:42px;object-fit:cover;border-radius:6px;border:2px solid rgba(255,255,255,.6);box-shadow:0 2px 6px rgba(0,0,0,.12);" alt="" width="42" height="42" loading="lazy"/>` : '';
   card.innerHTML = `
-    <div class="lc-paper paper-${l.paper}">
+    <div class="lc-paper paper-${esc(l.paper)}">
       <div class="lc-tape"></div>
       <div class="lc-greeting">${esc(l.greeting)}</div>
       <div class="lc-preview">${esc(l.body)}</div>
       <div class="lc-stickers">${l.stickers.slice(0,4).join('')}</div>
+      ${photoPreview}
     </div>
     <div class="lc-meta">
       <span class="lc-occ">${esc(l.occ)}</span>
@@ -1028,18 +1105,10 @@ function renderCard(l, container) {
     btn.addEventListener('click', e => {
       e.stopPropagation();
       const id = btn.dataset.id;
-      if (btn.dataset.action === 'preview') {
-        const found = letters.find(x => x.id === id);
-        if (found) { currentLetter = found; openPreview(found); }
-      }
-      if (btn.dataset.action === 'download') {
-        const found = letters.find(x => x.id === id);
-        if (found) downloadLetter(found);
-      }
-      if (btn.dataset.action === 'delete') {
-        deleteId = id;
-        document.getElementById('deleteModal').classList.add('open');
-      }
+      const found = letters.find(x => x.id === id);
+      if (btn.dataset.action === 'preview' && found) { currentLetter = found; openPreview(found); }
+      if (btn.dataset.action === 'download' && found) downloadLetter(found);
+      if (btn.dataset.action === 'delete') { deleteId = id; document.getElementById('deleteModal').classList.add('open'); }
     });
   });
   container.appendChild(card);
@@ -1047,14 +1116,37 @@ function renderCard(l, container) {
 
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+/* ── VAULT FILTERS ── */
+let activeFilter = 'all';
+function updateVaultFilters() {
+  const occasions = [...new Set(letters.map(l => l.occ))];
+  const bar = document.getElementById('vaultFilters');
+  bar.innerHTML = '<button class="filter-pill' + (activeFilter==='all'?' active':'') + '" data-filter="all">All</button>';
+  occasions.forEach(occ => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-pill' + (activeFilter===occ?' active':'');
+    btn.dataset.filter = occ;
+    btn.textContent = occ;
+    bar.appendChild(btn);
+  });
+  bar.querySelectorAll('.filter-pill').forEach(b => {
+    b.addEventListener('click', () => {
+      activeFilter = b.dataset.filter;
+      updateVaultFilters();
+      renderVault();
+    });
+  });
+}
+
 /* ── RENDER VAULT ── */
 function renderVault() {
   const grid = document.getElementById('vaultGrid');
   const empty = document.getElementById('vaultEmpty');
   grid.innerHTML = '';
-  if (!letters.length) { empty.style.display = ''; return; }
+  const filtered = activeFilter === 'all' ? letters : letters.filter(l => l.occ === activeFilter);
+  if (!filtered.length) { empty.style.display = ''; return; }
   empty.style.display = 'none';
-  letters.forEach(l => renderCard(l, grid));
+  filtered.forEach(l => renderCard(l, grid));
 }
 
 function renderHomeStrip() {
@@ -1072,6 +1164,7 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
   if (deleteId) {
     letters = letters.filter(l => l.id !== deleteId);
     deleteId = null;
+    updateVaultFilters();
     renderVault();
     renderHomeStrip();
     showToast('Letter deleted');
@@ -1085,9 +1178,7 @@ window.closeDeleteModal = function() {
 document.getElementById('deleteModal').addEventListener('click', e => {
   if (e.target === document.getElementById('deleteModal')) closeDeleteModal();
 });
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeDeleteModal();
-});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDeleteModal(); });
 
 /* ── TOAST ── */
 function showToast(msg) {
@@ -1098,16 +1189,18 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
 }
 
-/* ── SEED sample letter so vault isn't empty on first visit ── */
+/* ── SEED SAMPLE ── */
 letters.push({
   id:'seed-1',
-  occ:'💌 Love letter',paper:'rose',
+  occ:'💌 Love letter',mood:'Heartfelt',paper:'rose',
   greeting:'Dear you,',
   body:'This is a sample letter — your first keepsake in the vault. Open the composer to write your own.',
   stickers:['🌸','🎀','✨'],
-  recipient:'My person',when:'you need a smile',
+  photos:[],
+  recipient:'My person',when:'you need a smile',sig:'With all my love',
   created:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}),
 });
+updateVaultFilters();
 renderHomeStrip();
 
 })();
